@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/ProfNotes-login_new/app/src/main/res/drawable-v24/item_note_end.xml" value="0.176" />
+        <entry key="..\:/ProfNotes-login_new/app/src/main/res/drawable/bg_button.xml" value="0.1185" />
+        <entry key="..\:/ProfNotes-login_new/app/src/main/res/drawable/bg_login_edit_text.xml" value="0.1185" />
+        <entry key="..\:/ProfNotes-login_new/app/src/main/res/drawable/bg_new_note.xml" value="0.1615" />
+        <entry key="..\:/ProfNotes-login_new/app/src/main/res/drawable/bg_rounded_card.xml" value="0.176" />
+        <entry key="..\:/ProfNotes-login_new/app/src/main/res/drawable/bg_rounded_navbot.xml" value="0.1585" />
+        <entry key="..\:/ProfNotes-login_new/app/src/main/res/drawable/ic_add.xml" value="0.2075" />
+        <entry key="..\:/ProfNotes-login_new/app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.1185" />
+        <entry key="..\:/ProfNotes-login_new/app/src/main/res/drawable/ic_baseline_add_circle_24.xml" value="0.1185" />
+        <entry key="..\:/ProfNotes-login_new/app/src/main/res/drawable/ic_baseline_more_vert_24.xml" value="0.176" />
+        <entry key="..\:/ProfNotes-login_new/app/src/main/res/drawable/ic_basket.xml" value="0.176" />
+        <entry key="..\:/ProfNotes-login_new/app/src/main/res/drawable/ic_calendar.xml" value="0.1615" />
+        <entry key="..\:/ProfNotes-login_new/app/src/main/res/drawable/ic_changes.xml" value="0.211" />
+        <entry key="..\:/ProfNotes-login_new/app/src/main/res/drawable/ic_home_black_24dp.xml" value="0.1845" />
+        <entry key="..\:/ProfNotes-login_new/app/src/main/res/drawable/ic_home_ps.xml" value="0.1845" />
+        <entry key="..\:/ProfNotes-login_new/app/src/main/res/drawable/ic_notification_profsoft.xml" value="0.1615" />
+        <entry key="..\:/ProfNotes-login_new/app/src/main/res/drawable/ic_search.xml" value="0.1615" />
+        <entry key="..\:/ProfNotes-login_new/app/src/main/res/drawable/ic_time.xml" value="0.1615" />
+        <entry key="..\:/ProfNotes-login_new/app/src/main/res/drawable/ic_vector__4_.xml" value="0.1845" />
+        <entry key="..\:/ProfNotes-login_new/app/src/main/res/drawable/item_note_end.xml" value="0.176" />
+        <entry key="..\:/ProfNotes-login_new/app/src/main/res/drawable/r.xml" value="0.1185" />
+        <entry key="..\:/ProfNotes-login_new/app/src/main/res/drawable/rounded_edittext.xml" value="0.1615" />
+        <entry key="..\:/ProfNotes-login_new/app/src/main/res/layout/activity_main.xml" value="0.264" />
+        <entry key="..\:/ProfNotes-login_new/app/src/main/res/layout/activity_spash_new.xml" value="0.1421875" />
+        <entry key="..\:/ProfNotes-login_new/app/src/main/res/layout/activity_splash.xml" value="0.1421875" />
+        <entry key="..\:/ProfNotes-login_new/app/src/main/res/layout/fragment_dashboard.xml" value="0.20606884057971014" />
+        <entry key="..\:/ProfNotes-login_new/app/src/main/res/layout/fragment_home.xml" value="0.176" />
+        <entry key="..\:/ProfNotes-login_new/app/src/main/res/layout/fragment_home_end.xml" value="0.2" />
+        <entry key="..\:/ProfNotes-login_new/app/src/main/res/layout/fragment_login.xml" value="0.20416666666666666" />
+        <entry key="..\:/ProfNotes-login_new/app/src/main/res/layout/fragment_login_end.xml" value="0.2203125" />
+        <entry key="..\:/ProfNotes-login_new/app/src/main/res/layout/fragment_note_v_p.xml" value="0.2" />
+        <entry key="..\:/ProfNotes-login_new/app/src/main/res/layout/helper.xml" value="0.1421875" />
+        <entry key="..\:/ProfNotes-login_new/app/src/main/res/layout/item_note.xml" value="0.264" />
+        <entry key="..\:/ProfNotes-login_new/app/src/main/res/layout/item_note_end.xml" value="0.176" />
+        <entry key="..\:/ProfNotes-login_new/app/src/main/res/layout/item_note_start.xml" value="0.1671875" />
+        <entry key="..\:/ProfNotes-login_new/app/src/main/res/menu/bottom_nav_menu.xml" value="0.14895833333333333" />
+        <entry key="..\:/ProfNotes_1807/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1755" />
+        <entry key="..\:/ProfNotes_1807/app/src/main/res/drawable/avatar.xml" value="0.2155" />
+        <entry key="..\:/ProfNotes_1807/app/src/main/res/drawable/bg_button.xml" value="0.1965" />
+        <entry key="..\:/ProfNotes_1807/app/src/main/res/drawable/bg_login_edit_text.xml" value="0.1965" />
+        <entry key="..\:/ProfNotes_1807/app/src/main/res/drawable/edit_text_cursor.xml" value="0.1965" />
+        <entry key="..\:/ProfNotes_1807/app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.1965" />
+        <entry key="..\:/ProfNotes_1807/app/src/main/res/drawable/ic_dashboard_black_24dp.xml" value="0.1325" />
+        <entry key="..\:/ProfNotes_1807/app/src/main/res/drawable/ic_group_704.xml" value="0.165" />
+        <entry key="..\:/ProfNotes_1807/app/src/main/res/drawable/ic_home_black_24dp.xml" value="0.204" />
+        <entry key="..\:/ProfNotes_1807/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1755" />
+        <entry key="..\:/ProfNotes_1807/app/src/main/res/drawable/ic_logo.xml" value="0.1495" />
+        <entry key="..\:/ProfNotes_1807/app/src/main/res/drawable/ic_notification_profsoft.xml" value="0.1965" />
+        <entry key="..\:/ProfNotes_1807/app/src/main/res/drawable/ic_vector.xml" value="0.204" />
+        <entry key="..\:/ProfNotes_1807/app/src/main/res/drawable/rounded_edittext.xml" value="0.2215" />
+        <entry key="..\:/ProfNotes_1807/app/src/main/res/drawable/splash.xml" value="0.165" />
+        <entry key="..\:/ProfNotes_1807/app/src/main/res/layout/activity_main.xml" value="0.19972826086956522" />
+        <entry key="..\:/ProfNotes_1807/app/src/main/res/layout/activity_main2.xml" value="0.20208333333333334" />
+        <entry key="..\:/ProfNotes_1807/app/src/main/res/layout/activity_spash_new.xml" value="0.22826086956521738" />
+        <entry key="..\:/ProfNotes_1807/app/src/main/res/layout/activity_splash.xml" value="0.21603260869565216" />
+        <entry key="..\:/ProfNotes_1807/app/src/main/res/layout/fragment_dashboard.xml" value="0.264" />
+        <entry key="..\:/ProfNotes_1807/app/src/main/res/layout/fragment_home.xml" value="0.2" />
+        <entry key="..\:/ProfNotes_1807/app/src/main/res/layout/fragment_login.xml" value="0.264" />
+        <entry key="..\:/ProfNotes_1807/app/src/main/res/layout/fragment_notifications.xml" value="0.17239583333333333" />
+        <entry key="..\:/ProfNotes_1807/app/src/main/res/menu/bottom_nav_menu.xml" value="0.17239583333333333" />
+        <entry key="..\:/ProfNotes_1807/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1965" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.1" />
+      </ProjectState>
+    </option>
+  </component>
+</project>

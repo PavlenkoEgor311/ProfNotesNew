@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">ProfNotes</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="profnotes">PROFNOTES</string>
+    <string name="entrance">Вход</string>
+    <string name="hint_1">Пожалуйста, войдите для продолжения</string>
+    <string name="hint_edittext_login">"   Номер телефона или логин"</string>
+    <string name="hint_edittext_password">"   Пароль"</string>
+    <string name="hint_2">Или войдите без аккаунта, если не хотите пользоваться всеми возможностьями приложения</string>
+    <string name="hint_3">Не помните словй пароль? Восстановите пароль</string>
+    <string name="button_entrance">ВОЙТИ</string>
+    <!-- Login -->
+    <string name="login">Вход</string>
+    <string name="hintLogin">Пожалуйста, войдите для продолжения</string>
+    <string name="hintLoginOrPhone">Номер телефона или логин</string>
+    <string name="password">Пароль</string>
+    <string name="loginWithoutAccount">Или войдите без аккаунта, если не хотите пользоваться всеми возможностями</string>
+    <string name="hintForgotPassword">Не помните свой пароль? Восстановите пароль</string>
+    <string name="btnLogin">Войти</string>
+</resources>

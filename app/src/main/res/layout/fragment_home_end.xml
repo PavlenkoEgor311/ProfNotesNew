@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:id="@+id/constraintLayout"
+    android:layout_margin="20dp">
+<!--        <com.makeramen.roundedimageview.RoundedImageView-->
+<!--            android:id="@+id/ivUser"-->
+<!--            android:layout_width="30dp"-->
+<!--            android:layout_height="30dp"-->
+<!--            android:src="@drawable/ic_test_user"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:riv_corner_radius="25dp" />-->
+<!--        <EditText-->
+<!--            android:id="@+id/et_search_notes"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="12dp"-->
+<!--            android:layout_marginEnd="12dp"-->
+<!--            android:autofillHints="username"-->
+<!--            android:background="@drawable/rounded_edittext"-->
+<!--            android:drawableStart="@drawable/ic_baseline_search_24"-->
+<!--            android:hint="  Поиск по заметкам"-->
+<!--            android:inputType="text"-->
+<!--            android:minHeight="32dp"-->
+<!--            android:textColorHint="@color/profsoft_9"-->
+<!--            android:textCursorDrawable="@drawable/edit_text_cursor"-->
+<!--            android:textSize="14sp"-->
+<!--            app:layout_constraintEnd_toStartOf="@id/ib_notification"-->
+<!--            app:layout_constraintStart_toEndOf="@id/ivUser" />-->
+
+<!--        <ImageButton-->
+<!--            android:id="@+id/ib_notification"-->
+<!--            android:layout_width="20dp"-->
+<!--            android:layout_height="20dp"-->
+<!--            android:adjustViewBounds="true"-->
+<!--            android:background="@color/profsoft_1"-->
+<!--            android:src="@drawable/ic_notification_profsoft"-->
+<!--            app:layout_constraintEnd_toEndOf="parent" />-->
+
+
+<!--    android:layout_marginTop="40dp"-->
+<!--    app:layout_constraintTop_toBottomOf="@+id/et_search_notes"-->
+
+    <include layout="@layout/helper"
+        android:id="@+id/h"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+<!--    <androidx.core.widget.NestedScrollView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/ivUser">-->
+<!--        <TextView-->
+<!--            android:id="@+id/tv_new_notes"-->
+<!--            style="@style/TextH1"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="28dp"-->
+<!--            android:text="новые заметки "-->
+<!--            android:textAllCaps="true"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/et_search_notes" />-->
+
+<!--        <androidx.viewpager2.widget.ViewPager2-->
+<!--            android:id="@+id/vp_newnotes"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="136dp"-->
+<!--            android:layout_marginTop="12dp"-->
+<!--            android:orientation="horizontal"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/tv_new_notes"-->
+<!--            tools:ignore="MissingConstraints">-->
+
+<!--        </androidx.viewpager2.widget.ViewPager2>-->
+
+<!--    </androidx.core.widget.NestedScrollView>-->
+
+
+<!--        <TextView-->
+<!--            android:id="@+id/tv_all_notes"-->
+<!--            style="@style/TextH1"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="28dp"-->
+<!--            android:text="мои задачи "-->
+<!--            android:textAllCaps="true"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/vp_newnotes" />-->
+
+<!--        <androidx.recyclerview.widget.RecyclerView-->
+<!--            android:id="@+id/rv_allnotes"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="12dp"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/tv_all_notes">-->
+<!--        </androidx.recyclerview.widget.RecyclerView>-->
