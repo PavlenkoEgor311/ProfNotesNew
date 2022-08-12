@@ -63,7 +63,7 @@
         android:textColor="@color/lightestGray"
         app:layout_constraintStart_toEndOf="@+id/lineStart"
         app:layout_constraintTop_toBottomOf="@+id/tvNoteTitle"
-        tools:text="Выучить основные компоненты андроид" />
+        tools:text="Выучить основные компоненты андроид"/>
 
     <View
         android:id="@+id/lineStart"

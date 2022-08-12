@@ -21,4 +21,8 @@
     <string name="loginWithoutAccount">Или войдите без аккаунта, если не хотите пользоваться всеми возможностями</string>
     <string name="hintForgotPassword">Не помните свой пароль? Восстановите пароль</string>
     <string name="btnLogin">Войти</string>
+    <!--    Home-->
+    <string name="news">Новости</string>
+    <string name="today">Сегодня</string>
+    <string name="hint_search">Поиск по заметкам</string>
 </resources>

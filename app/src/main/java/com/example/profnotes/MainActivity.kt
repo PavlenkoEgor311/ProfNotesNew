@@ -12,6 +12,8 @@ import com.example.profnotes.core.gone
 import com.example.profnotes.core.invisible
 import com.example.profnotes.core.visible
 import com.example.profnotes.databinding.ActivityMainBinding
+import com.google.android.material.shape.CornerFamily
+import com.google.android.material.shape.MaterialShapeDrawable
 
 class MainActivity : AppCompatActivity() {
 
@@ -28,6 +30,15 @@ class MainActivity : AppCompatActivity() {
 
         val navView: BottomNavigationView = binding.navView
         navView.menu.getItem(1).isEnabled = false
+
+        val radius = resources.getDimension(R.dimen.default_corner_radius)
+        val bottomAppBar = binding.bottomappbar
+
+        val bottomBarBackground = bottomAppBar.background as MaterialShapeDrawable
+        bottomBarBackground.shapeAppearanceModel = bottomBarBackground.shapeAppearanceModel
+            .toBuilder()
+            .setAllCorners(CornerFamily.ROUNDED, radius)
+            .build()
 
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
         val appBarConfiguration = AppBarConfiguration(

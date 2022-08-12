@@ -61,7 +61,7 @@ class HomeFragment : Fragment() {
         adapter = NoteVPAdapter(this)
         viewPager2 = binding.vpNewnotes
         viewPager2.adapter = adapter
-        // rv setting
+
         rvAllNotes = binding.rvAllnotes
         rvAllNotes.layoutManager = LinearLayoutManager(requireContext())
         rvAllNotes.adapter = adapterRV
@@ -79,7 +79,7 @@ class HomeFragment : Fragment() {
         adapterRV.setdataNote(lstNotes)
 
         binding.apply {
-            countNewNotes.text = "${adapter.itemCount}"
+            tvCountNewNotes.text = "${adapter.itemCount}"
             tvCountNotes.text = "${lstNotes.size}"
         }
 

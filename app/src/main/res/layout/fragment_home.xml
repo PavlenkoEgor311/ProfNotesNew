@@ -52,81 +52,136 @@
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
             android:background="@color/profsoft_1"
-            android:contentDescription="TODO"
             android:src="@drawable/ic_notification_profsoft"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+<!--        <TextView-->
+<!--            android:id="@+id/tvtoday"-->
+<!--            style="@style/TextH2"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="12dp"-->
+<!--            android:text="Сегодня"-->
+<!--            android:textColor="@color/profsoft_3"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/ivUser"-->
+<!--            tools:ignore="MissingConstraints" />-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/tv_date"-->
+<!--            style="@style/TextH2"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Понедельник, 11 июля"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/tvtoday" />-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/tv_news"-->
+<!--            style="@style/TextH2"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="12dp"-->
+<!--            android:text="Новости"-->
+<!--            android:textColor="@color/profsoft_3"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toEndOf="@+id/tv_date"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/ivUser"-->
+<!--            tools:ignore="MissingConstraints" />-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/tvNewNote"-->
+<!--            style="@style/TextH2"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="4 новые заметки"-->
+<!--            android:textColor="@color/white"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toEndOf="@+id/tv_date"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/ivUser" />-->
+
+
         <TextView
-            android:id="@+id/tvtoday"
+            android:id="@+id/tvTodayTitle"
             style="@style/TextH2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="Сегодня"
-            android:textColor="@color/profsoft_3"
-            app:layout_constraintTop_toBottomOf="@+id/ivUser"
-            tools:ignore="MissingConstraints" />
+            android:layout_marginTop="40dp"
+            android:text="@string/today"
+            android:textColor="@color/gray"
+            app:layout_constraintStart_toStartOf="@+id/ivUser"
+            app:layout_constraintTop_toBottomOf="@+id/ivUser" />
 
         <TextView
-            android:id="@+id/tv_date"
+            android:id="@+id/tvNewsTitle"
             style="@style/TextH2"
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/news"
+            android:textColor="@color/gray"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tvTodayTitle"
+            app:layout_constraintTop_toTopOf="@+id/tvTodayTitle" />
+
+        <TextView
+            android:id="@+id/tvTodayDescription"
+            style="@style/TextH2"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Понедельник, 11 июля"
-            app:layout_constraintTop_toBottomOf="@+id/tvtoday" />
+            app:layout_constraintEnd_toStartOf="@+id/tvNewsDescription"
+            app:layout_constraintStart_toStartOf="@+id/tvTodayTitle"
+            app:layout_constraintTop_toBottomOf="@+id/tvTodayTitle" />
 
         <TextView
-            android:id="@+id/tv_news"
+            android:id="@+id/tvNewsDescription"
             style="@style/TextH2"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="Новости\n4 новые заметки"
-            android:textColor="@color/profsoft_3"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/tv_date"
-            app:layout_constraintTop_toBottomOf="@+id/ivUser"
-            tools:ignore="MissingConstraints" />
+            android:text="4 новые заметки"
+            app:layout_constraintEnd_toEndOf="@+id/imageView"
+            app:layout_constraintStart_toStartOf="@+id/tvNewsTitle"
+            app:layout_constraintTop_toBottomOf="@+id/tvNewsTitle" />
 
         <EditText
-            android:id="@+id/et_search_notes"
+            android:id="@+id/etSearchNotes"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="12dp"
             android:autofillHints="username"
             android:background="@drawable/rounded_edittext"
             android:drawableStart="@drawable/ic_baseline_search_24"
-            android:hint="  Поиск по заметкам"
+            android:hint="@string/hint_search"
+            android:drawablePadding="8dp"
             android:inputType="text"
-            android:minHeight="32dp"
-            android:textColorHint="@color/profsoft_9"
+            android:padding="12dp"
+            android:textColor="@color/white"
+            android:textColorHint="@color/gray"
             android:textCursorDrawable="@drawable/edit_text_cursor"
-            android:textSize="14sp"
-            app:layout_constraintTop_toBottomOf="@+id/tv_news"
+            app:layout_constraintEnd_toEndOf="@+id/tvNewsDescription"
+            app:layout_constraintStart_toStartOf="@+id/tvTodayDescription"
+            app:layout_constraintTop_toBottomOf="@+id/tvTodayDescription"
             tools:ignore="TextFields" />
 
         <TextView
-            android:id="@+id/tv_new_notes"
+            android:id="@+id/tvNewNotes"
             style="@style/TextH1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="28dp"
             android:text="новые заметки "
             android:textAllCaps="true"
-            app:layout_constraintTop_toBottomOf="@+id/et_search_notes" />
+            app:layout_constraintTop_toBottomOf="@+id/etSearchNotes" />
+
         <TextView
-            android:id="@+id/count_new_notes"
+            android:id="@+id/tvCountNewNotes"
+            style="@style/TextH1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/TextH1"
-            android:text=""
-            android:textColor="@color/green"
-            app:layout_constraintStart_toEndOf="@id/tv_new_notes"
-            app:layout_constraintTop_toBottomOf="@id/et_search_notes"
-            android:layout_marginTop="28dp"
             android:layout_marginStart="10dp"
-            />
+            android:layout_marginTop="28dp"
+            android:textColor="@color/green"
+            app:layout_constraintStart_toEndOf="@id/tvNewNotes"
+            app:layout_constraintTop_toBottomOf="@id/etSearchNotes" />
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/vp_newnotes"
@@ -134,7 +189,7 @@
             android:layout_height="136dp"
             android:layout_marginTop="12dp"
             android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@+id/tv_new_notes"
+            app:layout_constraintTop_toBottomOf="@+id/tvNewNotes"
             tools:ignore="MissingConstraints">
 
         </androidx.viewpager2.widget.ViewPager2>
@@ -154,7 +209,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/TextH1"
-            android:text=""
             android:textColor="@color/green"
             app:layout_constraintStart_toEndOf="@id/tv_all_notes"
             app:layout_constraintTop_toBottomOf="@id/vp_newnotes"
