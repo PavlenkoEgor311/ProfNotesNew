@@ -1,12 +1,13 @@
 package com.example.profnotes.mynote_rv
 
 import androidx.recyclerview.widget.DiffUtil
+import com.example.profnotes.data.models.Notes
 import com.example.profnotes.model.Note
 
 class DiffUtilNote(
-    private val oldlstNotes:List<Note>,
-    private val newlstNotes:List<Note>
-):DiffUtil.Callback() {
+    private val oldlstNotes:List<Notes>,
+    private val newlstNotes: List<Notes>):DiffUtil.Callback() {
+
     override fun getOldListSize(): Int = oldlstNotes.size
 
     override fun getNewListSize(): Int = newlstNotes.size

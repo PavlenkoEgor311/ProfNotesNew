@@ -1,138 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"-->
-<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
-<!--    xmlns:tools="http://schemas.android.com/tools"-->
-<!--    android:layout_width="match_parent"-->
-<!--    android:layout_height="match_parent"-->
-<!--    android:layout_margin="20dp"-->
-<!--    android:fitsSystemWindows="true"-->
-<!--    android:fillViewport="true"-->
-<!--    tools:context=".ui.login.LoginFragment"-->
-<!--    android:background="@color/profsoft_1">-->
-
-<!--        <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content">-->
-
-<!--                <TextView-->
-<!--                    android:id="@+id/Title"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:fontFamily="@font/circe_extra_bold"-->
-<!--                    android:text="@string/profnotes"-->
-<!--                    android:textColor="@color/white"-->
-<!--                    android:layout_gravity="center"-->
-<!--                    android:textSize="36sp"-->
-<!--                    app:layout_constraintBottom_toTopOf="@+id/containerLogin"-->
-<!--                    app:layout_constraintEnd_toEndOf="parent"-->
-<!--                    app:layout_constraintStart_toStartOf="parent"-->
-<!--                    app:layout_constraintTop_toTopOf="parent"-->
-<!--                    tools:ignore="MissingConstraints"/>-->
-
-<!--            <LinearLayout-->
-<!--                android:id="@+id/containerLogin"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                app:layout_constraintBottom_toBottomOf="@+id/btn_login_with_us_and_password"-->
-<!--                app:layout_constraintTop_toTopOf="@+id/Title">-->
-
-<!--                <TextView-->
-<!--                    android:id="@+id/entrance"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:text="@string/entrance"-->
-<!--                    android:textColor="@color/white"-->
-<!--                    android:textSize="24sp"-->
-<!--                    app:layout_constraintStart_toStartOf="parent"-->
-<!--                    app:layout_constraintTop_toBottomOf="@+id/Title"-->
-<!--                    tools:ignore="MissingConstraints" />-->
-
-<!--                <TextView-->
-<!--                    android:id="@+id/Hint"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:text="@string/hint_1"-->
-<!--                    android:textColor="@color/profsoft_9"-->
-<!--                    android:textSize="12sp"-->
-<!--                    app:layout_constraintStart_toStartOf="parent"-->
-<!--                    app:layout_constraintTop_toBottomOf="@+id/entrance"-->
-<!--                    tools:ignore="MissingConstraints" />-->
-
-<!--                <EditText-->
-<!--                    android:id="@+id/Login"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginTop="8dp"-->
-<!--                    android:autofillHints="username"-->
-<!--                    android:background="@drawable/rounded_edittext"-->
-<!--                    android:hint="@string/hint_edittext_login"-->
-<!--                    android:minHeight="48dp"-->
-<!--                    android:textColor="@color/white"-->
-<!--                    android:textColorHint="@color/profsoft_9"-->
-<!--                    android:textSize="14sp"-->
-<!--                    app:layout_constraintEnd_toEndOf="parent"-->
-<!--                    app:layout_constraintStart_toStartOf="parent"-->
-<!--                    app:layout_constraintTop_toBottomOf="@+id/Hint" />-->
-
-<!--                <EditText-->
-<!--                    android:id="@+id/password"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginTop="11dp"-->
-<!--                    android:autofillHints=""-->
-<!--                    android:background="@drawable/rounded_edittext"-->
-<!--                    android:hint="@string/hint_edittext_password"-->
-<!--                    android:inputType="textPassword"-->
-<!--                    android:minHeight="48dp"-->
-<!--                    android:textColorHint="@color/profsoft_9"-->
-<!--                    android:textSize="14sp"-->
-<!--                    app:layout_constraintEnd_toEndOf="parent"-->
-<!--                    app:layout_constraintStart_toStartOf="parent"-->
-<!--                    app:layout_constraintTop_toBottomOf="@+id/Login" />-->
-
-<!--                <TextView-->
-<!--                    android:id="@+id/tvLoginWithoutAuth"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginTop="12dp"-->
-<!--                    android:text="@string/hint_2"-->
-<!--                    android:textColor="@color/profsoft_9"-->
-<!--                    android:textSize="12sp"-->
-<!--                    app:layout_constraintStart_toStartOf="parent"-->
-<!--                    app:layout_constraintTop_toBottomOf="@+id/password"-->
-<!--                    tools:ignore="MissingConstraints" />-->
-
-<!--            </LinearLayout>-->
-
-<!--            <TextView-->
-<!--                android:id="@+id/tvRecoverPassword"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="@string/hint_3"-->
-<!--                android:textColor="@color/profsoft_9"-->
-<!--                android:textSize="12sp"-->
-<!--                android:layout_marginBottom="10dp"-->
-<!--                app:layout_constraintBottom_toTopOf="@+id/btn_login_with_us_and_password"-->
-<!--                app:layout_constraintTop_toBottomOf="@+id/tvLoginWithoutAuth"-->
-<!--                app:layout_constraintVertical_bias="1.0"-->
-<!--                tools:ignore="MissingConstraints,NotSibling" />-->
-
-<!--            <Button-->
-<!--                android:id="@+id/btn_login_with_us_and_password"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:fontFamily="@font/circe_extra_bold"-->
-<!--                android:background="@drawable/bg_button"-->
-<!--                android:text="@string/button_entrance"-->
-<!--                android:textColor="@color/profsoft_1"-->
-<!--                android:layout_marginTop="12dp"-->
-<!--                android:padding="12dp"-->
-<!--                android:textSize="16sp"-->
-<!--                android:enabled="false"-->
-<!--                app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                tools:ignore="MissingConstraints" />-->
-<!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
-<!--</androidx.core.widget.NestedScrollView>-->
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -161,6 +27,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <LinearLayout
+            android:orientation="vertical"
             android:id="@+id/containerLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -226,6 +93,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:orientation="vertical"
             android:id="@+id/containerButtons"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -255,6 +123,16 @@
                 android:textColor="@color/black"
                 app:backgroundTint="@null"
                 />
+            <Button
+                android:id="@+id/btRegistration"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Создать аккаунт"
+                style="@style/TextH2"
+                android:padding="10dp"
+                android:background="@android:color/transparent"
+                android:textColor="@color/gray"
+                android:textAllCaps="false"/>
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

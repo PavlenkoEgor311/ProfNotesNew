@@ -1,4 +1,4 @@
-package com.example.profnotes.note_for_viewpager
+package com.example.profnotes.ui.registration
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,15 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.profnotes.R
 
-const val ARG = "object"
-
-class NoteVPFragment : Fragment() {
+class RegistrationFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-        return inflater.inflate(R.layout.fragment_note_v_p, container, false)
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_registration, container, false)
     }
 }

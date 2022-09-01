@@ -9,10 +9,20 @@
         <entry key="..\:/ProfNotes-login_new/app/src/main/res/drawable/bg_new_note.xml" value="0.1615" />
         <entry key="..\:/ProfNotes-login_new/app/src/main/res/drawable/bg_rounded_card.xml" value="0.176" />
         <entry key="..\:/ProfNotes-login_new/app/src/main/res/drawable/bg_rounded_navbot.xml" value="0.1585" />
+        <entry key="..\:/ProfNotes-login_new/app/src/main/res/drawable/bg_selector_nav.xml" value="0.211" />
+        <entry key="..\:/ProfNotes-login_new/app/src/main/res/drawable/bg_tablayout.xml" value="0.1505" />
+        <entry key="..\:/ProfNotes-login_new/app/src/main/res/drawable/bg_thumb_selector.xml" value="0.228" />
+        <entry key="..\:/ProfNotes-login_new/app/src/main/res/drawable/bg_track_selector.xml" value="0.228" />
+        <entry key="..\:/ProfNotes-login_new/app/src/main/res/drawable/bt_tablayout.xml" value="0.1" />
+        <entry key="..\:/ProfNotes-login_new/app/src/main/res/drawable/btq.xml" value="0.153" />
+        <entry key="..\:/ProfNotes-login_new/app/src/main/res/drawable/ic__23.xml" value="0.1855" />
+        <entry key="..\:/ProfNotes-login_new/app/src/main/res/drawable/ic__status_1.xml" value="0.211" />
         <entry key="..\:/ProfNotes-login_new/app/src/main/res/drawable/ic_add.xml" value="0.2075" />
         <entry key="..\:/ProfNotes-login_new/app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.1185" />
         <entry key="..\:/ProfNotes-login_new/app/src/main/res/drawable/ic_baseline_add_circle_24.xml" value="0.1185" />
+        <entry key="..\:/ProfNotes-login_new/app/src/main/res/drawable/ic_baseline_arrow_back_ios_new_24.xml" value="0.211" />
         <entry key="..\:/ProfNotes-login_new/app/src/main/res/drawable/ic_baseline_more_vert_24.xml" value="0.176" />
+        <entry key="..\:/ProfNotes-login_new/app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.211" />
         <entry key="..\:/ProfNotes-login_new/app/src/main/res/drawable/ic_basket.xml" value="0.176" />
         <entry key="..\:/ProfNotes-login_new/app/src/main/res/drawable/ic_calendar.xml" value="0.1615" />
         <entry key="..\:/ProfNotes-login_new/app/src/main/res/drawable/ic_changes.xml" value="0.211" />
@@ -25,19 +35,30 @@
         <entry key="..\:/ProfNotes-login_new/app/src/main/res/drawable/item_note_end.xml" value="0.176" />
         <entry key="..\:/ProfNotes-login_new/app/src/main/res/drawable/r.xml" value="0.1185" />
         <entry key="..\:/ProfNotes-login_new/app/src/main/res/drawable/rounded_edittext.xml" value="0.1615" />
+        <entry key="..\:/ProfNotes-login_new/app/src/main/res/drawable/tab_selector_insert.xml" value="0.228" />
         <entry key="..\:/ProfNotes-login_new/app/src/main/res/layout/activity_main.xml" value="0.264" />
         <entry key="..\:/ProfNotes-login_new/app/src/main/res/layout/activity_spash_new.xml" value="0.1421875" />
         <entry key="..\:/ProfNotes-login_new/app/src/main/res/layout/activity_splash.xml" value="0.1421875" />
+        <entry key="..\:/ProfNotes-login_new/app/src/main/res/layout/bt.xml" value="0.2375" />
+        <entry key="..\:/ProfNotes-login_new/app/src/main/res/layout/fragment_add_local_note.xml" value="0.24635416666666668" />
+        <entry key="..\:/ProfNotes-login_new/app/src/main/res/layout/fragment_add_note.xml" value="0.2" />
+        <entry key="..\:/ProfNotes-login_new/app/src/main/res/layout/fragment_add_task.xml" value="0.24635416666666668" />
+        <entry key="..\:/ProfNotes-login_new/app/src/main/res/layout/fragment_change_status.xml" value="0.2" />
         <entry key="..\:/ProfNotes-login_new/app/src/main/res/layout/fragment_dashboard.xml" value="0.20606884057971014" />
-        <entry key="..\:/ProfNotes-login_new/app/src/main/res/layout/fragment_home.xml" value="0.176" />
+        <entry key="..\:/ProfNotes-login_new/app/src/main/res/layout/fragment_home.xml" value="0.2425249169435216" />
         <entry key="..\:/ProfNotes-login_new/app/src/main/res/layout/fragment_home_end.xml" value="0.2" />
         <entry key="..\:/ProfNotes-login_new/app/src/main/res/layout/fragment_login.xml" value="0.20416666666666666" />
         <entry key="..\:/ProfNotes-login_new/app/src/main/res/layout/fragment_login_end.xml" value="0.2203125" />
         <entry key="..\:/ProfNotes-login_new/app/src/main/res/layout/fragment_note_v_p.xml" value="0.2" />
+        <entry key="..\:/ProfNotes-login_new/app/src/main/res/layout/fragment_notifications.xml" value="0.264" />
+        <entry key="..\:/ProfNotes-login_new/app/src/main/res/layout/fragment_profile_user.xml" value="0.2234375" />
+        <entry key="..\:/ProfNotes-login_new/app/src/main/res/layout/fragment_registration.xml" value="0.23177083333333334" />
         <entry key="..\:/ProfNotes-login_new/app/src/main/res/layout/helper.xml" value="0.1421875" />
         <entry key="..\:/ProfNotes-login_new/app/src/main/res/layout/item_note.xml" value="0.264" />
         <entry key="..\:/ProfNotes-login_new/app/src/main/res/layout/item_note_end.xml" value="0.176" />
         <entry key="..\:/ProfNotes-login_new/app/src/main/res/layout/item_note_start.xml" value="0.1671875" />
+        <entry key="..\:/ProfNotes-login_new/app/src/main/res/layout/item_status.xml" value="0.23802083333333332" />
+        <entry key="..\:/ProfNotes-login_new/app/src/main/res/layout/notevp.xml" value="0.176" />
         <entry key="..\:/ProfNotes-login_new/app/src/main/res/menu/bottom_nav_menu.xml" value="0.14895833333333333" />
         <entry key="..\:/ProfNotes_1807/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1755" />
         <entry key="..\:/ProfNotes_1807/app/src/main/res/drawable/avatar.xml" value="0.2155" />

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="20dp"
+    android:fitsSystemWindows="true"
+    android:fillViewport="true"
+    tools:context=".ui.registration.RegistrationFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tvLogo"
+            style="@style/LogoTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/circe_extra_bold"
+            android:text="@string/app_name"
+            android:textAllCaps="true"
+            app:layout_constraintBottom_toTopOf="@+id/containerRegistration"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/containerRegistration"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/TextH1.Large"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Регистариция" />
+
+            <TextView
+                style="@style/TextH5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Пожалйста, введите данные для новой учетной записи"
+                android:textColor="@color/gray" />
+
+            <EditText
+                android:id="@+id/etNameUser"
+                style="@style/TextH3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:autofillHints="username"
+                android:background="@drawable/bg_login_edit_text"
+                android:hint="Имя"
+                android:inputType="text"
+                android:padding="12dp"
+                android:textColor="@color/white"
+                android:textColorHint="@color/gray"
+                android:textCursorDrawable="@drawable/edit_text_cursor"
+                tools:ignore="TextFields" />
+
+            <EditText
+                android:id="@+id/etEmailOrPhone"
+                style="@style/TextH3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:autofillHints="username"
+                android:background="@drawable/bg_login_edit_text"
+                android:hint="@string/hintLoginOrPhone"
+                android:inputType="text"
+                android:padding="12dp"
+                android:textColor="@color/white"
+                android:textColorHint="@color/gray"
+                android:textCursorDrawable="@drawable/edit_text_cursor"
+                tools:ignore="TextFields" />
+
+            <EditText
+                android:id="@+id/etPassword"
+                style="@style/TextH3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:autofillHints="password"
+                android:background="@drawable/bg_login_edit_text"
+                android:textCursorDrawable="@drawable/edit_text_cursor"
+                android:hint="@string/password"
+                android:inputType="textPassword"
+                android:padding="12dp"
+                android:textColor="@color/gray"
+                android:textColorHint="@color/gray" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/containerButtons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btnLogin"
+                style="@style/TextH1"
+                android:background="@drawable/bg_button"
+                android:textAllCaps="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:padding="9dp"
+                android:enabled="false"
+                android:text="Регистариция"
+                android:textColor="@color/black"
+                app:backgroundTint="@null" />
+
+            <Button
+                android:id="@+id/btLoginWithAcc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Войти с учетной записью"
+                style="@style/TextH2"
+                android:padding="10dp"
+                android:background="@android:color/transparent"
+                android:textColor="@color/gray"
+                android:textAllCaps="false"/>
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

@@ -2,6 +2,7 @@
     <!-- Base application theme. Theme.Material3.Dark-->
 <!--    Theme.Material3.Dark.NoActionBar-->
     <!-- Base application theme. -->
+<!--    Theme.Design.NoActionBar-->
     <style name="Theme.ProfNotes" parent="Theme.MaterialComponents.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/black</item>
@@ -15,7 +16,6 @@
         <item name="android:statusBarColor">?attr/colorPrimary</item>
         <!-- Customize your theme here. -->
         <item name="android:textColor">@color/white</item>
-        <item name="android:orientation">vertical</item>
     </style>
 
     <style name="Splash" parent="Theme.AppCompat.DayNight.NoActionBar">
@@ -61,6 +61,29 @@
         <item name="cornerFamilyBottomRight">rounded</item>
         <item name="cornerFamilyTopLeft">rounded</item>
         <item name="cornerFamilyTopRight">rounded</item>
+        <item
+            name="iconSize">
+        </item>
+    </style>
+
+    <style name="Switch" parent="Theme.AppCompat.Light">
+        <!-- active thumb & track color (30% transparency) -->
+        <item name="colorControlActivated">@color/yellow</item>
+        <!-- inactive thumb color -->
+        <item name="colorSwitchThumbNormal">@color/black
+        </item>
+        <!-- inactive track color (30% transparency) -->
+        <item name="android:colorForeground">@color/lightestGray
+        </item>
+    </style>
+
+    <style name="TabLayout" parent="Widget.MaterialComponents.TabLayout">
+        <item name="tabTextAppearance">@style/TabTextAppearance</item>
+        <item name="tabContentStart">8dp</item>
+    </style>
+
+    <style name="TabTextAppearance" parent="TextAppearance.Design.Tab">
+        <item name="textAllCaps">false</item>
     </style>
 
 </resources>

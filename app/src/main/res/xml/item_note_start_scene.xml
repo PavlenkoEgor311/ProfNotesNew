@@ -7,7 +7,7 @@
         motion:constraintSetEnd="@layout/item_note_end"
         motion:constraintSetStart="@layout/item_note_start">
 
-        <OnClick
+        <OnSwipe
             motion:dragDirection="dragLeft"
             motion:touchAnchorSide="right"
             />

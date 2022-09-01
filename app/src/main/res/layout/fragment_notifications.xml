@@ -1,22 +1,165 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:fillViewport="true"
+android:layout_marginStart="20dp"
+android:layout_marginEnd="20dp"
+android:layout_marginTop="16dp"
+tools:context=".ui.notifications.NotificationsFragment">
+<androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.notifications.NotificationsFragment">
+    android:layout_height="wrap_content">
+
+    <ImageButton
+        android:id="@+id/btBackToHome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:src="@drawable/ic_baseline_arrow_back_ios_new_24"
+        tools:ignore="MissingConstraints" />
 
     <TextView
-        android:id="@+id/text_notifications"
-        android:layout_width="match_parent"
+        android:id="@+id/tvTitle"
+        style="@style/TextH1"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="настройки"
+        android:textAllCaps="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        tools:ignore="MissingConstraints" />
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/ivUser"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/ic_test_user"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="44dp"
+        app:layout_constraintTop_toBottomOf="@id/btBackToHome"
+        app:riv_corner_radius="25dp" />
+
+    <TextView
+        android:id="@+id/tvUserName"
+        style="@style/TextH2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Дарья Солдатова"
+        android:textColor="@color/white"
+        android:layout_marginStart="12dp"
+        app:layout_constraintStart_toEndOf="@+id/ivUser"
+        app:layout_constraintTop_toTopOf="@+id/ivUser" />
+
+    <TextView
+        android:id="@+id/tvUserLogin"
+        style="@style/TextH2"
+        android:textColor="@color/gray"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:text="daria@daria.ru"
+        app:layout_constraintStart_toEndOf="@+id/ivUser"
+        app:layout_constraintTop_toBottomOf="@+id/tvUserName" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tvUserLogin"
+        android:layout_marginTop="27dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/TextH2"
+            android:text="Профиль"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            style="@style/TextH3"
+            android:text="Изменить информацию"
+            android:padding="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/rounded_edittext"
+            android:clickable="true"
+            app:drawableRightCompat="@drawable/ic_bt_more"
+            android:focusable="true" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            style="@style/TextH3"
+            android:text="Найти друзей"
+            android:padding="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/rounded_edittext"
+            app:drawableRightCompat="@drawable/ic_bt_more"
+            android:clickable="true"
+            android:focusable="true"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/TextH2"
+            android:text="Оформление"
+            android:layout_marginTop="16dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            style="@style/TextH3"
+            android:text="Изменить цвет"
+            android:padding="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/rounded_edittext"
+            android:clickable="true"
+            app:drawableRightCompat="@drawable/ic_bt_more"
+            android:focusable="true" />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/sсDarkTheme"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            style="@style/TextH3"
+            android:textColor="@color/white"
+            android:text="Темная тема"
+            android:padding="10dp"
+            android:checked="true"
+            android:thumb="@drawable/bg_thumb_selector"
+            app:track="@drawable/bg_track_selector"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/rounded_edittext"
+            tools:ignore="UseSwitchCompatOrMaterialXml"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/TextH2"
+            android:text="Уведомления"
+            android:layout_marginTop="16dp"/>
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/sсPushNotifications"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            style="@style/TextH3"
+            android:textColor="@color/white"
+            android:text="Пуш-уведомления"
+            android:padding="10dp"
+            android:checked="true"
+            android:thumb="@drawable/bg_thumb_selector"
+            app:track="@drawable/bg_track_selector"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/rounded_edittext"
+            tools:ignore="UseSwitchCompatOrMaterialXml"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="153dp"/>
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

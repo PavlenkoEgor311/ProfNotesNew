@@ -7,9 +7,6 @@
     <Transition
         motion:constraintSetEnd="@id/end"
         motion:constraintSetStart="@id/end">
-        <OnSwipe
-            motion:dragDirection="dragUp">
-        </OnSwipe>
     </Transition>
 
     <ConstraintSet android:id="@+id/start">

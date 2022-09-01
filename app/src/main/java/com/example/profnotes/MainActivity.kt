@@ -1,7 +1,6 @@
 package com.example.profnotes
 
 import android.os.Bundle
-import android.view.View
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -14,7 +13,9 @@ import com.example.profnotes.core.visible
 import com.example.profnotes.databinding.ActivityMainBinding
 import com.google.android.material.shape.CornerFamily
 import com.google.android.material.shape.MaterialShapeDrawable
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
@@ -31,6 +32,38 @@ class MainActivity : AppCompatActivity() {
         val navView: BottomNavigationView = binding.navView
         navView.menu.getItem(1).isEnabled = false
 
+        binding.fab.setColorFilter(R.color.black)
+
+        val navController = findNavController(R.id.nav_host_fragment_activity_main)
+        val appBarConfiguration = AppBarConfiguration(
+            setOf(
+                R.id.navigation_home, R.id.navigation_notifications
+            )
+        )
+
+        binding.fab.setOnClickListener{
+            val bundle = Bundle()
+            bundle.putString("MyArg", "addNewNote")
+            findNavController(R.id.nav_host_fragment_activity_main).navigate(R.id.addNoteFragment,bundle)
+        }
+
+        setupActionBarWithNavController(navController, appBarConfiguration)
+        navView.setupWithNavController(navController)
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            if(destination.id == R.id.navigation_home ||
+                destination.id == R.id.navigation_notifications){
+                binding.bottomappbar.visible()
+                binding.fab.visible()
+            }
+            else{
+                binding.bottomappbar.invisible()
+                binding.fab.gone()
+            }
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
         val radius = resources.getDimension(R.dimen.default_corner_radius)
         val bottomAppBar = binding.bottomappbar
 
@@ -39,31 +72,5 @@ class MainActivity : AppCompatActivity() {
             .toBuilder()
             .setAllCorners(CornerFamily.ROUNDED, radius)
             .build()
-
-        val navController = findNavController(R.id.nav_host_fragment_activity_main)
-        val appBarConfiguration = AppBarConfiguration(
-            setOf(
-                R.id.navigation_home, R.id.navigation_notifications
-            )
-        )
-        setupActionBarWithNavController(navController, appBarConfiguration)
-        navView.setupWithNavController(navController)
-        navController.addOnDestinationChangedListener { _, destination, _ ->
-            if(destination.id == R.id.loginFragment){
-                binding.bottomappbar.invisible()
-                binding.fab.gone()
-            }
-            else{
-                binding.bottomappbar.visible()
-                binding.fab.visible()
-            }
-        }
-    }
-
-    fun setNavigati() {
-
-    }
-    override fun onStart() {
-        super.onStart()
     }
 }
