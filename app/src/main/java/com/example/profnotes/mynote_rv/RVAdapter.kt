@@ -88,7 +88,7 @@ class RVAdapter(
                 actionListener.deleteNote(note)
             }
             R.id.ib_changeNote->{
-                actionListener.changeNote(note)
+                 actionListener.changeNote(note)
             }
             R.id.tvChangeStatus->{
                 actionListener.changestatusNote(note)

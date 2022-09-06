@@ -8,19 +8,17 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
 abstract class BaseViewModel:ViewModel() {
+
     private val _isLoading = MutableStateFlow(false)
     val isLoading = _isLoading.asStateFlow()
 
     private val _evenState = MutableStateFlow<Event>(Event.Idle)
     val evenState = _evenState.asStateFlow()
 
-    protected fun setupViews(){
-
-    }
-
     protected fun setIsLoading(value:Boolean){
         _isLoading.value = value
     }
+
     protected fun launchSafety(
         errHandler:((Throwable)->Unit)? = null,
         block: suspend CoroutineScope.()->Unit){
