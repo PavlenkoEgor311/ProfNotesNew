@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.addNote.AddTaskFragment"
+    android:fillViewport="true"
+    android:layout_margin="20dp">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tvTitleNote"
+            style="@style/TextH2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Название заметки"
+            app:layout_constraintTop_toTopOf="parent" />
+        <EditText
+            android:id="@+id/etTitleNote"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:padding="10dp"
+            android:textColor="@color/white"
+            android:textColorHint="@color/gray"
+            android:textCursorDrawable="@drawable/edit_text_cursor"
+            android:background="@drawable/bg_login_edit_text"
+            android:hint="Начните вводить текст здесь..."
+            style="@style/TextH5"
+            app:layout_constraintTop_toBottomOf="@id/tvTitleNote"/>
+        <TextView
+            android:id="@+id/tvDescriptionNote"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="26dp"
+            style="@style/TextH2"
+            android:text="Описание заметки"
+            app:layout_constraintTop_toBottomOf="@id/etTitleNote"/>
+        <EditText
+            android:id="@+id/etDescriptionNote"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:padding="10dp"
+            android:textColor="@color/white"
+            android:textColorHint="@color/gray"
+            android:textCursorDrawable="@drawable/edit_text_cursor"
+            android:background="@drawable/bg_login_edit_text"
+            android:hint="Начните вводить текст здесь..."
+            style="@style/TextH5"
+            app:layout_constraintTop_toBottomOf="@id/tvDescriptionNote"/>
+
+        <TextView
+            android:id="@+id/tvSearchFriends"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/TextH2"
+            android:text="Круг друзей"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@id/etDescriptionNote"
+            tools:ignore="MissingConstraints" />
+
+        <ImageButton
+            android:id="@+id/ibSearchFriends"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/profsoft_1"
+            android:src="@drawable/ic_search"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etDescriptionNote"/>
+        <EditText
+            android:id="@+id/etSearchFriends"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:autofillHints="username"
+            android:background="@drawable/rounded_edittext"
+            android:drawableStart="@drawable/ic_baseline_search_24"
+            android:hint="Поиск по друзьям"
+            android:drawablePadding="8dp"
+            android:inputType="text"
+            android:padding="6dp"
+            android:visibility="gone"
+            style="@style/TextH5"
+            android:textColor="@color/white"
+            android:textColorHint="@color/gray"
+            android:textCursorDrawable="@drawable/edit_text_cursor"
+            app:layout_constraintTop_toBottomOf="@+id/tvSearchFriends"
+            tools:ignore="TextFields" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_marginTop="10dp"
+            android:id="@+id/rvFriends"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@id/etSearchFriends"/>
+
+        <CalendarView
+            android:id="@+id/cvDataNote"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/rvFriends"
+            android:layout_marginTop="16dp"
+            android:minDate="01/01/2020"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

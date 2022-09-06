@@ -3,6 +3,7 @@ package com.example.profnotes
 import android.os.Bundle
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isGone
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
@@ -15,7 +16,6 @@ import com.google.android.material.shape.CornerFamily
 import com.google.android.material.shape.MaterialShapeDrawable
 import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
@@ -61,6 +61,10 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
+//    fun showLoading(value:Boolean){
+//        binding.loadingLayout.isGone = !value
+//    }
 
     override fun onStart() {
         super.onStart()

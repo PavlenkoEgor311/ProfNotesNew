@@ -11,9 +11,11 @@ import com.example.profnotes.databinding.ItemNoteStartBinding
 import com.example.profnotes.databinding.ItemStatusBinding
 import com.example.profnotes.model.Note
 import com.example.profnotes.model.StatusNote
+
 interface statusActionListener{
     fun clickStatus(statusNote: StatusNote)
 }
+
 class RVAdapterStatus(
     private val statusActionListener: statusActionListener)
     :RecyclerView.Adapter<RVAdapterStatus.MyViewHolder>(), View.OnClickListener {

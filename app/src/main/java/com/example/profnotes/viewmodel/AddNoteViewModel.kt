@@ -1,31 +1,56 @@
 package com.example.profnotes.viewmodel
 
-import android.provider.ContactsContract
 import androidx.lifecycle.*
-import com.example.profnotes.data.models.NoteNet
 import com.example.profnotes.data.models.Notes
-import com.example.profnotes.data.models.util.ResponseWrapper
-import com.example.profnotes.data.models.util.noteAndTaskWrapper
 import com.example.profnotes.data.repo.AuthRepository
+import com.example.profnotes.viewmodel.core.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import java.util.*
 import javax.inject.Inject
-import kotlin.reflect.jvm.internal.impl.load.kotlin.JvmType
 
 @HiltViewModel
 class AddNoteViewModel @Inject constructor(
-    private val authRepository: AuthRepository):BaseViewModel() {
+    private val authRepository: AuthRepository): BaseViewModel() {
 
-    private var _note = MutableStateFlow<String?>("Old")
+    private var _note = MutableStateFlow<Notes?>(null)
     val note = _note.asStateFlow()
 
-    val newNote:MutableLiveData<Notes> by lazy {
-        MutableLiveData<Notes>()
+    private var _newNote = MutableStateFlow<Notes?>(null)
+    val newNote = _newNote.asStateFlow()
+
+    private var titleInput:String = ""
+    private var dateInput:String = ""
+    private var descriptionInput:String = ""
+
+    var titleInputOnline:String = ""
+    var dateInputOnline:String = ""
+    var descriptionInputOnline:String = ""
+
+
+    fun getTitle():String = titleInput
+    fun getDate():String = dateInput
+    fun getDescription():String = descriptionInput
+
+    fun setTitle(title:String){
+        titleInput = title
+    }
+    fun setDate(date:String){
+        dateInput = date
+    }
+    fun setDescription(description:String){
+        descriptionInput = description
+    }
+    fun setNote(note: Notes){
+        _note.value = note
+    }
+
+    private var positionVp:Int = 0
+
+    fun getPosition():Int = positionVp
+    fun setPosition(newPosition:Int){
+        positionVp = newPosition
     }
 
     fun addNote(note: Notes){
@@ -33,7 +58,9 @@ class AddNoteViewModel @Inject constructor(
             authRepository.addNote(note)
         }
     }
-    fun setNote(sk:String){
-        _note.value = sk
+    fun updateNote(note: Notes){
+        viewModelScope.launch {
+            authRepository.changeNote(note)
+        }
     }
 }

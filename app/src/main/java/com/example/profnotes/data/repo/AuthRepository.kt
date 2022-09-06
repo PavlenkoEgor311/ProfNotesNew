@@ -4,6 +4,7 @@ import com.example.profnotes.R
 import com.example.profnotes.data.dao.NotesDao
 import com.example.profnotes.data.local.Prefs
 import com.example.profnotes.data.models.Notes
+import com.example.profnotes.model.NewNote
 import com.example.profnotes.model.StatusNote
 import javax.inject.Inject
 
@@ -18,9 +19,13 @@ class AuthRepository @Inject constructor(
         StatusNote(R.drawable.ic_test_user, "Отложено","Задача требует задаржки в работе")
     )
 
-    fun getAllStatus(): List<StatusNote> {
-        return exStatusNote
-    }
+    private val lstForViewPager = listOf( NewNote(1,"Выполнение дз к понедельнику", "17:00","Новое"),
+                                          NewNote(2,"Выполнение дз к вторнику", "11:00","Завершено"),
+                                          NewNote(2,"Выполнение дз к chtlt", "11:00","Завершено") )
+
+    fun getLstForViewPager():List<NewNote> = lstForViewPager
+
+    fun getAllStatus(): List<StatusNote> = exStatusNote
 
     fun getIsFirstEnter() = prefs.isFirstEnter
 

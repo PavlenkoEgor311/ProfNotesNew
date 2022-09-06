@@ -34,46 +34,13 @@ class ChangeStatusFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentChangeStatusBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     private fun setStatusBottom(){
         binding.btChangeStatusNote.isEnabled = viewModel.getStatusButton()
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        setStatusBottom()
-        adapterRV = RVAdapterStatus(object : statusActionListener{
-            override fun clickStatus(statusNote: StatusNote) {
-                viewModel.setSelectedStatus(status = statusNote.status)
-                viewModel.setStatusButton(true)
-                setStatusBottom()
-            }
-        })
-        setAllStatus()
-        binding.btChangeStatusNote.setOnClickListener{
-            viewModel.updateStatusNote(Notes(args.selectedNote.id,
-                                             args.selectedNote.title,
-                                             args.selectedNote.date,
-                                             viewModel.getSelectedStatus(),
-                                             args.selectedNote.description))
-            Toast.makeText(requireContext(),"Статус заметки успешно обновлен",Toast.LENGTH_LONG).show()
-            viewModel.setSelectedStatus(status = "")
-            viewModel.setStatusButton(false)
-            setStatusBottom()
-        }
-
-        binding.btCancel.setOnClickListener{
-            viewModel.updateStatusNote(args.selectedNote)
-            Toast.makeText(requireContext(),"Изменение статуса заметки отменено",Toast.LENGTH_LONG).show()
-            viewModel.setSelectedStatus(status = "")
-            viewModel.setStatusButton(false)
-            setStatusBottom()
-        }
-        backToHome()
     }
 
     private fun backToHome(){
@@ -83,6 +50,13 @@ class ChangeStatusFragment : Fragment() {
     }
 
     private fun setAllStatus(){
+        adapterRV = RVAdapterStatus(object : statusActionListener{
+            override fun clickStatus(statusNote: StatusNote) {
+                viewModel.setSelectedStatus(status = statusNote.status)
+                viewModel.setStatusButton(true)
+                setStatusBottom()
+            }
+        })
         with(binding){
             containerStatus.layoutManager= LinearLayoutManager(requireContext())
             containerStatus.adapter = adapterRV
@@ -90,28 +64,42 @@ class ChangeStatusFragment : Fragment() {
         adapterRV.setStatus(viewModel.getAllStatusEX())
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setStatusBottom()
+        setAllStatus()
+        backToHome()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        changeStatusNote()
+    }
+
+    private fun changeStatusNote() {
+        binding.btChangeStatusNote.setOnClickListener{
+            viewModel.updateStatusNote(Notes(args.selectedNote.id,
+                args.selectedNote.title,
+                args.selectedNote.date,
+                viewModel.getSelectedStatus(),
+                args.selectedNote.description))
+            Toast.makeText(requireContext(),"Статус заметки успешно обновлен",Toast.LENGTH_LONG).show()
+            setFalseBottom()
+        }
+        binding.btCancel.setOnClickListener{
+            viewModel.updateStatusNote(args.selectedNote)
+            Toast.makeText(requireContext(),"Изменение статуса заметки отменено",Toast.LENGTH_LONG).show()
+            setFalseBottom()
+        }
+    }
+    fun setFalseBottom(){
+        viewModel.setSelectedStatus(status = "")
+        viewModel.setStatusButton(false)
+        setStatusBottom()
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
-
-//    companion object {
-//        /**
-//         * Use this factory method to create a new instance of
-//         * this fragment using the provided parameters.
-//         *
-//         * @param param1 Parameter 1.
-//         * @param param2 Parameter 2.
-//         * @return A new instance of fragment ChangeStatusFragment.
-//         */
-//        // TODO: Rename and change types and number of parameters
-//        @JvmStatic
-//        fun newInstance(param1: String, param2: String) =
-//            ChangeStatusFragment().apply {
-//                arguments = Bundle().apply {
-//                    putString(ARG_PARAM1, param1)
-//                    putString(ARG_PARAM2, param2)
-//                }
-//            }
-//    }
 }

@@ -15,40 +15,34 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.MarginPageTransformer
-import com.example.profnotes.MainActivity
 import com.example.profnotes.R
 import com.example.profnotes.data.models.Notes
 import com.example.profnotes.databinding.FragmentHomeBinding
 import com.example.profnotes.model.NewNote
-import com.example.profnotes.model.Note
+import com.example.profnotes.model.helper
 import com.example.profnotes.mynote_rv.NoteActionListener
 import com.example.profnotes.mynote_rv.RVAdapter
 import com.example.profnotes.note_for_viewpager.NoteVPAdapter
+import com.example.profnotes.note_for_viewpager.noteVPActionListener
+import com.example.profnotes.ui.core.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class HomeFragment : Fragment() {
+class HomeFragment : BaseFragment<FragmentHomeBinding,HomeViewModel>() {
 
-    private var _binding: FragmentHomeBinding? = null
-    private val binding get() = _binding!!
+    override fun inflateViewBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?) =
+        FragmentHomeBinding.inflate(inflater, container, false)
 
-    private val adapter by lazy { NoteVPAdapter() }
-
+    private lateinit var adapter : NoteVPAdapter
     private lateinit var adapterRV: RVAdapter
     private lateinit var rvAllNotes : RecyclerView
 
-    private val viewModel:HomeViewModel by viewModels()
+    override val viewModel:HomeViewModel by viewModels()
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        return binding.root
-    }
 
     @SuppressLint("SetTextI18n")
     @RequiresApi(Build.VERSION_CODES.O)
@@ -59,13 +53,17 @@ class HomeFragment : Fragment() {
     }
 
     private fun setViewPager(){
+        adapter = NoteVPAdapter(object : noteVPActionListener{
+            override fun clickNote(newNote: NewNote) {
+                val elem = helper(newNote,null)
+                val action = HomeFragmentDirections.actionNavigationHomeToAddNoteFragment(elem)
+                findNavController().navigate(action)
+            }
+        })
         binding.vpNewnotes.setPageTransformer(
             MarginPageTransformer(20)
         )
-        val Nnote1 = NewNote(1,"Выполнение дз к понедельнику", "17:00","Новое")
-        val Nnote2 = NewNote(2,"Выполнение дз к вторнику", "11:00","Завершено")
-        val Nnote3 = NewNote(2,"Выполнение дз к вторнику", "11:00","Завершено")
-        adapter.setItems(listOf(Nnote1,Nnote2,Nnote3))
+        adapter.setItems(viewModel.getLstForViewPager())
         binding.vpNewnotes.adapter = adapter
     }
 
@@ -85,7 +83,8 @@ class HomeFragment : Fragment() {
                 setElemToRV()
             }
             override fun changeNote(note: Notes) {
-                val action = HomeFragmentDirections.actionNavigationHomeToAddNoteFragment(note)
+                val elem = helper(null,note)
+                val action = HomeFragmentDirections.actionNavigationHomeToAddNoteFragment(elem)
                 findNavController().navigate(action)
             }
             override fun changestatusNote(note: Notes) {
@@ -93,20 +92,16 @@ class HomeFragment : Fragment() {
                 findNavController().navigate(action)
             }
         })
-
         rvAllNotes = binding.rvAllnotes
         rvAllNotes.layoutManager = LinearLayoutManager(requireContext())
         rvAllNotes.adapter = adapterRV
-
         setElemToRV()
-
         binding.add.setOnClickListener {
-            findNavController().navigate(R.id.action_navigation_home_to_changeStatusFragment)
+            findNavController().navigate(R.id.action_navigation_home_to_addNoteFragment,)
         }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    override fun onStart() {
+        super.onStart()
     }
 }
