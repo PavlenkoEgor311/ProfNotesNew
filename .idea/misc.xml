@@ -15,6 +15,9 @@
         <entry key="..\:/ProfNotes-login_new/app/src/main/res/drawable/bg_track_selector.xml" value="0.228" />
         <entry key="..\:/ProfNotes-login_new/app/src/main/res/drawable/bt_tablayout.xml" value="0.1" />
         <entry key="..\:/ProfNotes-login_new/app/src/main/res/drawable/btq.xml" value="0.153" />
+        <entry key="..\:/ProfNotes-login_new/app/src/main/res/drawable/edit_text_cursor.xml" value="0.1875" />
+        <entry key="..\:/ProfNotes-login_new/app/src/main/res/drawable/ic_1.xml" value="0.1875" />
+        <entry key="..\:/ProfNotes-login_new/app/src/main/res/drawable/ic_2.xml" value="0.1875" />
         <entry key="..\:/ProfNotes-login_new/app/src/main/res/drawable/ic__23.xml" value="0.1855" />
         <entry key="..\:/ProfNotes-login_new/app/src/main/res/drawable/ic__status_1.xml" value="0.211" />
         <entry key="..\:/ProfNotes-login_new/app/src/main/res/drawable/ic_add.xml" value="0.2075" />
@@ -58,8 +61,9 @@
         <entry key="..\:/ProfNotes-login_new/app/src/main/res/layout/item_note.xml" value="0.264" />
         <entry key="..\:/ProfNotes-login_new/app/src/main/res/layout/item_note_end.xml" value="0.176" />
         <entry key="..\:/ProfNotes-login_new/app/src/main/res/layout/item_note_start.xml" value="0.1671875" />
+        <entry key="..\:/ProfNotes-login_new/app/src/main/res/layout/item_notification.xml" value="0.4" />
         <entry key="..\:/ProfNotes-login_new/app/src/main/res/layout/item_status.xml" value="0.23802083333333332" />
-        <entry key="..\:/ProfNotes-login_new/app/src/main/res/layout/notevp.xml" value="0.176" />
+        <entry key="..\:/ProfNotes-login_new/app/src/main/res/layout/notevp.xml" value="0.264" />
         <entry key="..\:/ProfNotes-login_new/app/src/main/res/menu/bottom_nav_menu.xml" value="0.14895833333333333" />
         <entry key="..\:/ProfNotes_1807/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1755" />
         <entry key="..\:/ProfNotes_1807/app/src/main/res/drawable/avatar.xml" value="0.2155" />

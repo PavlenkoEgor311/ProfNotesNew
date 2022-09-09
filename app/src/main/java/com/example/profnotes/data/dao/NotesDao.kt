@@ -1,6 +1,7 @@
 package com.example.profnotes.data.dao
 import androidx.room.*
 import com.example.profnotes.data.models.Notes
+import java.util.concurrent.Flow
 
 @Dao
 interface NotesDao {
@@ -18,4 +19,7 @@ interface NotesDao {
 
     @Query("SELECT * FROM notes WHERE id = :id")
     suspend fun getNoteById(id: Int): Notes
+
+    @Query("SELECT * FROM NOTES WHERE title LIKE :search OR description LIKE :search OR date LIKE :search")
+    fun searchInDb(search:String) : List<Notes>
 }

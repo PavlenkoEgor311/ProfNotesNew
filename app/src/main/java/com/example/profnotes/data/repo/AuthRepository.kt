@@ -45,5 +45,11 @@ class AuthRepository @Inject constructor(
         notesDao.updateNote(note)
     }
 
+    suspend fun checkNoteInDb(note: Notes){
+        notesDao.getNoteById(note.id)
+    }
+
     suspend fun getNotes():List<Notes> = notesDao.getAllNotes()
+
+    fun getSearchLocalNote(search:String):List<Notes> = notesDao.searchInDb(search)
 }

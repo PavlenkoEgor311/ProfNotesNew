@@ -25,6 +25,7 @@
         app:defaultNavHost="true"
         app:navGraph="@navigation/mobile_navigation" />
 
+
         <com.google.android.material.bottomappbar.BottomAppBar
             android:id="@+id/bottomappbar"
             android:layout_width="match_parent"
@@ -61,6 +62,6 @@
             android:src="@drawable/ic_add"
             android:backgroundTint="@color/yellow"
             app:rippleColor="@android:color/transparent"
-            app:layout_anchor="@id/bottomappbar" />
+            app:layout_anchor="@id/bottomappbar"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

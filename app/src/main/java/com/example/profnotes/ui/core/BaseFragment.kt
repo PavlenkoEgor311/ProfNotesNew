@@ -1,6 +1,5 @@
 package com.example.profnotes.ui.core
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,13 +10,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.viewbinding.ViewBinding
 import com.example.profnotes.MainActivity
-import com.example.profnotes.R
-import com.example.profnotes.databinding.FragmentLoginBinding
 import com.example.profnotes.viewmodel.core.BaseViewModel
 import com.example.profnotes.viewmodel.core.Event
-
-typealias Inflate<T> = (LayoutInflater, ViewGroup?, Boolean) -> T
-
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.onEach
 abstract class BaseFragment<VB:ViewBinding,VM:BaseViewModel>() : Fragment() {
 
     protected abstract val viewModel:VM
@@ -27,13 +23,13 @@ abstract class BaseFragment<VB:ViewBinding,VM:BaseViewModel>() : Fragment() {
 
     abstract fun inflateViewBinding(inflater: LayoutInflater, container: ViewGroup?): VB
 
-    protected val mainActivity = requireActivity() as MainActivity
+    protected val mainActivity:MainActivity by lazy { requireActivity() as MainActivity }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View? {
+    ): View?{
         _binding = inflateViewBinding(inflater, container)
         return binding.root
     }
@@ -48,10 +44,15 @@ abstract class BaseFragment<VB:ViewBinding,VM:BaseViewModel>() : Fragment() {
         }
 
         lifecycleScope.launchWhenCreated {
-            //viewModel.eventState.onEach(::renderState)
+            viewModel.evenState.onEach(::renderState)
         }
     }
 
+    override fun onStart() {
+        super.onStart()
+        mainActivity.showBottomBar(true)
+        mainActivity.setRoundNavBottom()
+    }
 
     private fun renderState(event: Event) {
         when(event) {
@@ -60,14 +61,5 @@ abstract class BaseFragment<VB:ViewBinding,VM:BaseViewModel>() : Fragment() {
                 Toast.makeText(requireContext(), event.message, Toast.LENGTH_LONG).show()
             }
         }
-    }
-
-    override fun onStart() {
-        super.onStart()
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }

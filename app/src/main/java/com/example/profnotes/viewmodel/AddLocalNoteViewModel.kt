@@ -1,23 +1,9 @@
 package com.example.profnotes.viewmodel
 
 import com.example.profnotes.viewmodel.core.BaseViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.scopes.ActivityScoped
+import javax.inject.Inject
 
 class AddLocalNoteViewModel : BaseViewModel() {
-    private var titleInput:String = ""
-    private var dateInput:String = ""
-    private var descriptionInput:String = ""
-
-    fun getTitle():String = titleInput
-    fun getDate():String = dateInput
-    fun getDescription():String = descriptionInput
-
-    fun setTitle(title:String){
-        titleInput = title
-    }
-    fun setDate(date:String){
-        dateInput = date
-    }
-    fun setDescription(description:String){
-        descriptionInput = description
-    }
 }

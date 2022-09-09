@@ -16,28 +16,24 @@ import com.example.profnotes.databinding.FragmentChangeStatusBinding
 import com.example.profnotes.model.StatusNote
 import com.example.profnotes.mynote_rv.RVAdapterStatus
 import com.example.profnotes.mynote_rv.statusActionListener
+import com.example.profnotes.ui.core.BaseFragment
 import com.example.profnotes.viewmodel.ChangeStatusViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ChangeStatusFragment : Fragment() {
+class ChangeStatusFragment : BaseFragment<FragmentChangeStatusBinding, ChangeStatusViewModel>() {
 
-    private var _binding: FragmentChangeStatusBinding? = null
-    private val binding get() = _binding!!
 
     private lateinit var adapterRV :RVAdapterStatus
-
-    private val viewModel:ChangeStatusViewModel by viewModels()
+    override val viewModel:ChangeStatusViewModel by viewModels()
 
     private val args by navArgs<ChangeStatusFragmentArgs>()
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentChangeStatusBinding.inflate(inflater, container, false)
-        return binding.root
-    }
+    override fun inflateViewBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ): FragmentChangeStatusBinding  = FragmentChangeStatusBinding.inflate(inflater, container, false)
+
 
     private fun setStatusBottom(){
         binding.btChangeStatusNote.isEnabled = viewModel.getStatusButton()
@@ -74,6 +70,7 @@ class ChangeStatusFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         changeStatusNote()
+        mainActivity.showBottomBar(false)
     }
 
     private fun changeStatusNote() {
@@ -92,14 +89,9 @@ class ChangeStatusFragment : Fragment() {
             setFalseBottom()
         }
     }
-    fun setFalseBottom(){
+    private fun setFalseBottom(){
         viewModel.setSelectedStatus(status = "")
         viewModel.setStatusButton(false)
         setStatusBottom()
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }

@@ -4,13 +4,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.profnotes.data.models.Notes
 import com.example.profnotes.data.repo.AuthRepository
+import com.example.profnotes.viewmodel.core.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class ChangeStatusViewModel @Inject constructor(
-    private val authRepository: AuthRepository): ViewModel() {
+    private val authRepository: AuthRepository): BaseViewModel() {
 
     private var selectedStatus: String = ""
     private var statusButtom:Boolean = false

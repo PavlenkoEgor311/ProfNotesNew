@@ -61,7 +61,7 @@
         android:layout_marginTop="12dp"
         android:padding="12dp"
         android:enabled="false"
-        android:text="Создать заметку"
+        android:text="Сменить статус"
         android:textColor="@color/black"
         app:backgroundTint="@null"/>
 

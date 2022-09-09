@@ -5,15 +5,35 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.profnotes.R
+import com.example.profnotes.databinding.FragmentRegistrationBinding
+import com.example.profnotes.ui.core.BaseFragment
+import com.example.profnotes.viewmodel.RegistrationViewModel
 
-class RegistrationFragment : Fragment() {
+class RegistrationFragment : BaseFragment<FragmentRegistrationBinding,RegistrationViewModel>() {
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_registration, container, false)
+    override val viewModel:RegistrationViewModel by viewModels()
+
+    override fun inflateViewBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ): FragmentRegistrationBinding =
+        FragmentRegistrationBinding.inflate(inflater, container, false)
+
+    private fun backToLogin(){
+        binding.btLoginWithAcc.setOnClickListener{
+            findNavController().navigate(R.id.action_registrationFragment_to_loginFragment)
+        }
+    }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        backToLogin()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        mainActivity.showBottomBar(false)
     }
 }

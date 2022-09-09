@@ -18,6 +18,7 @@
             android:layout_height="wrap_content"
             android:text="Название заметки"
             app:layout_constraintTop_toTopOf="parent" />
+
         <EditText
             android:id="@+id/etTitleNote"
             android:layout_width="match_parent"
@@ -31,6 +32,7 @@
             android:hint="Начните вводить текст здесь..."
             style="@style/TextH5"
             app:layout_constraintTop_toBottomOf="@id/tvTitleNote"/>
+
         <TextView
             android:id="@+id/tvDescriptionNote"
             android:layout_width="match_parent"
@@ -39,6 +41,7 @@
             style="@style/TextH2"
             android:text="Описание заметки"
             app:layout_constraintTop_toBottomOf="@id/etTitleNote"/>
+
         <EditText
             android:id="@+id/etDescriptionNote"
             android:layout_width="match_parent"
@@ -67,11 +70,12 @@
             android:id="@+id/ibSearchFriends"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/profsoft_1"
+            android:background="@android:color/transparent"
             android:src="@drawable/ic_search"
             android:layout_marginTop="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/etDescriptionNote"/>
+
         <EditText
             android:id="@+id/etSearchFriends"
             android:layout_width="match_parent"
@@ -84,14 +88,17 @@
             android:drawablePadding="8dp"
             android:inputType="text"
             android:padding="6dp"
-            android:visibility="gone"
             style="@style/TextH5"
             android:textColor="@color/white"
             android:textColorHint="@color/gray"
             android:textCursorDrawable="@drawable/edit_text_cursor"
             app:layout_constraintTop_toBottomOf="@+id/tvSearchFriends"
-            tools:ignore="TextFields" />
+            tools:ignore="TextFields"
+            android:visibility="gone"
+            />
+
         <androidx.recyclerview.widget.RecyclerView
+            android:visibility="gone"
             android:layout_marginTop="10dp"
             android:id="@+id/rvFriends"
             android:layout_width="match_parent"

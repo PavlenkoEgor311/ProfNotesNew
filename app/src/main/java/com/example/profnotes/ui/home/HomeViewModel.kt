@@ -38,7 +38,4 @@ class HomeViewModel @Inject constructor(
                 authRepository.delNote(note)
             }
         }
-//    fun getNote(){
-//        launchs(errHandler = {if (it is NullPointerException) Log.e("",)})
-//    }
 }

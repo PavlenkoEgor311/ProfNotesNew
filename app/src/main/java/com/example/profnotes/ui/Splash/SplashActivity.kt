@@ -22,7 +22,6 @@ import kotlinx.coroutines.launch
 class SplashActivity : AppCompatActivity() {
 
     private val viewModel:SplashViewModel by viewModels()
-
     private val firstSetupNotes: List<Notes> = listOf(
         Notes(
             id = 0,
@@ -70,9 +69,9 @@ class SplashActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Toast.makeText(this,
-                              viewModel.getIsFirstEnter().toString(),
-                              Toast.LENGTH_LONG).show()
+//        Toast.makeText(this,
+//                              viewModel.getIsFirstEnter().toString(),
+//                              Toast.LENGTH_LONG).show()
         viewModel.setIsFirstEnter(false)
 //        lifecycleScope.launch {
 //            viewModel.note.collectLatest {
@@ -88,10 +87,11 @@ class SplashActivity : AppCompatActivity() {
 //            }
 //        }
 
-//        firstSetupNotes.forEach {
-//            viewModel.addNote(it)
-//        }
-
+        if (viewModel.getIsFirstEnter()){
+            firstSetupNotes.forEach {
+                viewModel.addNote(it)
+            }
+        }
         val i = Intent(this,MainActivity::class.java)
         startActivity(i)
         finish()

@@ -56,50 +56,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-<!--        <TextView-->
-<!--            android:id="@+id/tvtoday"-->
-<!--            style="@style/TextH2"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginTop="12dp"-->
-<!--            android:text="Сегодня"-->
-<!--            android:textColor="@color/profsoft_3"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/ivUser"-->
-<!--            tools:ignore="MissingConstraints" />-->
-
-<!--        <TextView-->
-<!--            android:id="@+id/tv_date"-->
-<!--            style="@style/TextH2"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="Понедельник, 11 июля"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/tvtoday" />-->
-
-<!--        <TextView-->
-<!--            android:id="@+id/tv_news"-->
-<!--            style="@style/TextH2"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginTop="12dp"-->
-<!--            android:text="Новости"-->
-<!--            android:textColor="@color/profsoft_3"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toEndOf="@+id/tv_date"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/ivUser"-->
-<!--            tools:ignore="MissingConstraints" />-->
-
-<!--        <TextView-->
-<!--            android:id="@+id/tvNewNote"-->
-<!--            style="@style/TextH2"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="4 новые заметки"-->
-<!--            android:textColor="@color/white"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toEndOf="@+id/tv_date"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/ivUser" />-->
-
-
         <TextView
             android:id="@+id/tvTodayTitle"
             style="@style/TextH2"
@@ -190,9 +146,7 @@
             android:layout_marginTop="12dp"
             android:orientation="horizontal"
             app:layout_constraintTop_toBottomOf="@+id/tvNewNotes"
-            tools:ignore="MissingConstraints">
-
-        </androidx.viewpager2.widget.ViewPager2>
+            tools:ignore="MissingConstraints"/>
 
         <TextView
             android:id="@+id/tv_all_notes"
@@ -233,19 +187,12 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             app:layout_constraintTop_toBottomOf="@+id/tv_all_notes"/>
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/add"
-            app:layout_constraintTop_toBottomOf="@id/rv_allnotes"
-            android:backgroundTint="@color/green"
-            android:text="addddddd"/>
 
         <View
-            android:id="@+id/qqq"
+            android:id="@+id/empty"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            app:layout_constraintTop_toBottomOf="@id/add"
+            android:layout_height="75dp"
+            app:layout_constraintTop_toBottomOf="@id/rv_allnotes"
             />
     </androidx.constraintlayout.motion.widget.MotionLayout>
 </androidx.core.widget.NestedScrollView>

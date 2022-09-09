@@ -56,14 +56,6 @@
             app:tabSelectedTextColor="@color/black"
             app:tabTextAppearance="@style/TextH2"
             app:tabTextColor="@color/white">
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="homework)"/>
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="timetable))"/>
         </com.google.android.material.tabs.TabLayout>
 
         <androidx.viewpager2.widget.ViewPager2

@@ -3,137 +3,84 @@ package com.example.profnotes.ui.addNote
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.navArgs
 import com.example.profnotes.ui.core.BaseFragment
 import com.example.profnotes.data.models.Notes
 import com.example.profnotes.databinding.FragmentAddLocalNoteBinding
 import com.example.profnotes.databinding.FragmentAddNoteBinding
+import com.example.profnotes.viewmodel.AddLocalNoteViewModel
 import com.example.profnotes.viewmodel.AddNoteViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class AddLocalNoteFragment : BaseFragment<FragmentAddLocalNoteBinding,AddNoteViewModel>() {
+class AddLocalNoteFragment(
+    private val vm:AddNoteViewModel)
+    : BaseFragment<FragmentAddLocalNoteBinding,AddLocalNoteViewModel>() {
 
     override fun inflateViewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?) =
         FragmentAddLocalNoteBinding.inflate(inflater, container, false)
 
-    override val viewModel: AddNoteViewModel by activityViewModels()
+    override val viewModel: AddLocalNoteViewModel by viewModels()
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setETValue()
+    }
 
     private fun setETValue(){
         with(binding){
-            etDateNote.setText(viewModel.getDate())
-            etTitleNote.setText(viewModel.getTitle())
-            etDescriptionNote.setText(viewModel.getDescription())
+            etDateNote.setText(vm.getDate())
+            etTitleNote.setText(vm.getTitle())
+            etDescriptionNote.setText(vm.getDescription())
         }
     }
 
     private fun getNewValue(){
         with(binding){
-            etTitleNote.addTextChangedListener(object :TextWatcher{
-                override fun beforeTextChanged(
-                    s: CharSequence?,
-                    start: Int,
-                    count: Int,
-                    after: Int
-                ) {
-                }
-                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                    viewModel.setTitle(etTitleNote.text.toString())
-                    viewModel.setNote(Notes(0, title = etTitleNote.text.toString(), date = etDateNote.text.toString(), status = "Новое", description = etDescriptionNote.text.toString()))
-                }
-                override fun afterTextChanged(s: Editable?) {
-                    viewModel.setTitle(etTitleNote.text.toString())
-                    viewModel.setNote(Notes(0, title = etTitleNote.text.toString(), date = etDateNote.text.toString(), status = "Новое", description = etDescriptionNote.text.toString()))
-                }
-            })
-            etDescriptionNote.addTextChangedListener(object :TextWatcher{
-                override fun beforeTextChanged(
-                    s: CharSequence?,
-                    start: Int,
-                    count: Int,
-                    after: Int
-                ) {
-                }
-                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                    viewModel.setDescription(etDescriptionNote.text.toString())
-                    viewModel.setNote(Notes(0, title = etTitleNote.text.toString(), date = etDateNote.text.toString(), status = "Новое", description = etDescriptionNote.text.toString()))
-                }
-                override fun afterTextChanged(s: Editable?) {
-                    viewModel.setDescription(etDescriptionNote.text.toString())
-                    viewModel.setNote(Notes(0, title = etTitleNote.text.toString(), date = etDateNote.text.toString(), status = "Новое", description = etDescriptionNote.text.toString()))
-                }
-            })
-            etDateNote.addTextChangedListener(object: TextWatcher{
-                override fun beforeTextChanged(
-                    s: CharSequence?,
-                    start: Int,
-                    count: Int,
-                    after: Int
-                ) {
-                }
-                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                    viewModel.setDate(etDateNote.text.toString())
-                    viewModel.setNote(Notes(0, title = etTitleNote.text.toString(), date = etDateNote.text.toString(), status = "Новое", description = etDescriptionNote.text.toString()))
-                }
-                override fun afterTextChanged(s: Editable?) {
-                    viewModel.setDate(etDateNote.text.toString())
-                    viewModel.setNote(Notes(0, title = etTitleNote.text.toString(), date = etDateNote.text.toString(), status = "Новое", description = etDescriptionNote.text.toString()))
-                }
-            })
+            etTitleNote.doAfterTextChanged {
+                vm.setTitle(etTitleNote.text.toString())
+                vm.setNote(Notes(vm.getId(),
+                                        title = etTitleNote.text.toString(),
+                                        date = etDateNote.text.toString(),
+                                        status = "Новое",
+                                        description = etDescriptionNote.text.toString()))
+            }
+            etDescriptionNote.doAfterTextChanged {
+                vm.setDescription(etDescriptionNote.text.toString())
+                vm.setNote(Notes(vm.getId(),
+                                        title = etTitleNote.text.toString(),
+                                        date = etDateNote.text.toString(),
+                                        status = "Новое",
+                                        description = etDescriptionNote.text.toString()))
+            }
+            etDateNote.doAfterTextChanged {
+                vm.setDate(etDateNote.text.toString())
+                vm.setNote(Notes(vm.getId(),
+                                        title = etTitleNote.text.toString(),
+                                        date = etDateNote.text.toString(),
+                                        status = "Новое",
+                                        description = etDescriptionNote.text.toString()))
+            }
         }
+    }
+
+    fun getViewModel(): AddNoteViewModel {
+        return vm
     }
 
     override fun onStart() {
         super.onStart()
-        setETValue()
+        mainActivity.showBottomBar(false)
         getNewValue()
     }
 }
-
-
-//            val etList = listOf(binding.etTitleNote,binding.etDescriptionNote,etDateNote)
-//            val funcList = listOf(viewModel.setTitle(etTitleNote.text.toString()),
-//                                  viewModel.setDescription(etDescriptionNote.text.toString()),
-//                                  viewModel.setDate(etDateNote.text.toString()))
-//            etList.forEachIndexed{
-//                    i, el->
-//                getText(el,funcList[i])
-//            }
-/////////////////////////////////////////
-// private fun getText(editText: EditText, until: Unit) {
-//        with(binding) {
-//        editText.addTextChangedListener(object : TextWatcher {
-//            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-//            }
-//            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-//                until
-//                viewModel.setNote(
-//                    Notes(
-//                        0,
-//                        title = etTitleNote.text.toString(),
-//                        date = etDateNote.text.toString(),
-//                        status = "Новое",
-//                        description = etDescriptionNote.text.toString()
-//                    )
-//                )
-//            }
-//            override fun afterTextChanged(s: Editable?) {
-//                until
-//                viewModel.setNote(
-//                    Notes(
-//                        0,
-//                        title = etTitleNote.text.toString(),
-//                        date = etDateNote.text.toString(),
-//                        status = "Новое",
-//                        description = etDescriptionNote.text.toString()
-//                    )
-//                )
-//            }
-//        })
-//    }
-//    }
