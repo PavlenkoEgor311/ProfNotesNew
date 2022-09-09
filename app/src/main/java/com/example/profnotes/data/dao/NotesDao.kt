@@ -21,5 +21,5 @@ interface NotesDao {
     suspend fun getNoteById(id: Int): Notes
 
     @Query("SELECT * FROM NOTES WHERE title LIKE :search OR description LIKE :search OR date LIKE :search")
-    fun searchInDb(search:String) : List<Notes>
+    suspend fun searchInDb(search : String) : List<Notes>
 }

@@ -78,6 +78,7 @@ class AddLocalNoteFragment(
         return vm
     }
 
+
     override fun onStart() {
         super.onStart()
         mainActivity.showBottomBar(false)

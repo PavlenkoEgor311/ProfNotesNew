@@ -38,4 +38,8 @@ class HomeViewModel @Inject constructor(
                 authRepository.delNote(note)
             }
         }
+
+        fun searchInLocalNotes(searchString:String) : Flow<List<Notes>> = flow {
+            emit(authRepository.getSearchLocalNote(searchString))
+        }
 }

@@ -93,7 +93,8 @@ class AddNoteFragment() : BaseFragment<FragmentAddNoteBinding,AddNoteViewModel>(
             btAddNote.setOnClickListener{
             when(tabLayout.selectedTabPosition) {
                 0 -> {
-
+                    val newViewModel = getNewViewModelAddOnlineNote()
+                    // Добавляем или изменям онлайн заметку
                 }
                 1 -> {
                     val newViewModel = getNewViewModelAddLocalNote()
@@ -121,15 +122,16 @@ class AddNoteFragment() : BaseFragment<FragmentAddNoteBinding,AddNoteViewModel>(
             btAddNote.setOnClickListener {
                 when (tabLayout.selectedTabPosition) {
                     0 -> {
-
+                            val newViewModel = getNewViewModelAddOnlineNote()
+                            // Добавление онлайн заметки
                     }
                     1 -> {
-                        val newViewModel = getNewViewModelAddLocalNote()
-                        newViewModel.addNote(addNewValueLocalNote())
-                        Toast.makeText(requireContext(),
+                            val newViewModel = getNewViewModelAddLocalNote()
+                            newViewModel.addNote(addNewValueLocalNote())
+                            Toast.makeText(requireContext(),
                                         "Вы добавили новую заметку",
                                         Toast.LENGTH_SHORT).show()
-                        findNavController().navigate(R.id.action_addNoteFragment_to_navigation_home)
+                            findNavController().navigate(R.id.action_addNoteFragment_to_navigation_home)
                     }
                 }
             }
@@ -138,6 +140,10 @@ class AddNoteFragment() : BaseFragment<FragmentAddNoteBinding,AddNoteViewModel>(
 
     private fun getNewViewModelAddLocalNote(): AddNoteViewModel {
         return AddLocalNoteFragment(viewModel).getViewModel()
+    }
+
+    private fun getNewViewModelAddOnlineNote(): AddNoteViewModel {
+        return AddTaskFragment(viewModel).returnViewModelWithData()
     }
 
     private fun addNewValueLocalNote():Notes{
@@ -152,7 +158,7 @@ class AddNoteFragment() : BaseFragment<FragmentAddNoteBinding,AddNoteViewModel>(
         return note
     }
 
-    private fun addNewValueOnlineNote(){
+    private fun addNewValueOnlineNote(): NewNote{
         lateinit var note:NewNote
         lifecycleScope.launch {
             viewModel.newNote.collect{
@@ -163,12 +169,13 @@ class AddNoteFragment() : BaseFragment<FragmentAddNoteBinding,AddNoteViewModel>(
                 }
             }
         }.cancel()
+        return note
     }
 
     @SuppressLint("ResourceType")
     private fun setVPandTab() {
         val adapter = AdapterVP2AddNote(parentFragmentManager, lifecycle)
-        adapter.addFragment(AddTaskFragment(), "Заметка")
+        adapter.addFragment(AddTaskFragment(viewModel), "Заметка")
         adapter.addFragment(AddLocalNoteFragment(viewModel), "Задача")
         with(binding){
             vpAddNoteOrTask.adapter = adapter

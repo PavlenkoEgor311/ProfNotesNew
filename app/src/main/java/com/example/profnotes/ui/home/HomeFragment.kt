@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.core.widget.doAfterTextChanged
 import androidx.databinding.adapters.ViewBindingAdapter.setPadding
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -52,6 +53,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding,HomeViewModel>() {
         super.onCreate(savedInstanceState)
         setViewPager()
         setRecyclerView()
+        searchLocalNotes()
     }
 
     @SuppressLint("SetTextI18n")
@@ -97,6 +99,15 @@ class HomeFragment : BaseFragment<FragmentHomeBinding,HomeViewModel>() {
         }
     }
 
+    private fun setElementsToRecyclerViewSearch(query:String){
+        val searchQuery = "%$query%"
+        lifecycleScope.launch {
+            viewModel.searchInLocalNotes(searchQuery).collectLatest {
+                adapterRV.setdataNote(it)
+            }
+        }
+    }
+
     private fun setRecyclerView(){
         adapterRV = RVAdapter(object: NoteActionListener{
             override fun deleteNote(note: Notes){
@@ -120,9 +131,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding,HomeViewModel>() {
         setElemToRV()
     }
 
-    override fun onStart() {
-        super.onStart()
-
+    private fun searchLocalNotes(){
+        binding.etSearchNotes.doAfterTextChanged {
+            setElementsToRecyclerViewSearch(binding.etSearchNotes.text.toString())
+        }
     }
 }
 
