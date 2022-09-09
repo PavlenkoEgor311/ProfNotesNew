@@ -36,7 +36,7 @@
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabLayout"
             style="@style/TabLayout"
-            android:background="@color/dark"
+            android:background= "@android:color/transparent"
             android:layout_marginTop="30dp"
             android:layout_width="0dp"
             android:layout_height="38dp"
@@ -52,11 +52,11 @@
             app:tabIndicatorColor="@color/yellow"
             app:tabIndicatorGravity="stretch"
             app:tabMode="fixed"
+            app:tabBackground="@drawable/tab_selector_insert"
             app:tabRippleColor="@android:color/transparent"
             app:tabSelectedTextColor="@color/black"
             app:tabTextAppearance="@style/TextH2"
-            app:tabTextColor="@color/white">
-        </com.google.android.material.tabs.TabLayout>
+            app:tabTextColor="@color/white"/>
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/vpAddNoteOrTask"
