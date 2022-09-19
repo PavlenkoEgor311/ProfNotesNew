@@ -2,20 +2,12 @@ package com.example.profnotes.ui.addNote
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.text.method.TextKeyListener.clear
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.view.get
-import androidx.core.widget.doAfterTextChanged
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.widget.MarginPageTransformer
@@ -23,12 +15,9 @@ import com.example.profnotes.R
 import com.example.profnotes.data.models.Notes
 import com.example.profnotes.ui.core.BaseFragment
 import com.example.profnotes.databinding.FragmentAddNoteBinding
-import com.example.profnotes.databinding.FragmentHomeBinding
 import com.example.profnotes.model.NewNote
 import com.example.profnotes.ui.addNote.adapter.AdapterVP2AddNote
-import com.example.profnotes.viewmodel.AddLocalNoteViewModel
 import com.example.profnotes.viewmodel.AddNoteViewModel
-import com.example.profnotes.viewmodel.AddTaskViewModel
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
@@ -99,6 +88,7 @@ class AddNoteFragment() : BaseFragment<FragmentAddNoteBinding,AddNoteViewModel>(
                 1 -> {
                     val newViewModel = getNewViewModelAddLocalNote()
                         if (newViewModel.getId() == 0) {
+
                             newViewModel.addNote(addNewValueLocalNote())
                             Toast.makeText(requireContext(),
                                             "Вы добавили заметку",
@@ -127,7 +117,9 @@ class AddNoteFragment() : BaseFragment<FragmentAddNoteBinding,AddNoteViewModel>(
                     }
                     1 -> {
                             val newViewModel = getNewViewModelAddLocalNote()
-                            newViewModel.addNote(addNewValueLocalNote())
+                            val newLocalNote = addNewValueLocalNote()
+                            if (newLocalNote.title == "")
+                            newViewModel.addNote(newLocalNote)
                             Toast.makeText(requireContext(),
                                         "Вы добавили новую заметку",
                                         Toast.LENGTH_SHORT).show()
@@ -152,6 +144,9 @@ class AddNoteFragment() : BaseFragment<FragmentAddNoteBinding,AddNoteViewModel>(
             viewModel.note.collect{
                 if (it != null) {
                     note = Notes(it.id,it.title,it.date,"Новое",it.description)
+                }
+                else{
+                    note = Notes(0,"","","","")
                 }
             }
         }.cancel()

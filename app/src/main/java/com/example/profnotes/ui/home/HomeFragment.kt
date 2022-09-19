@@ -1,6 +1,8 @@
 package com.example.profnotes.ui.home
 
 import android.annotation.SuppressLint
+import android.content.Context.MODE_PRIVATE
+import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -9,6 +11,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.edit
 import androidx.core.widget.doAfterTextChanged
 import androidx.databinding.adapters.ViewBindingAdapter.setPadding
 import androidx.fragment.app.Fragment
@@ -76,10 +80,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding,HomeViewModel>() {
 
     private fun setMarginViewPager(){
         with(binding.vpNewnotes){
-            val pageMargin = resources.getDimensionPixelSize(R.dimen.margin_42dp)
+            val pageMargin = resources.getDimensionPixelSize(R.dimen.margin_25dp)
             val viewPagerPadding = pageMargin + resources.getDimensionPixelSize(R.dimen.margin_8dp)
-            val viewPagerBottomPadding =
-                pageMargin + resources.getDimensionPixelSize(R.dimen.margin_16dp)
             clipToPadding = false
             clipChildren = false
             offscreenPageLimit = 4
@@ -87,7 +89,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding,HomeViewModel>() {
                 addTransformer(CardRecommendationPageTransformer())
                 addTransformer(MarginPageTransformer(pageMargin))
             })
-            setPadding(viewPagerPadding, 8, viewPagerPadding, 8)
+            setPadding(viewPagerPadding, 10, viewPagerPadding, 10)
         }
     }
 
@@ -135,6 +137,17 @@ class HomeFragment : BaseFragment<FragmentHomeBinding,HomeViewModel>() {
         binding.etSearchNotes.doAfterTextChanged {
             setElementsToRecyclerViewSearch(binding.etSearchNotes.text.toString())
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+//        val prefsAuth: SharedPreferences? = this.activity?.getSharedPreferences("AUTH_USER",
+//            MODE_PRIVATE
+//        )
+//        prefsAuth?.edit {
+//            putString("AUTH_USER","YES")
+//            apply()
+//        }
     }
 }
 

@@ -13,15 +13,25 @@ class AuthRepository @Inject constructor(
     private val notesDao: NotesDao) {
 
     private val exStatusNote :List<StatusNote> = listOf(
-        StatusNote(R.drawable.ic_test_user,"Новое","Только что созданная задача"),
-        StatusNote(R.drawable.ic_test_user, "В работе","Активный этап выполнения"),
-        StatusNote(R.drawable.ic_test_user,"Выполнено","Задача полностью выполнена"),
-        StatusNote(R.drawable.ic_test_user, "Отложено","Задача требует задаржки в работе")
+        StatusNote(R.mipmap.status_new,"Новое","Только что созданная задача"),
+        StatusNote(R.mipmap.status_work, "В работе","Активный этап выполнения"),
+        StatusNote(R.mipmap.status_performed,"Выполнено","Задача полностью выполнена"),
+        StatusNote(R.mipmap.status_postponed, "Отложено","Задача требует задаржки в работе")
     )
 
     private val lstForViewPager = listOf( NewNote(1,"Выполнение дз к понедельнику", "17:00","Новое"),
                                           NewNote(2,"Выполнение дз к вторнику", "11:00","Завершено"),
                                           NewNote(2,"Выполнение дз к chtlt", "11:00","Завершено") )
+
+    private val lstColorsTheme = listOf(R.color.blue,
+                                        R.color.red,
+                                        R.color.green,
+                                        R.color.darkGray,
+                                        R.color.lightGray,
+                                        R.color.yellow,
+                                        R.color.purple_700)
+
+    fun getColorList():List<Int> = lstColorsTheme
 
     fun getLstForViewPager():List<NewNote> = lstForViewPager
 
@@ -32,6 +42,8 @@ class AuthRepository @Inject constructor(
     fun setIsFirstEnter(value: Boolean){
         prefs.isFirstEnter = value
     }
+
+    fun getIsUserAuth() = prefs.authUser
 
     suspend fun addNote(note: Notes){
         notesDao.addNote(note)
@@ -52,4 +64,8 @@ class AuthRepository @Inject constructor(
     suspend fun getNotes():List<Notes> = notesDao.getAllNotes()
 
     suspend fun getSearchLocalNote(search:String):List<Notes> = notesDao.searchInDb(search)
+
+    fun setIsUserAuth(value: Boolean) {
+        prefs.authUser = value
+    }
 }

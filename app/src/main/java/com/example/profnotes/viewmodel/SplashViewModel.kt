@@ -1,5 +1,8 @@
 package com.example.profnotes.viewmodel
 
+import android.content.SharedPreferences
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.edit
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.profnotes.data.models.NoteNet
@@ -23,8 +26,14 @@ class SplashViewModel @Inject constructor(
 
     fun getIsFirstEnter() = authRepository.getIsFirstEnter()
 
+    fun getIsUserAuth() = authRepository.getIsUserAuth()
+
     fun setIsFirstEnter(value: Boolean){
         authRepository.setIsFirstEnter(value)
+    }
+
+    fun setIsUserAuth(value: Boolean){
+        authRepository.setIsUserAuth(value)
     }
 
     fun addNote(note: Notes){
@@ -32,9 +41,11 @@ class SplashViewModel @Inject constructor(
                 authRepository.addNote(note)
             }
     }
+
     fun getNote(){
         viewModelScope.launch {
             _note.value = noteRepository.getNote()
         }
     }
+
 }

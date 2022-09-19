@@ -2,10 +2,12 @@ package com.example.profnotes.mynote_rv
 
 import android.annotation.SuppressLint
 import android.graphics.Color
+import android.graphics.drawable.Icon
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.profnotes.R
 import com.example.profnotes.binding
 import com.example.profnotes.databinding.ItemNoteStartBinding
 import com.example.profnotes.databinding.ItemStatusBinding
@@ -38,7 +40,7 @@ class RVAdapterStatus(
         val statusNote = listStatus[position]
         with(holder.binding){
             holder.itemView.tag = statusNote
-            ibStatus.setImageResource(listStatus[position].idImg)
+            ibStatus.setImageResource(statusNote.idImg)
             tvStatus.text = listStatus[position].status
             when (listStatus[position].status.trim()){
                 "Отложено" -> tvStatus.setTextColor(Color.RED)

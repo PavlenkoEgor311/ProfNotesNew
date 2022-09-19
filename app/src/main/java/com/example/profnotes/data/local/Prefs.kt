@@ -12,8 +12,16 @@ class Prefs (context: Context) {
         authPrefs.edit { putBoolean(IS_FIRST_ENTER, value) }
     }
 
+    var authUser:Boolean
+        get() = authPrefs.getBoolean(AUTH_USER,false)
+        set(value){
+            authPrefs.edit { putBoolean(AUTH_USER, value) }
+        }
+
     companion object{
         const val AUTH_PREFS_NAME= "auth_prefs"
         const val IS_FIRST_ENTER= "is_first_enter"
+        const val AUTH_USER = "auth_user"
+        const val USER_THEME = "user_theme"
     }
 }

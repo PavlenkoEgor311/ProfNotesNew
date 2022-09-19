@@ -1,6 +1,9 @@
 package com.example.profnotes.viewmodel.core
 
+import android.content.SharedPreferences
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.edit
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.*
@@ -34,6 +37,8 @@ abstract class BaseViewModel:ViewModel() {
             block()
         }.invokeOnCompletion { _isLoading.value=false }
     }
+    protected fun f(){
 
+    }
 
 }
