@@ -1,21 +1,13 @@
 package com.example.profnotes.ui.home
 
 import android.annotation.SuppressLint
-import android.content.Context.MODE_PRIVATE
-import android.content.SharedPreferences
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.annotation.RequiresApi
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.edit
 import androidx.core.widget.doAfterTextChanged
-import androidx.databinding.adapters.ViewBindingAdapter.setPadding
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -24,23 +16,26 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
 import com.example.profnotes.R
+import com.example.profnotes.core.CardRecommendationPageTransformer
 import com.example.profnotes.data.models.Notes
 import com.example.profnotes.databinding.FragmentHomeBinding
-import com.example.profnotes.databinding.FragmentLoginBinding
 import com.example.profnotes.model.NewNote
 import com.example.profnotes.model.helper
-import com.example.profnotes.mynote_rv.NoteActionListener
-import com.example.profnotes.mynote_rv.RVAdapter
 import com.example.profnotes.note_for_viewpager.NoteVPAdapter
-import com.example.profnotes.note_for_viewpager.core.CardRecommendationPageTransformer
 import com.example.profnotes.note_for_viewpager.noteVPActionListener
 import com.example.profnotes.ui.core.BaseFragment
+import com.example.profnotes.ui.home.adapter.NoteActionListener
+import com.example.profnotes.ui.home.adapter.RVAdapter
+import com.example.profnotes.viewmodel.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+import java.util.*
 
 @AndroidEntryPoint
-class HomeFragment : BaseFragment<FragmentHomeBinding,HomeViewModel>() {
+class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
 
     override fun inflateViewBinding(
           inflater: LayoutInflater,
@@ -51,13 +46,21 @@ class HomeFragment : BaseFragment<FragmentHomeBinding,HomeViewModel>() {
     private lateinit var adapterRV: RVAdapter
     private lateinit var rvAllNotes : RecyclerView
 
-    override val viewModel:HomeViewModel by viewModels()
+    override val viewModel: HomeViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setDateNow()
         setViewPager()
         setRecyclerView()
         searchLocalNotes()
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    private fun setDateNow(){
+        val df = SimpleDateFormat("EEEE, dd MMMM",Locale("ru"))
+        binding.tvTodayDescription.text = df.format(Calendar.getInstance().time)
+            .replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
     }
 
     @SuppressLint("SetTextI18n")
@@ -97,6 +100,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding,HomeViewModel>() {
         lifecycleScope.launch {
             viewModel.getAllNotes().collectLatest {
                 adapterRV.setdataNote(it)
+                binding.tvCountNotes.text = adapterRV.itemCount.toString()
             }
         }
     }
@@ -106,6 +110,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding,HomeViewModel>() {
         lifecycleScope.launch {
             viewModel.searchInLocalNotes(searchQuery).collectLatest {
                 adapterRV.setdataNote(it)
+                binding.tvCountNotes.text = adapterRV.itemCount.toString()
             }
         }
     }
@@ -137,17 +142,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding,HomeViewModel>() {
         binding.etSearchNotes.doAfterTextChanged {
             setElementsToRecyclerViewSearch(binding.etSearchNotes.text.toString())
         }
-    }
-
-    override fun onStart() {
-        super.onStart()
-//        val prefsAuth: SharedPreferences? = this.activity?.getSharedPreferences("AUTH_USER",
-//            MODE_PRIVATE
-//        )
-//        prefsAuth?.edit {
-//            putString("AUTH_USER","YES")
-//            apply()
-//        }
     }
 }
 

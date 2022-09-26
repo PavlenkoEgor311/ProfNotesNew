@@ -68,4 +68,10 @@ class AuthRepository @Inject constructor(
     fun setIsUserAuth(value: Boolean) {
         prefs.authUser = value
     }
+
+    fun getThemeApp(): String? = prefs.themeApp
+
+    fun setThemeApp(value: String){
+        prefs.themeApp = value
+    }
 }

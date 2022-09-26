@@ -1,4 +1,4 @@
-package com.example.profnotes.note_for_viewpager.core
+package com.example.profnotes.core
 
 import android.view.View
 import androidx.viewpager2.widget.ViewPager2

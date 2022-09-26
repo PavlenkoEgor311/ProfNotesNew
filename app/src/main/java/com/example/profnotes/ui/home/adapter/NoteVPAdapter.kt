@@ -5,11 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.profnotes.databinding.ItemStatusBinding
 import com.example.profnotes.databinding.NotevpBinding
 import com.example.profnotes.model.NewNote
-import com.example.profnotes.model.StatusNote
-import com.example.profnotes.mynote_rv.NoteActionListener
 import java.util.Collections.emptyList
 
 interface noteVPActionListener{

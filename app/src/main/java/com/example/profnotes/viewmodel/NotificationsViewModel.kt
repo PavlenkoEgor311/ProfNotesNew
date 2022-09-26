@@ -1,4 +1,4 @@
-package com.example.profnotes.ui.notifications
+package com.example.profnotes.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

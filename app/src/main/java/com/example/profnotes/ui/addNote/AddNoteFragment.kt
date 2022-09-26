@@ -83,12 +83,10 @@ class AddNoteFragment() : BaseFragment<FragmentAddNoteBinding,AddNoteViewModel>(
             when(tabLayout.selectedTabPosition) {
                 0 -> {
                     val newViewModel = getNewViewModelAddOnlineNote()
-                    // Добавляем или изменям онлайн заметку
                 }
                 1 -> {
                     val newViewModel = getNewViewModelAddLocalNote()
                         if (newViewModel.getId() == 0) {
-
                             newViewModel.addNote(addNewValueLocalNote())
                             Toast.makeText(requireContext(),
                                             "Вы добавили заметку",
@@ -118,12 +116,18 @@ class AddNoteFragment() : BaseFragment<FragmentAddNoteBinding,AddNoteViewModel>(
                     1 -> {
                             val newViewModel = getNewViewModelAddLocalNote()
                             val newLocalNote = addNewValueLocalNote()
-                            if (newLocalNote.title == "")
-                            newViewModel.addNote(newLocalNote)
+                            if (newLocalNote.title != ""){
+                                newViewModel.addNote(newLocalNote)
+                                Toast.makeText(requireContext(),
+                                    "Вы добавили новую заметку",
+                                    Toast.LENGTH_SHORT).show()
+                                findNavController().navigate(R.id.action_addNoteFragment_to_navigation_home)
+                            }
+                        else{
                             Toast.makeText(requireContext(),
-                                        "Вы добавили новую заметку",
-                                        Toast.LENGTH_SHORT).show()
-                            findNavController().navigate(R.id.action_addNoteFragment_to_navigation_home)
+                                "Введите название заметки для добавления",
+                                Toast.LENGTH_SHORT).show()
+                        }
                     }
                 }
             }

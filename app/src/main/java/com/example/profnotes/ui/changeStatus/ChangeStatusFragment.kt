@@ -32,7 +32,8 @@ class ChangeStatusFragment : BaseFragment<FragmentChangeStatusBinding, ChangeSta
     override fun inflateViewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
-    ): FragmentChangeStatusBinding  = FragmentChangeStatusBinding.inflate(inflater, container, false)
+    ): FragmentChangeStatusBinding  =
+        FragmentChangeStatusBinding.inflate(inflater, container, false)
 
 
     private fun setStatusBottom(){

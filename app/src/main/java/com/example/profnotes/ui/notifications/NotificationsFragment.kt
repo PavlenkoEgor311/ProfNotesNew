@@ -1,6 +1,5 @@
 package com.example.profnotes.ui.notifications
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,12 +15,13 @@ import com.example.profnotes.databinding.FragmentNotificationsBinding
 import com.example.profnotes.ui.core.BaseFragment
 import com.example.profnotes.ui.notifications.adapter.AdapterChangeColorTheme
 import com.example.profnotes.ui.notifications.adapter.ColorActionListener
+import com.example.profnotes.viewmodel.NotificationsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class NotificationsFragment : BaseFragment<FragmentNotificationsBinding, NotificationsViewModel>() {
 
-    override val viewModel:NotificationsViewModel by viewModels()
+    override val viewModel: NotificationsViewModel by viewModels()
     private lateinit var adapter: AdapterChangeColorTheme
     override fun inflateViewBinding(
         inflater: LayoutInflater,

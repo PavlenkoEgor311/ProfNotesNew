@@ -76,6 +76,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    fun setTheme(){
+
+    }
+
     fun showLoading() {
 
     }

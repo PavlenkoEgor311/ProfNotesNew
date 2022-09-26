@@ -1,4 +1,4 @@
-package com.example.profnotes.ui.home
+package com.example.profnotes.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.ViewModel

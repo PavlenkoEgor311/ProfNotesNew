@@ -18,10 +18,19 @@ class Prefs (context: Context) {
             authPrefs.edit { putBoolean(AUTH_USER, value) }
         }
 
+    var themeApp: String?
+    get() = authPrefs.getString(COLOR_THEME,"YES")
+    set(value) {
+        authPrefs.edit{
+            putString(COLOR_THEME,value)
+        }
+    }
+
     companion object{
         const val AUTH_PREFS_NAME= "auth_prefs"
         const val IS_FIRST_ENTER= "is_first_enter"
         const val AUTH_USER = "auth_user"
         const val USER_THEME = "user_theme"
+        const val COLOR_THEME = "DARK_THEME"
     }
 }

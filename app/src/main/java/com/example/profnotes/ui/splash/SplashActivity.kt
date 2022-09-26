@@ -1,21 +1,15 @@
-package com.example.profnotes.ui.Splash
+package com.example.profnotes.ui.splash
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.edit
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentResultOwner
 import androidx.lifecycle.lifecycleScope
 import com.example.profnotes.MainActivity
 import com.example.profnotes.data.models.Notes
 import com.example.profnotes.data.models.util.ResponseWrapper
-import com.example.profnotes.ui.home.HomeFragment
 import com.example.profnotes.viewmodel.SplashViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest

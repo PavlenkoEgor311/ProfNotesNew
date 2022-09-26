@@ -1,4 +1,4 @@
-package com.example.profnotes.mynote_rv
+package com.example.profnotes.ui.home.adapter
 
 import android.annotation.SuppressLint
 import android.graphics.Color
@@ -8,13 +8,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.profnotes.R
-import com.example.profnotes.binding
 import com.example.profnotes.data.models.Notes
-import com.example.profnotes.databinding.FragmentLoginBinding
-import com.example.profnotes.databinding.ItemNoteBinding
 import com.example.profnotes.databinding.ItemNoteStartBinding
-import com.example.profnotes.model.Note
-import kotlinx.coroutines.flow.Flow
 
 interface NoteActionListener {
     fun deleteNote(note: Notes)
@@ -23,7 +18,8 @@ interface NoteActionListener {
 }
 
 class RVAdapter(
-    private val actionListener:NoteActionListener)
+    private val actionListener: NoteActionListener
+)
     :RecyclerView.Adapter<RVAdapter.MyViewHolder>(),View.OnClickListener{
 
     class MyViewHolder(val binding: ItemNoteStartBinding):RecyclerView.ViewHolder(binding.root)
@@ -32,7 +28,7 @@ class RVAdapter(
 
     // Создание и подгрузка нашей заметки
     // Так же обрабатыем нажатия на части разметки
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RVAdapter.MyViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val view = ItemNoteStartBinding.inflate(LayoutInflater.from(parent.context),parent,false)
         view.ibDelNote.setOnClickListener(this)
         view.ibChangeNote.setOnClickListener(this)
@@ -41,7 +37,7 @@ class RVAdapter(
     }
 
     // Заполнение заметки
-    override fun onBindViewHolder(holder: RVAdapter.MyViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val note = oldlistNote[position]
         with(holder){
             binding.ibDelNote.tag = note
@@ -49,7 +45,7 @@ class RVAdapter(
             binding.note.tvChangeStatus.tag = note
             binding.note.tvNoteStatus.text = oldlistNote[position].status
             when (oldlistNote[position].status.trim()){
-                STATUS_COMPLETED_RED,STATUS_POSTEPONED -> {
+                STATUS_COMPLETED_RED, STATUS_POSTEPONED -> {
                     binding.note.tvNoteStatus.setTextColor(Color.RED)
                     binding.note.lineStart.setBackgroundColor(Color.RED)
                 }

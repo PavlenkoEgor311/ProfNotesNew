@@ -1,4 +1,4 @@
-package com.example.profnotes.mynote_rv
+package com.example.profnotes.ui.home.adapter
 
 import androidx.recyclerview.widget.DiffUtil
 import com.example.profnotes.data.models.Notes
