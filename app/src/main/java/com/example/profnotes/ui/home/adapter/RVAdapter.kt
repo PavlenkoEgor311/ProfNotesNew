@@ -19,17 +19,16 @@ interface NoteActionListener {
 
 class RVAdapter(
     private val actionListener: NoteActionListener
-)
-    :RecyclerView.Adapter<RVAdapter.MyViewHolder>(),View.OnClickListener{
+) : RecyclerView.Adapter<RVAdapter.MyViewHolder>(), View.OnClickListener {
 
-    class MyViewHolder(val binding: ItemNoteStartBinding):RecyclerView.ViewHolder(binding.root)
+    class MyViewHolder(val binding: ItemNoteStartBinding) : RecyclerView.ViewHolder(binding.root)
 
     private var oldlistNote = emptyList<Notes>()
 
     // Создание и подгрузка нашей заметки
     // Так же обрабатыем нажатия на части разметки
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        val view = ItemNoteStartBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+        val view = ItemNoteStartBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         view.ibDelNote.setOnClickListener(this)
         view.ibChangeNote.setOnClickListener(this)
         view.note.tvChangeStatus.setOnClickListener(this)
@@ -39,12 +38,12 @@ class RVAdapter(
     // Заполнение заметки
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val note = oldlistNote[position]
-        with(holder){
+        with(holder) {
             binding.ibDelNote.tag = note
             binding.ibChangeNote.tag = note
             binding.note.tvChangeStatus.tag = note
             binding.note.tvNoteStatus.text = oldlistNote[position].status
-            when (oldlistNote[position].status.trim()){
+            when (oldlistNote[position].status.trim()) {
                 STATUS_COMPLETED_RED, STATUS_POSTEPONED -> {
                     binding.note.tvNoteStatus.setTextColor(Color.RED)
                     binding.note.lineStart.setBackgroundColor(Color.RED)
@@ -69,7 +68,7 @@ class RVAdapter(
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setdataNote(list: List<Notes>){
+    fun setdataNote(list: List<Notes>) {
         val diffUtil = DiffUtilNote(oldlistNote, list)
         val diffRes = DiffUtil.calculateDiff(diffUtil)
         this.oldlistNote = list as MutableList<Notes>
@@ -79,24 +78,24 @@ class RVAdapter(
 
     override fun onClick(v: View) {
         val note = v.tag as Notes
-        when (v.id){
-            R.id.ib_delNote ->{
+        when (v.id) {
+            R.id.ib_delNote -> {
                 actionListener.deleteNote(note)
             }
-            R.id.ib_changeNote->{
-                 actionListener.changeNote(note)
+            R.id.ib_changeNote -> {
+                actionListener.changeNote(note)
             }
-            R.id.tvChangeStatus->{
+            R.id.tvChangeStatus -> {
                 actionListener.changestatusNote(note)
             }
         }
 
     }
 
-    companion object{
-        const val  STATUS_COMPLETED = "Выполнено"
-        const val  STATUS_NEW = "Новое"
-        const val  STATUS_COMPLETED_RED = "Завершено"
-        const val  STATUS_POSTEPONED = "Отложено"
+    private companion object {
+        const val STATUS_COMPLETED = "Выполнено"
+        const val STATUS_NEW = "Новое"
+        const val STATUS_COMPLETED_RED = "Завершено"
+        const val STATUS_POSTEPONED = "Отложено"
     }
 }

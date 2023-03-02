@@ -1,5 +1,5 @@
 package com.example.profnotes.data.models
-import android.os.Parcel
+
 import android.os.Parcelable
 import androidx.room.*
 import kotlinx.android.parcel.Parcelize

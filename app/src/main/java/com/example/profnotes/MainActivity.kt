@@ -1,29 +1,24 @@
 package com.example.profnotes
 
-import android.annotation.SuppressLint
-import android.content.Context
-import android.content.SharedPreferences
+import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isGone
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import com.example.profnotes.core.gone
-import com.example.profnotes.core.invisible
-import com.example.profnotes.core.visible
+import com.example.profnotes.core.service.NotificationLocalNote
 import com.example.profnotes.data.local.Prefs
 import com.example.profnotes.databinding.ActivityMainBinding
-import com.example.profnotes.ui.home.HomeFragment
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.shape.CornerFamily
 import com.google.android.material.shape.MaterialShapeDrawable
 import com.google.android.material.shape.ShapeAppearanceModel
 import dagger.hilt.android.AndroidEntryPoint
-import hilt_aggregated_deps._com_example_profnotes_ui_home_HomeFragment_GeneratedInjector
+import timber.log.Timber
 import javax.inject.Inject
+
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -40,7 +35,9 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        //startService()
 
+        Timber.plant(Timber.DebugTree())
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -60,25 +57,27 @@ class MainActivity : AppCompatActivity() {
         )
 
         binding.fab.setOnClickListener {
-            val bundle = Bundle()
-            bundle.putString("MyArg", "addNewNote")
-            findNavController(R.id.nav_host_fragment_activity_main).navigate(
-                R.id.addNoteFragment,
-                bundle
-            )
+            findNavController(R.id.nav_host_fragment_activity_main).navigate(R.id.addNoteFragment)
         }
 
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
-        if (prefs.authUser){
-            navController.navigate(R.id.action_loginFragment_to_navigation_home)
+        if (prefs.authUser) {
+            //navController.navigate(R.id.action_loginFragment_to_navigation_home)
         }
     }
 
-    fun setTheme(){
-
+    private fun startService() {
+        val intent = Intent(this, NotificationLocalNote::class.java)
+        startService(intent)
     }
+
+    private fun stopService() {
+        val intent = Intent(this, NotificationLocalNote::class.java)
+        stopService(intent)
+    }
+
 
     fun showLoading() {
 

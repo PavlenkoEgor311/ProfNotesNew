@@ -1,17 +1,10 @@
 package com.example.profnotes.ui.addNote.adapter
 
-import android.view.View
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import androidx.viewpager2.widget.ViewPager2
-import com.example.profnotes.ui.addNote.AddNoteFragment
-//private val onSaveNote: () -> Unit
-interface FragmentListener{
-    fun onFragmentActivated(fragment:Fragment)
-}
+
 class AdapterVP2AddNote(
     fragmentManager: FragmentManager,
     lifecycle: Lifecycle

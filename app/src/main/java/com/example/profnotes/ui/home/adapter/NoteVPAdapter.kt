@@ -17,6 +17,7 @@ class NoteVPAdapter(
     private val noteActionListener: noteVPActionListener):
     RecyclerView.Adapter<NoteVPAdapter.ViewHolder>(), View.OnClickListener {
     private var items = emptyList<NewNote>()
+
     class ViewHolder(private val binding: NotevpBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: NewNote){

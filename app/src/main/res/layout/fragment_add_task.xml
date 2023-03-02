@@ -4,9 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.addNote.AddTaskFragment"
+    android:layout_margin="20dp"
     android:fillViewport="true"
-    android:layout_margin="20dp">
+    tools:context=".ui.addNote.AddTaskFragment">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -21,48 +22,48 @@
 
         <EditText
             android:id="@+id/etTitleNote"
+            style="@style/TextH5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:background="@drawable/bg_login_edit_text"
+            android:hint="Начните вводить текст здесь..."
             android:padding="10dp"
             android:textColor="@color/white"
             android:textColorHint="@color/gray"
             android:textCursorDrawable="@drawable/edit_text_cursor"
-            android:background="@drawable/bg_login_edit_text"
-            android:hint="Начните вводить текст здесь..."
-            style="@style/TextH5"
-            app:layout_constraintTop_toBottomOf="@id/tvTitleNote"/>
+            app:layout_constraintTop_toBottomOf="@id/tvTitleNote" />
 
         <TextView
             android:id="@+id/tvDescriptionNote"
+            style="@style/TextH2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="26dp"
-            style="@style/TextH2"
             android:text="Описание заметки"
-            app:layout_constraintTop_toBottomOf="@id/etTitleNote"/>
+            app:layout_constraintTop_toBottomOf="@id/etTitleNote" />
 
         <EditText
             android:id="@+id/etDescriptionNote"
+            style="@style/TextH5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:background="@drawable/bg_login_edit_text"
+            android:hint="Начните вводить текст здесь..."
             android:padding="10dp"
             android:textColor="@color/white"
             android:textColorHint="@color/gray"
             android:textCursorDrawable="@drawable/edit_text_cursor"
-            android:background="@drawable/bg_login_edit_text"
-            android:hint="Начните вводить текст здесь..."
-            style="@style/TextH5"
-            app:layout_constraintTop_toBottomOf="@id/tvDescriptionNote"/>
+            app:layout_constraintTop_toBottomOf="@id/tvDescriptionNote" />
 
         <TextView
             android:id="@+id/tvSearchFriends"
+            style="@style/TextH2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/TextH2"
-            android:text="Круг друзей"
             android:layout_marginTop="16dp"
+            android:text="Круг друзей"
             app:layout_constraintTop_toBottomOf="@id/etDescriptionNote"
             tools:ignore="MissingConstraints" />
 
@@ -70,49 +71,48 @@
             android:id="@+id/ibSearchFriends"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:background="@android:color/transparent"
             android:src="@drawable/ic_search"
-            android:layout_marginTop="16dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etDescriptionNote"/>
+            app:layout_constraintTop_toBottomOf="@+id/etDescriptionNote" />
 
         <EditText
             android:id="@+id/etSearchFriends"
+            style="@style/TextH5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:autofillHints="username"
             android:background="@drawable/rounded_edittext"
             android:drawableStart="@drawable/ic_baseline_search_24"
-            android:hint="Поиск по друзьям"
             android:drawablePadding="8dp"
+            android:hint="Поиск по друзьям"
             android:inputType="text"
             android:padding="6dp"
-            style="@style/TextH5"
             android:textColor="@color/white"
             android:textColorHint="@color/gray"
             android:textCursorDrawable="@drawable/edit_text_cursor"
-            app:layout_constraintTop_toBottomOf="@+id/tvSearchFriends"
-            tools:ignore="TextFields"
             android:visibility="gone"
-            />
+            app:layout_constraintTop_toBottomOf="@+id/tvSearchFriends"
+            tools:ignore="TextFields" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:visibility="gone"
-            android:layout_marginTop="10dp"
             android:id="@+id/rvFriends"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@id/etSearchFriends"/>
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@id/etSearchFriends" />
 
         <CalendarView
             android:id="@+id/cvDataNote"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/rvFriends"
             android:layout_marginTop="16dp"
-            android:minDate="01/01/2020"/>
+            android:minDate="01/01/2020"
+            app:layout_constraintTop_toBottomOf="@id/rvFriends" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

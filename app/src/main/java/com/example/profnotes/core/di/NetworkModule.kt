@@ -23,13 +23,14 @@ import javax.inject.Singleton
 object NetworkModule {
     private const val AUTH_OKHTTP_CLIENT = "authOkHttpClient"
     private const val WITHOUT_AUTH_OKHTTP_CLIENT = "withoutAuthOkHttpClient"
+
     @Provides
     fun provideLogger() = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
 
     @Named(AUTH_OKHTTP_CLIENT)
     @Provides
     @Singleton
-    fun provideOkHttpClient(logger:HttpLoggingInterceptor) = OkHttpClient.Builder()
+    fun provideOkHttpClient(logger: HttpLoggingInterceptor) = OkHttpClient.Builder()
         .readTimeout(30, TimeUnit.SECONDS)
         .connectTimeout(30, TimeUnit.SECONDS)
         .addInterceptor(logger)
@@ -38,7 +39,7 @@ object NetworkModule {
     @Named(WITHOUT_AUTH_OKHTTP_CLIENT)
     @Provides
     @Singleton
-    fun provideWithutOkHttpClient(logger:HttpLoggingInterceptor) = OkHttpClient.Builder()
+    fun provideWithutOkHttpClient(logger: HttpLoggingInterceptor) = OkHttpClient.Builder()
         .readTimeout(30, TimeUnit.SECONDS)
         .connectTimeout(30, TimeUnit.SECONDS)
         .addInterceptor(AuthenticationInterceptor())
@@ -50,7 +51,8 @@ object NetworkModule {
     @Singleton
     fun provideRetrofit(
         @Named(AUTH_OKHTTP_CLIENT)
-        okHttpClient: OkHttpClient, moshi: Moshi) = Retrofit.Builder()
+        okHttpClient: OkHttpClient, moshi: Moshi
+    ) = Retrofit.Builder()
         .baseUrl(BuildConfig.BASE_URL)
         .addConverterFactory(MoshiConverterFactory.create(moshi).asLenient())
         .client(okHttpClient)
@@ -61,7 +63,8 @@ object NetworkModule {
     @Singleton
     fun provideWithoutAuthRetrofit(
         @Named(WITHOUT_AUTH_OKHTTP_CLIENT)
-        okHttpClient: OkHttpClient, moshi: Moshi) = Retrofit.Builder()
+        okHttpClient: OkHttpClient, moshi: Moshi
+    ) = Retrofit.Builder()
         .baseUrl(BuildConfig.BASE_URL)
         .addConverterFactory(MoshiConverterFactory.create(moshi).asLenient())
         .client(okHttpClient)
@@ -73,8 +76,10 @@ object NetworkModule {
         .build()
 
     @Provides
-    fun provideNotesApi(@Named (AUTH_OKHTTP_CLIENT)retrofit: Retrofit)= retrofit.create(NotesApi::class.java)
+    fun provideNotesApi(@Named(AUTH_OKHTTP_CLIENT) retrofit: Retrofit) =
+        retrofit.create(NotesApi::class.java)
 
     @Provides
-    fun provideRegisterApi(@Named (WITHOUT_AUTH_OKHTTP_CLIENT)retrofit: Retrofit)= retrofit.create(RegisterApi::class.java)
+    fun provideRegisterApi(@Named(WITHOUT_AUTH_OKHTTP_CLIENT) retrofit: Retrofit) =
+        retrofit.create(RegisterApi::class.java)
 }

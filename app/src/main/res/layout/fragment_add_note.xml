@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,85 +7,101 @@
     android:layout_marginStart="20dp"
     android:layout_marginTop="16dp"
     android:layout_marginEnd="20dp"
-    android:fillViewport="true"
     tools:context=".ui.addNote.AddNoteFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ImageButton
+        android:id="@+id/btBackToHome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:src="@drawable/ic_baseline_arrow_back_ios_new_24"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/textView2"
+        style="@style/TextH1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="новая запись"
+        android:textAllCaps="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayout"
+        style="@style/TabLayout"
+        android:layout_width="0dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="30dp"
+        android:background="@android:color/transparent"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btBackToHome"
+        app:tabBackground="@drawable/tab_selector_insert"
+        app:tabGravity="fill"
+        app:tabIndicator="@drawable/bt_tablayout"
+        app:tabIndicatorAnimationMode="elastic"
+        app:tabIndicatorColor="@color/yellow"
+        app:tabIndicatorGravity="stretch"
+        app:tabMode="fixed"
+        app:tabPaddingEnd="32dp"
+        app:tabPaddingStart="32dp"
+        app:tabRippleColor="@android:color/transparent"
+        app:tabSelectedTextColor="@color/black"
+        app:tabTextAppearance="@style/TextH2"
+        app:tabTextColor="@color/white">
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Заметка" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Задача" />
+    </com.google.android.material.tabs.TabLayout>
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/vpAddNoteOrTask"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="0dp"
+        android:layout_marginTop="30dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:saveEnabled="false"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/btAddNote"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tabLayout" />
 
-        <ImageButton
-            android:id="@+id/btBackToHome"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:src="@drawable/ic_baseline_arrow_back_ios_new_24"
-            tools:ignore="MissingConstraints"/>
+    <androidx.compose.ui.platform.ComposeView
+        android:id="@+id/cvContent"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/btAddNote"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tabLayout" />
 
-        <TextView
-            android:id="@+id/textView2"
-            style="@style/TextH1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="новая запись"
-            android:textAllCaps="true"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tabLayout"
-            style="@style/TabLayout"
-            android:background= "@android:color/transparent"
-            android:layout_marginTop="30dp"
-            android:layout_width="0dp"
-            android:layout_height="38dp"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btBackToHome"
-            app:tabGravity="fill"
-            app:tabPaddingStart="32dp"
-            app:tabPaddingEnd="32dp"
-            app:tabIndicator="@drawable/bt_tablayout"
-            app:tabIndicatorAnimationMode="elastic"
-            app:tabIndicatorColor="@color/yellow"
-            app:tabIndicatorGravity="stretch"
-            app:tabMode="fixed"
-            app:tabBackground="@drawable/tab_selector_insert"
-            app:tabRippleColor="@android:color/transparent"
-            app:tabSelectedTextColor="@color/black"
-            app:tabTextAppearance="@style/TextH2"
-            app:tabTextColor="@color/white"/>
-
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/vpAddNoteOrTask"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="30dp"
-            android:layout_weight="1"
-            android:orientation="horizontal"
-            android:saveEnabled="false"
-            app:layout_constraintBottom_toTopOf="@+id/btAddNote"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tabLayout" />
-
-        <Button
-            android:id="@+id/btAddNote"
-            style="@style/TextH1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:background="@drawable/bg_button"
-            android:enabled="true"
-            android:padding="9dp"
-            android:text="Создать заметку"
-            android:textAllCaps="true"
-            android:textColor="@color/black"
-            app:backgroundTint="@null"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.core.widget.NestedScrollView>
+    <Button
+        android:id="@+id/btAddNote"
+        style="@style/TextH1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@drawable/bg_button"
+        android:enabled="true"
+        android:padding="9dp"
+        android:text="Создать заметку"
+        android:textAllCaps="true"
+        android:textColor="@color/black"
+        app:backgroundTint="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

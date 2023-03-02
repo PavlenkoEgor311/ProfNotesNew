@@ -102,4 +102,11 @@
         <item name="cornerSize">27dp</item>
     </style>
 
+    <style name="my_calendar" parent="android:Widget.CalendarView">
+<!--        <item name="android:weekDayTextAppearance">@color/yellow</item>-->
+<!--        <item name="android:unfocusedMonthDateColor">@color/red</item>-->
+<!--        <item name="android:showWeekNumber">true</item>-->
+<!--        <item name="textAppearanceHeadlineLarge">@color/yellow</item>-->
+    </style>
+
 </resources>

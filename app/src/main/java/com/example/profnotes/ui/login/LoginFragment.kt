@@ -1,10 +1,10 @@
 package com.example.profnotes.ui.login
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.profnotes.R
@@ -29,13 +29,13 @@ class LoginFragment : BaseFragment<FragmentLoginBinding, LoginViewModel>() {
         goRegistration()
     }
 
-    private fun goRegistration(){
-        binding.btRegistration.setOnClickListener{
-            findNavController().navigate(R.id.action_loginFragment_to_registrationFragment)
+    private fun goRegistration() {
+        binding.btRegistration.setOnClickListener {
+            findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToRegistrationFragment())
         }
     }
 
-    private fun spanText(){
+    private fun spanText() {
         binding.tvLoginWithoutAuth.apply {
             text = text.spanString(
                 startIndex = 4,
@@ -52,13 +52,27 @@ class LoginFragment : BaseFragment<FragmentLoginBinding, LoginViewModel>() {
         }
         binding.btnLogin.apply {
             isEnabled = true
-            setOnClickListener{
-                findNavController().navigate(R.id.action_loginFragment_to_navigation_home)
+            setOnClickListener {
+                findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToNavigationHome())
             }
         }
     }
+
     override fun onStart() {
         super.onStart()
         mainActivity.showBottomBar(false)
+        listeners()
     }
+
+    private fun listeners() {
+        with(binding) {
+            etEmailOrPhone.doAfterTextChanged {
+                viewModel.setLogin(etEmailOrPhone.text.toString())
+            }
+            etPassword.doAfterTextChanged {
+                viewModel.setPassword(etPassword.text.toString())
+            }
+        }
+    }
+
 }

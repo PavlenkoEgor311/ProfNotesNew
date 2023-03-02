@@ -2,11 +2,11 @@ package com.example.profnotes.ui.home
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.compose.foundation.layout.*
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -28,9 +28,9 @@ import com.example.profnotes.ui.home.adapter.NoteActionListener
 import com.example.profnotes.ui.home.adapter.RVAdapter
 import com.example.profnotes.viewmodel.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -38,51 +38,88 @@ import java.util.*
 class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
 
     override fun inflateViewBinding(
-          inflater: LayoutInflater,
-          container: ViewGroup?) =
-          FragmentHomeBinding.inflate(inflater, container, false)
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ) = FragmentHomeBinding.inflate(inflater, container, false)
 
-    private lateinit var adapter : NoteVPAdapter
+    private lateinit var adapter: NoteVPAdapter
     private lateinit var adapterRV: RVAdapter
-    private lateinit var rvAllNotes : RecyclerView
+    private lateinit var rvAllNotes: RecyclerView
 
     override val viewModel: HomeViewModel by viewModels()
 
+    @SuppressLint("MutableCollectionMutableState")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setDateNow()
         setViewPager()
         setRecyclerView()
         searchLocalNotes()
+        updateListLocalNote()
     }
 
     @SuppressLint("SimpleDateFormat")
-    private fun setDateNow(){
-        val df = SimpleDateFormat("EEEE, dd MMMM",Locale("ru"))
+    private fun setDateNow() {
+        val df = SimpleDateFormat("EEEE, dd MMMM", Locale("ru"))
         binding.tvTodayDescription.text = df.format(Calendar.getInstance().time)
             .replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
     }
 
+    private fun updateListLocalNote() {
+        lifecycleScope.launch {
+            delay(500)
+            viewModel.getAllNotes().collectLatest { listNotes ->
+                binding.tvCountNotes.text = listNotes.size.toString()
+                setLocalNote(listNotes)
+            }
+        }
+    }
+
+    private fun setLocalNote(localListNote: List<Notes>) {
+        binding.rvMyNote.setContent {
+            Column {
+                localListNote.forEach {
+                    ItemNote(
+                        note = it,
+                        onClickDel = { deleteLocalNote(it) },
+                        onClickChangeNote = { /*TODO*/ },
+                        onClickChangeStatus = {
+                            findNavController().navigate(
+                                HomeFragmentDirections.actionNavigationHomeToChangeStatusFragment(it)
+                            )
+                        }
+                    )
+                }
+            }
+        }
+    }
+
+    private fun deleteLocalNote(note: Notes) {
+        viewModel.delNote(note)
+        Toast.makeText(requireContext(), "Заметка успешно удалена", Toast.LENGTH_SHORT).show()
+        updateListLocalNote()
+    }
+
     @SuppressLint("SetTextI18n")
-    private fun setViewPager(){
-        adapter = NoteVPAdapter(object : noteVPActionListener{
+    private fun setViewPager() {
+        adapter = NoteVPAdapter(object : noteVPActionListener {
             override fun clickNote(newNote: NewNote) {
-                val elem = helper(newNote,null)
+                val elem = helper(newNote, null)
                 val action = HomeFragmentDirections.actionNavigationHomeToAddNoteFragment(elem)
                 findNavController().navigate(action)
             }
         })
         setMarginViewPager()
         adapter.setItems(viewModel.getLstForViewPager())
-        with(binding){
+        with(binding) {
             vpNewnotes.adapter = adapter
             tvCountNewNotes.text = adapter.itemCount.toString()
-            tvNewsDescription.text = "${adapter.itemCount.toString()} новые заметки"
+            tvNewsDescription.text = "${adapter.itemCount} новые заметки"
         }
     }
 
-    private fun setMarginViewPager(){
-        with(binding.vpNewnotes){
+    private fun setMarginViewPager() {
+        with(binding.vpNewnotes) {
             val pageMargin = resources.getDimensionPixelSize(R.dimen.margin_25dp)
             val viewPagerPadding = pageMargin + resources.getDimensionPixelSize(R.dimen.margin_8dp)
             clipToPadding = false
@@ -96,7 +133,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
         }
     }
 
-    private fun setElemToRV(){
+    private fun setElemToRV() {
         lifecycleScope.launch {
             viewModel.getAllNotes().collectLatest {
                 adapterRV.setdataNote(it)
@@ -105,28 +142,31 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
         }
     }
 
-    private fun setElementsToRecyclerViewSearch(query:String){
+    private fun setElementsToRecyclerViewSearch(query: String) {
         val searchQuery = "%$query%"
         lifecycleScope.launch {
             viewModel.searchInLocalNotes(searchQuery).collectLatest {
-                adapterRV.setdataNote(it)
-                binding.tvCountNotes.text = adapterRV.itemCount.toString()
+                setLocalNote(it)
+                binding.tvCountNotes.text = it.size.toString()
             }
         }
     }
 
-    private fun setRecyclerView(){
-        adapterRV = RVAdapter(object: NoteActionListener{
-            override fun deleteNote(note: Notes){
+    private fun setRecyclerView() {
+        adapterRV = RVAdapter(object : NoteActionListener {
+            override fun deleteNote(note: Notes) {
                 viewModel.delNote(note)
-                Toast.makeText(requireContext(),"Заметка успешно удалена", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Заметка успешно удалена", Toast.LENGTH_SHORT)
+                    .show()
                 setElemToRV()
             }
+
             override fun changeNote(note: Notes) {
-                val elem = helper(null,note)
+                val elem = helper(null, note)
                 val action = HomeFragmentDirections.actionNavigationHomeToAddNoteFragment(elem)
                 findNavController().navigate(action)
             }
+
             override fun changestatusNote(note: Notes) {
                 val action = HomeFragmentDirections.actionNavigationHomeToChangeStatusFragment(note)
                 findNavController().navigate(action)
@@ -138,10 +178,17 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
         setElemToRV()
     }
 
-    private fun searchLocalNotes(){
+    private fun searchLocalNotes() {
         binding.etSearchNotes.doAfterTextChanged {
             setElementsToRecyclerViewSearch(binding.etSearchNotes.text.toString())
         }
+    }
+
+    companion object {
+        const val STATUS_COMPLETED = "Выполнено"
+        const val STATUS_NEW = "Новое"
+        const val STATUS_COMPLETED_RED = "Завершено"
+        const val STATUS_POSTEPONED = "Отложено"
     }
 }
 

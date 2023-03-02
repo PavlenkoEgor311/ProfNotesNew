@@ -21,7 +21,8 @@ import com.example.profnotes.viewmodel.ChangeStatusViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ChangeStatusFragment : BaseFragment<FragmentChangeStatusBinding, ChangeStatusViewModel>() {
+class ChangeStatusFragment :
+    BaseFragment<FragmentChangeStatusBinding, ChangeStatusViewModel>() {
 
 
     private lateinit var adapterRV :RVAdapterStatus

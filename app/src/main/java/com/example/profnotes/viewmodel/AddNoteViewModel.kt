@@ -1,6 +1,7 @@
 package com.example.profnotes.viewmodel
 
 import androidx.lifecycle.*
+import com.example.profnotes.data.models.GlobalNote
 import com.example.profnotes.data.models.Notes
 import com.example.profnotes.data.repo.AuthRepository
 import com.example.profnotes.model.NewNote
@@ -13,7 +14,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 open class AddNoteViewModel @Inject constructor(
-    private val authRepository: AuthRepository): BaseViewModel() {
+    private val authRepository: AuthRepository
+) : BaseViewModel() {
 
     private var _note = MutableStateFlow<Notes?>(null)
     val note = _note.asStateFlow()
@@ -21,75 +23,98 @@ open class AddNoteViewModel @Inject constructor(
     private var _newNote = MutableStateFlow<NewNote?>(null)
     val newNote = _newNote.asStateFlow()
 
-    private var idNote:Int = 0
-    private var titleInput:String? = null
-    private var dateInput:String? = null
-    private var descriptionInput:String? = null
+    private var _globalNote = MutableStateFlow<GlobalNote?>(null)
+    private val globalNote = _globalNote.asStateFlow()
 
-    private var idNewNote:Int = 0
-    private var titleInputOnline:String? = null
-    private var dateInputOnline:String? = null
-    private var descriptionInputOnline:String? = null
 
-    fun getId():Int = idNote
-    fun getTitle(): String? = titleInput
-    fun getDate():String? = dateInput
-    fun getDescription():String? = descriptionInput
+    private var idNoteLocal: Int = 0
+    private var titleNoteLocal: String? = null
+    private var dateNoteLocal: String? = null
+    private var descriptionNoteLocal: String? = null
 
-    fun getIdNewNote():Int = idNewNote
-    fun getTitleNewNote(): String? = titleInputOnline
-    fun getDateNewNote():String? = dateInputOnline
-    fun getDescriptionNewNote():String? = descriptionInputOnline
+    private var idNoteGlobal: Int = 0
+    private var titleNoteGlobal: String? = null
+    private var dateNoteGlobal: String? = null
+    private var descriptionNoteGlobal: String? = null
+    private var listIdFriend: List<Int> = listOf()
 
-    fun setId(id:Int){
-        idNote = id
-    }
-    fun setTitle(title:String?){
-        titleInput = title
-    }
-    fun setDate(date:String?){
-        dateInput = date
-    }
-    fun setDescription(description:String?){
-        descriptionInput = description
+    fun getIdLocal(): Int = idNoteLocal
+    fun getTitleLocal(): String? = titleNoteLocal
+    fun getDateLocal(): String? = dateNoteLocal
+    fun getDescriptionLocal(): String? = descriptionNoteLocal
+
+    fun getIdGlobal(): Int = idNoteGlobal
+    fun getTitleGlobal(): String? = titleNoteGlobal
+    fun getDateGlobal(): String? = dateNoteGlobal
+    fun getDescriptionGlobal(): String? = descriptionNoteGlobal
+    fun getListIdFriend(): List<Int> = listIdFriend
+
+    fun setIdLocal(id: Int) {
+        idNoteLocal = id
     }
 
-    fun setIdOnlineNote(id:Int){
-        idNewNote = id
-    }
-    fun setTitleOnlineNote(title:String?){
-        titleInputOnline = title
-    }
-    fun setDateOnlineNote(date:String?){
-        dateInputOnline = date
-    }
-    fun setDescriptionOnlineNote(description:String?){
-        dateInputOnline = description
+    fun setTitleLocal(title: String?) {
+        titleNoteLocal = title
     }
 
-    private var positionVp:Int = 0
+    fun setDateLocal(date: String?) {
+        dateNoteLocal = date
+    }
 
-    fun getPosition():Int = positionVp
-    fun setPosition(newPosition:Int){
+    fun setDescriptionLocal(description: String?) {
+        descriptionNoteLocal = description
+    }
+
+    fun setIdGlobal(id: Int) {
+        idNoteGlobal = id
+    }
+
+    fun setTitleGlobal(title: String?) {
+        titleNoteGlobal = title
+    }
+
+    fun setDateGlobal(date: String?) {
+        dateNoteGlobal = date
+    }
+
+    fun setDescriptionGlobal(description: String?) {
+        dateNoteGlobal = description
+    }
+
+    fun setListIdFriend(listId: List<Int>) {
+        listIdFriend = listId
+    }
+
+    private var positionVp: Int = 0
+    fun getPosition(): Int = positionVp
+    fun setPosition(newPosition: Int) {
         positionVp = newPosition
     }
 
-    fun addNote(note: Notes){
+    fun addNote(note: Notes) {
         viewModelScope.launch {
             authRepository.addNote(note)
         }
     }
 
-    fun updateNote(note: Notes){
+    fun updateNote(note: Notes) {
         viewModelScope.launch {
             authRepository.changeNote(note)
         }
     }
 
-    fun setNote(note: Notes){
-        _note.value = note
-    }
-    fun setNewNote(note:NewNote){
+    fun setNewNote(note: NewNote) {
         _newNote.value = note
     }
+
+
+    fun setLocalNote(note: Notes) {
+        _note.value = note
+    }
+    fun getLocalNote() = note.value
+
+    fun setGlobalNote(note: GlobalNote) {
+        _globalNote.value = note
+    }
+    fun getGlobalNote() = globalNote.value
 }

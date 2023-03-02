@@ -3,6 +3,7 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="my_notes">MyNotes</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="profnotes">PROFNOTES</string>
@@ -25,4 +26,15 @@
     <string name="news">Новости</string>
     <string name="today">Сегодня</string>
     <string name="hint_search">Поиск по заметкам</string>
+    <string name="add_friend">Принять</string>
+    <string name="del_friend">Отклонить</string>
+    <string name="title_add_friend">%s хочет добавить вас в друзья</string>
+
+    <!--    Add New Note-->
+    <string name="place_holder_text_field">Начните вводить текст здесь…</string>
+    <string name="place_holder_text_field_date">Введите дату в формате дд/мм/гггг</string>
+    <string name="title_note">Название заметки</string>
+    <string name="description_note">Описание заметки</string>
+    <string name="date_note">Дата выполнения</string>
+    <string name="circle_friends">Круг друзей</string>
 </resources>

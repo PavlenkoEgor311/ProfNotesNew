@@ -15,12 +15,11 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
-
 @AndroidEntryPoint
 @SuppressLint("CustomSplashScreen")
 class SplashActivity : AppCompatActivity() {
 
-    private val viewModel:SplashViewModel by viewModels()
+    private val viewModel: SplashViewModel by viewModels()
     private val firstSetupNotes: List<Notes> = listOf(
         Notes(
             id = 0,
@@ -74,27 +73,25 @@ class SplashActivity : AppCompatActivity() {
         viewModel.setIsFirstEnter(false)
         lifecycleScope.launch {
             viewModel.note.collectLatest {
-                    when(it){
-                        is ResponseWrapper.Idle->{}
-                        is ResponseWrapper.Error->{
-                            Log.d("Error","${it.code}")
-                        }
-                        is ResponseWrapper.Success->{
-                            Log.d("Success","${it.body}")
-                        }
+                when (it) {
+                    is ResponseWrapper.Idle -> {}
+                    is ResponseWrapper.Error -> {
+                        Log.d("Error", "${it.code}")
                     }
+                    is ResponseWrapper.Success -> {
+                        Log.d("Success", "${it.body}")
+                    }
+                }
             }
         }
 
-        if (viewModel.getIsFirstEnter()){
+        if (viewModel.getIsFirstEnter()) {
             firstSetupNotes.forEach {
-               viewModel.addNote(it)
+                viewModel.addNote(it)
             }
         }
-
         //viewModel.setIsUserAuth(true)
-
-        val i = Intent(this,MainActivity::class.java)
+        val i = Intent(this, MainActivity::class.java)
         startActivity(i)
         finish()
     }

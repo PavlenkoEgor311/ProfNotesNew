@@ -22,7 +22,6 @@ class AdapterChangeColorTheme (
      inner class MyViewHolder(
         val binding: ItemColorBinding)
         :RecyclerView.ViewHolder(binding.root) {
-
             init {
                 binding.tvColorItem.setOnClickListener {
                     actionListener.changeColor(lstColor[position].toString())
