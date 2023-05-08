@@ -13,7 +13,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.Blue
-import androidx.compose.ui.graphics.Color.Companion.Green
 import androidx.compose.ui.graphics.Color.Companion.Red
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.graphics.Color.Companion.Yellow
@@ -21,11 +20,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.constraintlayout.compose.ConstraintLayout
 import com.example.profnotes.core.colorCompose.*
 import com.example.profnotes.R
 import com.example.profnotes.data.models.Notes
-
 import com.example.profnotes.ui.home.HomeFragment.Companion.STATUS_COMPLETED_RED
 import com.example.profnotes.ui.home.HomeFragment.Companion.STATUS_NEW
 import com.example.profnotes.ui.home.HomeFragment.Companion.STATUS_POSTEPONED
@@ -36,6 +33,7 @@ fun ItemNote(
     onClickDel: () -> Unit,
     onClickChangeNote: () -> Unit,
     onClickChangeStatus: () -> Unit,
+    onClickShow: () -> Unit,
 ) {
     val openNote = remember { mutableStateOf(false) }
     val colorNote = remember { mutableStateOf(getColorNote(note)) }
@@ -52,6 +50,7 @@ fun ItemNote(
                 .background(shape = RoundedCornerShape(15.dp), color = Dark)
                 .weight(1f)
                 .height(IntrinsicSize.Min)
+                .clickable { onClickShow() }
         ) {
             Text(
                 modifier = Modifier
@@ -198,54 +197,11 @@ fun Show() {
             .fillMaxSize()
             .background(White)
     ) {
-        ItemNote(note = note, onClickChangeNote = {}, onClickDel = {}, onClickChangeStatus = {})
-    }
-}
-
-
-@Composable
-fun ShowCon() {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(White)
-    ) {
-        ConstraintLayout(
-            modifier = Modifier
-                .fillMaxWidth()
-                .wrapContentHeight()
-        ) {
-            val (column, text) = createRefs()
-            Column(
-                modifier = Modifier
-                    .padding(34.dp)
-                    .constrainAs(column) {
-                        top.linkTo(parent.top)
-                        bottom.linkTo(parent.bottom)
-                        start.linkTo(parent.start)
-                    }
-                    .fillMaxHeight()
-                    .background(Yellow)
-
-            ) {
-                Text(text = "Code", modifier = Modifier.background(Blue))
-            }
-            Column(
-                modifier = Modifier
-                    .constrainAs(text) {
-                        end.linkTo(parent.end)
-                    }
-                    .height(IntrinsicSize.Max)
-                    .background(Yellow)
-            ) {
-                Text(
-                    modifier = Modifier
-                        .height(IntrinsicSize.Max)
-                        .fillMaxHeight()
-                        .background(Red),
-                    text = "item.name"
-                )
-            }
-        }
+        ItemNote(
+            note = note,
+            onClickChangeNote = {},
+            onClickDel = {},
+            onClickChangeStatus = {},
+            onClickShow = {})
     }
 }

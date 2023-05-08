@@ -3,14 +3,20 @@ package com.example.profnotes.data.repo
 import com.example.profnotes.R
 import com.example.profnotes.data.dao.NotesDao
 import com.example.profnotes.data.local.Prefs
+import com.example.profnotes.data.models.GlobalNote
 import com.example.profnotes.data.models.Notes
-import com.example.profnotes.model.NewNote
+import com.example.profnotes.data.models.SignInUser
+import com.example.profnotes.data.network.Api.RegisterApi
 import com.example.profnotes.model.StatusNote
+import com.example.profnotes.model.request.LoginResponse
+import com.example.profnotes.model.request.UserRequest
 import javax.inject.Inject
+
 
 class AuthRepository @Inject constructor(
     private val prefs: Prefs,
-    private val notesDao: NotesDao
+    private val notesDao: NotesDao,
+    private val registerApi: RegisterApi,
 ) {
 
     private val exStatusNote: List<StatusNote> = listOf(
@@ -21,9 +27,9 @@ class AuthRepository @Inject constructor(
     )
 
     private val lstForViewPager = listOf(
-        NewNote(1, "Выполнение дз к понедельнику", "17:00", "Новое"),
-        NewNote(2, "Выполнение дз к вторнику", "11:00", "Завершено"),
-        NewNote(2, "Выполнение дз к chtlt", "11:00", "Завершено")
+        GlobalNote(1, "Выполнение дз к понедельнику", "17:00", "Новое", listOf()),
+        GlobalNote(2, "Выполнение дз к вторнику", "11:00", "Завершено", listOf()),
+        GlobalNote(2, "Выполнение дз к chtlt", "11:00", "Завершено", listOf())
     )
 
     private val lstColorsTheme = listOf(
@@ -38,7 +44,7 @@ class AuthRepository @Inject constructor(
 
     fun getColorList(): List<Int> = lstColorsTheme
 
-    fun getLstForViewPager(): List<NewNote> = lstForViewPager
+    fun getLstForViewPager(): List<GlobalNote> = lstForViewPager
 
     fun getAllStatus(): List<StatusNote> = exStatusNote
 
@@ -74,9 +80,19 @@ class AuthRepository @Inject constructor(
         prefs.authUser = value
     }
 
-    fun getThemeApp(): String? = prefs.themeApp
-
-    fun setThemeApp(value: String) {
-        prefs.themeApp = value
+    fun setUserToken(value: String) {
+        prefs.tokenUser = value
     }
+    fun setUserID(value: Long) {
+        prefs.idUser = value
+    }
+
+    fun getUserId(): Long = prefs.idUser
+    fun getUserToken(): String? = prefs.tokenUser
+
+    suspend fun test() = registerApi.test()
+    suspend fun signIn(user: SignInUser) {
+        registerApi.signIn(user)
+    }
+    suspend fun logIn(user: UserRequest): LoginResponse = registerApi.logIn(user)
 }

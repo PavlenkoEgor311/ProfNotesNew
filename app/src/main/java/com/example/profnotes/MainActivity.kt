@@ -2,44 +2,42 @@ package com.example.profnotes
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isGone
-import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import by.kirich1409.viewbindingdelegate.viewBinding
+import com.example.profnotes.core.base.activity.BottomBarOperator
+import com.example.profnotes.core.gone
 import com.example.profnotes.core.service.NotificationLocalNote
+import com.example.profnotes.core.show
 import com.example.profnotes.data.local.Prefs
 import com.example.profnotes.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.shape.CornerFamily
-import com.google.android.material.shape.MaterialShapeDrawable
-import com.google.android.material.shape.ShapeAppearanceModel
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import javax.inject.Inject
 
-
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(R.layout.activity_main), BottomBarOperator {
     @Inject
     lateinit var prefs: Prefs
-    private lateinit var binding: ActivityMainBinding
-    private val shapeBottomBar: ShapeAppearanceModel by lazy {
-        val radius = resources.getDimension(R.dimen.default_corner_radius)
-        ShapeAppearanceModel()
-            .toBuilder()
-            .setAllCorners(CornerFamily.ROUNDED, radius)
-            .build()
-    }
+
+    private val binding by viewBinding(ActivityMainBinding::bind)
+
+
+    private val navHostFragment
+        get() = (supportFragmentManager.findFragmentById(
+            R.id.nav_host_fragment_activity_main
+        ) as NavHostFragment).navController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //startService()
-
-        Timber.plant(Timber.DebugTree())
-        binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        Timber.plant(Timber.DebugTree())
 
         val toolbar = binding.toolbar
         setSupportActionBar(toolbar)
@@ -49,23 +47,18 @@ class MainActivity : AppCompatActivity() {
 
         binding.fab.setColorFilter(R.color.black)
 
-        val navController = findNavController(R.id.nav_host_fragment_activity_main)
         val appBarConfiguration = AppBarConfiguration(
-            setOf(
-                R.id.navigation_home, R.id.navigation_notifications
-            )
+            setOf(R.id.navigation_home, R.id.navigation_notifications)
         )
 
         binding.fab.setOnClickListener {
-            findNavController(R.id.nav_host_fragment_activity_main).navigate(R.id.addNoteFragment)
+            navHostFragment.navigate(R.id.addNoteFragment)
         }
 
-        setupActionBarWithNavController(navController, appBarConfiguration)
-        navView.setupWithNavController(navController)
-
-        if (prefs.authUser) {
-            //navController.navigate(R.id.action_loginFragment_to_navigation_home)
-        }
+        setupActionBarWithNavController(navHostFragment, appBarConfiguration)
+        navView.setupWithNavController(navHostFragment)
+        isAuthUser()
+        stopService()
     }
 
     private fun startService() {
@@ -78,36 +71,39 @@ class MainActivity : AppCompatActivity() {
         stopService(intent)
     }
 
-
-    fun showLoading() {
-
-    }
-
     fun showBottomBar(value: Boolean) {
-        binding.bottomappbar.isGone = !value
-        binding.fab.isGone = !value
+        with(binding) {
+            bottomappbar.isGone = !value
+            fab.isGone = !value
+        }
     }
 
-    fun setRoundNavBottom() {
-        val radius = resources.getDimension(R.dimen.default_corner_radius)
-        val bottomBarBackground = binding.bottomappbar.background as MaterialShapeDrawable
-        bottomBarBackground.shapeAppearanceModel = bottomBarBackground.shapeAppearanceModel
-            .toBuilder()
-            .setAllCorners(CornerFamily.ROUNDED, radius)
-            .build()
-        val bat = binding.navView.background as MaterialShapeDrawable
-        bat.shapeAppearanceModel = bottomBarBackground.shapeAppearanceModel
-            .toBuilder()
-            .setAllCorners(CornerFamily.ROUNDED, radius)
-            .build()
-        //val bottomAppBar = binding.bottomappbar
-        //val bottomBarBackground = bottomAppBar.background as MaterialShapeDrawable
-        //bottomBarBackground.shapeAppearanceModel = null
-        //bottomBarBackground.shapeAppearanceModel = shapeBottomBar
+    override fun hideNavBar() {
+        binding.fab.visibility = View.INVISIBLE
+        binding.bottomappbar.visibility = View.INVISIBLE
     }
 
-    override fun onStart() {
-        super.onStart()
-        setRoundNavBottom()
+    override fun showNavBar() {
+        binding.fab.visibility = View.VISIBLE
+        binding.bottomappbar.visibility = View.VISIBLE
     }
+
+    override fun hideCircularProgress() {
+        with(binding) {
+            progressBar.gone()
+            navHostFragmentActivityMain.show()
+        }
+    }
+
+    override fun showCircularProgress() {
+        with(binding) {
+            navHostFragmentActivityMain.gone()
+            progressBar.show()
+        }
+    }
+
+    private fun isAuthUser() {
+        if (prefs.authUser) navHostFragment.navigate(R.id.navigation_home)
+    }
+
 }

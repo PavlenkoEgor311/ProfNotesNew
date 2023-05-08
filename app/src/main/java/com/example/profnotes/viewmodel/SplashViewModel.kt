@@ -1,8 +1,6 @@
 package com.example.profnotes.viewmodel
 
-import android.content.SharedPreferences
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.edit
+
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.profnotes.data.models.NoteNet
@@ -18,34 +16,28 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SplashViewModel @Inject constructor(
-    private val authRepository:AuthRepository,
-    private val noteRepository: NoteRepository) : ViewModel(){
+    private val authRepository: AuthRepository,
+    private val noteRepository: NoteRepository
+) : ViewModel() {
 
-    private var _note  = MutableStateFlow<ResponseWrapper<NoteNet>>(ResponseWrapper.Idle())
+    private var _note = MutableStateFlow<ResponseWrapper<NoteNet>>(ResponseWrapper.Idle())
     val note = _note.asStateFlow()
 
     fun getIsFirstEnter() = authRepository.getIsFirstEnter()
 
     fun getIsUserAuth() = authRepository.getIsUserAuth()
 
-    fun setIsFirstEnter(value: Boolean){
+    fun setIsFirstEnter(value: Boolean) {
         authRepository.setIsFirstEnter(value)
     }
 
-    fun setIsUserAuth(value: Boolean){
+    fun setIsUserAuth(value: Boolean) {
         authRepository.setIsUserAuth(value)
     }
 
-    fun addNote(note: Notes){
-            viewModelScope.launch {
-                authRepository.addNote(note)
-            }
-    }
-
-    fun getNote(){
+    fun addNote(note: Notes) {
         viewModelScope.launch {
-            _note.value = noteRepository.getNote()
+            authRepository.addNote(note)
         }
     }
-
 }

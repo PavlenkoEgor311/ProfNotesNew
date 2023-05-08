@@ -190,14 +190,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/vp_newnotes" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_allnotes"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:visibility="gone"
-                app:layout_constraintTop_toBottomOf="@id/textView" />
-
             <androidx.compose.ui.platform.ComposeView
                 android:id="@+id/rvMyNote"
                 android:layout_width="match_parent"

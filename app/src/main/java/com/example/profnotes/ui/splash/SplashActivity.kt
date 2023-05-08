@@ -14,6 +14,7 @@ import com.example.profnotes.viewmodel.SplashViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 @AndroidEntryPoint
 @SuppressLint("CustomSplashScreen")
@@ -67,9 +68,7 @@ class SplashActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        Toast.makeText(this,
-//                              viewModel.getIsFirstEnter().toString(),
-//                              Toast.LENGTH_LONG).show()
+
         viewModel.setIsFirstEnter(false)
         lifecycleScope.launch {
             viewModel.note.collectLatest {
@@ -90,7 +89,7 @@ class SplashActivity : AppCompatActivity() {
                 viewModel.addNote(it)
             }
         }
-        //viewModel.setIsUserAuth(true)
+
         val i = Intent(this, MainActivity::class.java)
         startActivity(i)
         finish()

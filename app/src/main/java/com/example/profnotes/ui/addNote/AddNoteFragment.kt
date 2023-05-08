@@ -7,8 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.compose.runtime.Composable
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import androidx.navigation.fragment.findNavController
 import com.example.profnotes.data.models.GlobalNote
 import com.example.profnotes.data.models.Notes
@@ -36,8 +41,12 @@ class AddNoteFragment : BaseFragment<FragmentAddNoteBinding, AddNoteViewModel>()
         super.onViewCreated(view, savedInstanceState)
         val currentPositionTab = viewModel.getPosition()
         binding.tabLayout.getTabAt(currentPositionTab)?.select()
-        setIniScreen(currentPositionTab)
-        setScreen()
+        //setIniScreen(currentPositionTab)
+        //setScreen()
+        hideBottomNavigation()
+        binding.cvContent.setContent {
+            Content()
+        }
     }
 
     private fun setIniScreen(position: Int) {
@@ -46,7 +55,22 @@ class AddNoteFragment : BaseFragment<FragmentAddNoteBinding, AddNoteViewModel>()
                 0 ->
                     lifecycleScope.launchWhenCreated {
                         cvContent.setContent {
-                            AddNetScreen(globalNote = null, returnNote = {})
+                            AddNetScreen(globalNote = null, returnNote = {
+                                viewModel.setGlobalNote(
+                                    GlobalNote(
+                                        0, it.title, it.description,
+                                        it.date,
+                                        it.friendId
+                                    )
+                                )
+                            })
+                        }
+                        btAddNote.setOnClickListener {
+                            Toast.makeText(
+                                requireContext(),
+                                "${viewModel.getGlobalNote()}",
+                                Toast.LENGTH_SHORT
+                            ).show()
                         }
                     }
                 1 -> lifecycleScope.launchWhenCreated {
@@ -58,14 +82,6 @@ class AddNoteFragment : BaseFragment<FragmentAddNoteBinding, AddNoteViewModel>()
             }
         }
     }
-
-
-    override fun onStart() {
-        super.onStart()
-        mainActivity.showBottomBar(false)
-        yankieGoHome()
-    }
-
     private fun setScreen() {
         with(binding) {
             tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
@@ -91,7 +107,7 @@ class AddNoteFragment : BaseFragment<FragmentAddNoteBinding, AddNoteViewModel>()
                             btAddNote.setOnClickListener {
                                 Toast.makeText(
                                     requireContext(),
-                                    "Добавили Глобальную заметку",
+                                    "${viewModel.getGlobalNote()}",
                                     Toast.LENGTH_SHORT
                                 ).show()
                             }
@@ -139,5 +155,86 @@ class AddNoteFragment : BaseFragment<FragmentAddNoteBinding, AddNoteViewModel>()
         binding.btBackToHome.setOnClickListener {
             findNavController().popBackStack()
         }
+    }
+
+    @Composable
+    private fun Content() {
+        val navController = rememberNavController()
+        NavHost(
+            navController = navController,
+            startDestination = "addGlobalNote",
+        ) {
+            composable("addGlobalNote") {
+                AddNetScreen(globalNote = viewModel.getGlobalNote(), returnNote = {
+                    viewModel.setGlobalNote(
+                        GlobalNote(
+                            0,
+                            it.title,
+                            it.description,
+                            it.date,
+                            it.friendId
+                        )
+                    )
+                })
+            }
+            composable("addLocalScreen") {
+                AddLocalScreen(localNote = viewModel.getLocalNote(), returnLocalNote = {
+                    viewModel.setLocalNote(
+                        Notes(
+                            0,
+                            it.title,
+                            it.date,
+                            it.status,
+                            it.description
+                        )
+                    )
+                })
+            }
+        }
+        SetAllScreen(navController = navController)
+    }
+
+    @Composable
+    private fun SetAllScreen(navController: NavHostController) {
+        with(binding) {
+            tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+                override fun onTabSelected(tab: TabLayout.Tab) {
+                    when (tab.position) {
+                        0 -> {
+                            navController.navigate("addGlobalNote")
+                            // TODO() добавление глобальной заметки
+                            btAddNote.setOnClickListener {
+                                Toast.makeText(
+                                    requireContext(),
+                                    "${viewModel.getGlobalNote()}",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                                findNavController().popBackStack()
+                            }
+                        }
+                        1 -> {
+                            navController.navigate("addLocalScreen")
+                            btAddNote.setOnClickListener {
+                                viewModel.addNote(viewModel.getLocalNote()!!)
+                                Toast.makeText(
+                                    requireContext(),
+                                    "Добавили локальную заметку",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                                findNavController().popBackStack()
+                            }
+                        }
+                    }
+                }
+                override fun onTabUnselected(tab: TabLayout.Tab) {}
+                override fun onTabReselected(tab: TabLayout.Tab) {}
+            })
+        }
+    }
+
+
+    override fun onStart() {
+        super.onStart()
+        yankieGoHome()
     }
 }

@@ -9,7 +9,7 @@
         android:id="@+id/navigation_home"
         android:name="com.example.profnotes.ui.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" >
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_navigation_home_to_changeStatusFragment"
             app:destination="@id/changeStatusFragment" />
@@ -21,7 +21,10 @@
             app:destination="@id/navigation_notifications" />
         <action
             android:id="@+id/action_navigation_home_to_addNoteFragment2"
-            app:destination="@id/addNoteFragment"/>
+            app:destination="@id/addNoteFragment" />
+        <action
+            android:id="@+id/action_navigation_home_to_viewingNoteFragment"
+            app:destination="@id/viewingNoteFragment" />
 
     </fragment>
 
@@ -35,28 +38,31 @@
         android:id="@+id/navigation_notifications"
         android:name="com.example.profnotes.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" >
+        tools:layout="@layout/fragment_notifications">
         <action
             android:id="@+id/action_navigation_notifications_to_navigation_home"
             app:destination="@id/navigation_home" />
     </fragment>
+
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.example.profnotes.ui.login.LoginFragment"
-        tools:layout="@layout/fragment_login"
-        android:label="LoginFragment" >
+        android:label="LoginFragment"
+        tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_loginFragment_to_navigation_home"
-            app:destination="@id/navigation_home" />
+            app:destination="@id/navigation_home"
+            app:popUpTo="@id/navigation_home"/>
         <action
             android:id="@+id/action_loginFragment_to_registrationFragment"
             app:destination="@id/registrationFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/changeStatusFragment"
         android:name="com.example.profnotes.ui.changeStatus.ChangeStatusFragment"
         android:label="fragment_change_status"
-        tools:layout="@layout/fragment_change_status" >
+        tools:layout="@layout/fragment_change_status">
         <action
             android:id="@+id/action_changeStatusFragment_to_navigation_home"
             app:destination="@id/navigation_home" />
@@ -64,29 +70,49 @@
             android:name="selectedNote"
             app:argType="com.example.profnotes.data.models.Notes" />
     </fragment>
+
     <fragment
         android:id="@+id/addNoteFragment"
         android:name="com.example.profnotes.ui.addNote.AddNoteFragment"
         android:label="fragment_add_note"
-        tools:layout="@layout/fragment_add_note" >
+        tools:layout="@layout/fragment_add_note">
         <action
             android:id="@+id/action_addNoteFragment_to_navigation_home"
             app:destination="@id/navigation_home" />
-
-            <argument
-                android:name="selectedNote"
-                app:argType="com.example.profnotes.model.helper" />
     </fragment>
+
     <fragment
         android:id="@+id/registrationFragment"
         android:name="com.example.profnotes.ui.registration.RegistrationFragment"
         android:label="fragment_registration"
-        tools:layout="@layout/fragment_registration" >
+        tools:layout="@layout/fragment_registration">
         <action
             android:id="@+id/action_registrationFragment_to_navigation_home"
             app:destination="@id/navigation_home" />
         <action
             android:id="@+id/action_registrationFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/viewingNoteFragment"
+        android:name="com.example.profnotes.ui.viewingNote.ViewingNoteFragment"
+        android:label="fragment_viewing_note"
+        tools:layout="@layout/fragment_viewing_note">
+
+        <argument
+            android:name="myNote"
+            app:argType="com.example.profnotes.model.TransitNote" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/errorFragment"
+        android:name="com.example.profnotes.ui.errorScreen.ErrorFragment"
+        android:label="fragment_error"
+        tools:layout="@layout/fragment_error">
+        <argument
+            android:name="error"
+            android:defaultValue="null"
+            app:argType="string" />
     </fragment>
 </navigation>

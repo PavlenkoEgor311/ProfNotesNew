@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.profnotes.databinding.FragmentDashboardBinding
 import com.example.profnotes.viewmodel.DashboardViewModel
+import dagger.hilt.android.AndroidEntryPoint
+
 
 class DashboardFragment : Fragment() {
 

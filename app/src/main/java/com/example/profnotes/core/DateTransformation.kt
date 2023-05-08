@@ -5,7 +5,7 @@ import androidx.compose.ui.text.input.OffsetMapping
 import androidx.compose.ui.text.input.TransformedText
 import androidx.compose.ui.text.input.VisualTransformation
 
-class DateTransformation() : VisualTransformation {
+class DateTransformation : VisualTransformation {
     override fun filter(text: AnnotatedString): TransformedText {
         return dateFilter(text)
     }

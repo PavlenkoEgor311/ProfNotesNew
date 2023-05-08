@@ -1,38 +1,43 @@
 package com.example.profnotes.ui.login
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.profnotes.R
 import com.example.profnotes.databinding.FragmentLoginBinding
 import com.example.profnotes.ui.core.BaseFragment
 import com.example.profnotes.viewmodel.LoginViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import ru.mrz.profnotes.core.spanString
 
+@SuppressLint("ResourceType")
+@AndroidEntryPoint
 class LoginFragment : BaseFragment<FragmentLoginBinding, LoginViewModel>() {
 
     override fun inflateViewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
-    ): FragmentLoginBinding =
-        FragmentLoginBinding.inflate(inflater, container, false)
+    ) = FragmentLoginBinding.inflate(inflater, container, false)
 
     override val viewModel: LoginViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         spanText()
-        goRegistration()
+        listeners()
+        setupLoading()
     }
 
-    private fun goRegistration() {
-        binding.btRegistration.setOnClickListener {
-            findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToRegistrationFragment())
-        }
+    override fun onStart() {
+        super.onStart()
+        hideBottomNavigation()
     }
 
     private fun spanText() {
@@ -50,29 +55,47 @@ class LoginFragment : BaseFragment<FragmentLoginBinding, LoginViewModel>() {
                 color = requireContext().getColor(R.color.yellow)
             )
         }
-        binding.btnLogin.apply {
-            isEnabled = true
-            setOnClickListener {
-                findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToNavigationHome())
-            }
-        }
-    }
-
-    override fun onStart() {
-        super.onStart()
-        mainActivity.showBottomBar(false)
-        listeners()
     }
 
     private fun listeners() {
         with(binding) {
             etEmailOrPhone.doAfterTextChanged {
-                viewModel.setLogin(etEmailOrPhone.text.toString())
+                viewModel._login.value = etEmailOrPhone.text.toString()
             }
             etPassword.doAfterTextChanged {
-                viewModel.setPassword(etPassword.text.toString())
+                viewModel._password.value = etPassword.text.toString()
+            }
+            btnLogin.apply {
+                isEnabled = true
+                setOnClickListener {
+                    viewModel.login()
+                }
+            }
+            btRegistration.setOnClickListener {
+                findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToRegistrationFragment())
+            }
+            lifecycleScope.launchWhenStarted {
+                viewModel.onSuccessLogin.collect { isSuccess ->
+                    when (isSuccess) {
+                        true -> {
+                            navigateToHome()
+                        }
+                        false -> {
+                            Toast.makeText(
+                                requireContext(),
+                                "Введите корректные данные или повторите позже",
+                                Toast.LENGTH_LONG
+                            ).show()
+                            viewModel.onSuccessLogin.value = null
+                        }
+                        else -> {}
+                    }
+                }
             }
         }
     }
 
+    private fun navigateToHome() {
+        findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToNavigationHome())
+    }
 }

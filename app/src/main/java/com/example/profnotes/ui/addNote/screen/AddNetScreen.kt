@@ -15,14 +15,15 @@ import androidx.compose.ui.graphics.Color.Companion.Gray
 import androidx.compose.ui.graphics.Color.Companion.Transparent
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.graphics.Color.Companion.Yellow
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.profnotes.R
-import com.example.profnotes.core.colorCompose.DarkGray
-import com.example.profnotes.core.colorCompose.LightestGray
-import com.example.profnotes.core.colorCompose.Purple80
+import com.example.profnotes.core.colorCompose.*
+import com.example.profnotes.core.styleText.Typo
 import com.example.profnotes.data.models.GlobalNote
+import com.example.profnotes.model.NewNote
 import com.kizitonwose.calendar.compose.HorizontalCalendar
 import com.kizitonwose.calendar.compose.rememberCalendarState
 import com.kizitonwose.calendar.core.*
@@ -58,7 +59,11 @@ fun AddNetScreen(
             .verticalScroll(rememberScrollState())
     ) {
 
-        Text(text = stringResource(id = R.string.title_note), color = White)
+        Text(
+            text = stringResource(id = R.string.title_note),
+            color = White,
+            style = Typo.DefaultTypography.h3
+        )
         TextField(
             modifier = Modifier
                 .fillMaxWidth()
@@ -72,7 +77,8 @@ fun AddNetScreen(
             placeholder = {
                 Text(
                     text = stringResource(id = R.string.place_holder_text_field),
-                    color = LightestGray
+                    color = LightestGray,
+                    style = Typo.DefaultTypography.h5
                 )
             },
             colors = TextFieldDefaults.textFieldColors(
@@ -84,6 +90,7 @@ fun AddNetScreen(
             text = stringResource(id = R.string.description_note),
             modifier = Modifier.padding(top = 16.dp),
             color = White,
+            style = Typo.DefaultTypography.h3,
         )
         TextField(
             modifier = Modifier
@@ -100,7 +107,8 @@ fun AddNetScreen(
             placeholder = {
                 Text(
                     text = stringResource(id = R.string.place_holder_text_field),
-                    color = LightestGray
+                    color = LightestGray,
+                    style = Typo.DefaultTypography.h5
                 )
             },
             colors = TextFieldDefaults.textFieldColors(
@@ -111,7 +119,23 @@ fun AddNetScreen(
         Text(
             text = stringResource(id = R.string.circle_friends),
             color = White,
-            modifier = Modifier.padding(top = 16.dp, bottom = 10.dp)
+            modifier = Modifier.padding(top = 16.dp, bottom = 10.dp),
+            style = Typo.DefaultTypography.h3
+        )
+        Row(
+            modifier = Modifier
+                .horizontalScroll(rememberScrollState())
+                .padding(top = 10.dp)
+        ) {
+            (0..10).forEach { _ ->
+                ProfileFriends()
+            }
+        }
+        Text(
+            modifier = Modifier.padding(vertical = 12.dp),
+            text = stringResource(id = R.string.date_note),
+            style = Typo.DefaultTypography.h3,
+            color = White
         )
         HorizontalCalendar(
             modifier = Modifier
@@ -171,13 +195,15 @@ fun Month(
                     .align(Alignment.CenterHorizontally),
                 color = White,
                 text = month.yearMonth.month.translate().capitalize(),
+                style = Typo.DefaultTypography.h4,
             )
             Row(modifier = Modifier.fillMaxWidth()) {
                 for (dayOfWeek in daysOfWeek) {
                     Text(
                         modifier = Modifier.weight(1f),
                         text = dayOfWeek.capitalize().take(3),
-                        color = White
+                        color = White,
+                        style = Typo.DefaultTypography.h4,
                     )
                 }
             }
@@ -209,8 +235,42 @@ fun Day(day: CalendarDay, clickOfDay: (day: LocalDate) -> Unit, currentMonth: Ye
                     .padding(start = 12.dp, top = 12.dp, bottom = 12.dp),
                 color = colorDay,
                 text = day.date.dayOfMonth.toString(),
+                style = Typo.DefaultTypography.h3
             )
         }
+    }
+}
+
+@Composable
+fun ProfileFriends() {
+    var selectedFriend by remember { mutableStateOf(false) }
+    Column(
+        modifier = Modifier
+            .padding(end = 10.dp)
+            .width(130.dp)
+            .clickable {
+                selectedFriend = !selectedFriend
+            }
+    ) {
+        Image(
+            modifier = Modifier
+                .size(width = 130.dp, height = 80.dp)
+                .border(
+                    width = 4.dp,
+                    color = if (selectedFriend) Purple40 else Transparent,
+                    shape = RoundedCornerShape(12.dp)
+                ),
+            painter = painterResource(id = R.drawable.ic_mock_profile),
+            contentDescription = null,
+        )
+        Text(
+            modifier = Modifier
+                .width(130.dp)
+                .padding(horizontal = 10.dp),
+            text = "Иванов Иван",
+            color = White,
+            style = Typo.DefaultTypography.h5
+        )
     }
 }
 
