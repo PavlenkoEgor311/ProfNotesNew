@@ -16,11 +16,11 @@ abstract class BaseViewModel : ViewModel(), CoroutineOperator {
 
     private val loading = MutableLiveData(Loading.HIDE_LOADING)
 
-    protected fun showLoading() {
+    fun showLoading() {
         loading.value = Loading.SHOW_LOADING
     }
 
-    protected fun hideLoading() {
+    fun hideLoading() {
         loading.value = Loading.HIDE_LOADING
     }
 

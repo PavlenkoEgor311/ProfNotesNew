@@ -5,4 +5,5 @@ interface BottomBarOperator {
     fun showNavBar()
     fun hideCircularProgress()
     fun showCircularProgress()
+    fun logout()
 }

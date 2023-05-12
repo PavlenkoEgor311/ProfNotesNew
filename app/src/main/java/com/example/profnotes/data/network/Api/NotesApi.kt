@@ -1,18 +1,27 @@
 package com.example.profnotes.data.network.Api
 
-import com.example.profnotes.data.models.NoteNet
-import com.example.profnotes.data.models.NoteResponse
-import com.example.profnotes.model.Note
-import retrofit2.Call
+import com.example.profnotes.data.models.GlobalNoteNew
+import com.example.profnotes.data.models.GlobalNoteRequest
 import retrofit2.Response
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface NotesApi {
-    @GET("notes")
-    fun getNotes(): NoteResponse
 
-    @GET("todos/1")
-    suspend fun getNote() : Response<NoteNet>
+    @GET("getNotesUserById")
+    suspend fun getNoteUser(@Query("idUser") id: Long): List<GlobalNoteNew>
+
+    @POST("updateNote")
+    suspend fun updateNote(
+        @Body note: GlobalNoteNew
+    ): Response<Body>
+
+    @POST("insertNote")
+    suspend fun insertNote(
+        @Body note: GlobalNoteRequest
+    )
+
+    @DELETE
+    suspend fun deleteNote(
+        @Path("id") id: Long
+    ): Boolean
 }

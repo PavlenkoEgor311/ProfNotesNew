@@ -44,4 +44,6 @@
     <string name="аttached_files">Добавленные файлы</string>
     <string name="save">Сохранить</string>
     <string name="status_note">Статус задачи</string>
+    <string name="status_note_more">Статус задачи : %s</string>
+    <string name="count_friends">Вы и ваших %s друзей</string>
 </resources>

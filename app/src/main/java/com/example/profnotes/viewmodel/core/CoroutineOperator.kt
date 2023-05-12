@@ -12,3 +12,7 @@ interface CoroutineOperator {
         block: suspend CoroutineScope.() -> Unit
     ): Job
 }
+
+interface Transformable<T> {
+    fun transform(vararg args: Any = emptyArray()): T
+}

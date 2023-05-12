@@ -3,15 +3,12 @@ package com.example.profnotes.data.repo
 import com.example.profnotes.R
 import com.example.profnotes.data.dao.NotesDao
 import com.example.profnotes.data.local.Prefs
-import com.example.profnotes.data.models.GlobalNote
-import com.example.profnotes.data.models.Notes
-import com.example.profnotes.data.models.SignInUser
+import com.example.profnotes.data.models.*
 import com.example.profnotes.data.network.Api.RegisterApi
 import com.example.profnotes.model.StatusNote
 import com.example.profnotes.model.request.LoginResponse
 import com.example.profnotes.model.request.UserRequest
 import javax.inject.Inject
-
 
 class AuthRepository @Inject constructor(
     private val prefs: Prefs,
@@ -26,12 +23,6 @@ class AuthRepository @Inject constructor(
         StatusNote(R.mipmap.status_postponed, "Отложено", "Задача требует задаржки в работе")
     )
 
-    private val lstForViewPager = listOf(
-        GlobalNote(1, "Выполнение дз к понедельнику", "17:00", "Новое", listOf()),
-        GlobalNote(2, "Выполнение дз к вторнику", "11:00", "Завершено", listOf()),
-        GlobalNote(2, "Выполнение дз к chtlt", "11:00", "Завершено", listOf())
-    )
-
     private val lstColorsTheme = listOf(
         R.color.blue,
         R.color.red,
@@ -43,8 +34,6 @@ class AuthRepository @Inject constructor(
     )
 
     fun getColorList(): List<Int> = lstColorsTheme
-
-    fun getLstForViewPager(): List<GlobalNote> = lstForViewPager
 
     fun getAllStatus(): List<StatusNote> = exStatusNote
 
@@ -83,6 +72,7 @@ class AuthRepository @Inject constructor(
     fun setUserToken(value: String) {
         prefs.tokenUser = value
     }
+
     fun setUserID(value: Long) {
         prefs.idUser = value
     }
@@ -94,5 +84,26 @@ class AuthRepository @Inject constructor(
     suspend fun signIn(user: SignInUser) {
         registerApi.signIn(user)
     }
+
     suspend fun logIn(user: UserRequest): LoginResponse = registerApi.logIn(user)
+
+    suspend fun updateUser(username: String, password: String) {
+        registerApi.updateUser(UpdateUserRequest(prefs.idUser, username, password))
+    }
+
+    suspend fun findFriends(username: String): List<UserFindRequest>? =
+        registerApi.findFriends(FindUserRequest(userId = prefs.idUser, username = username))
+
+    suspend fun getData(): User = registerApi.getData(prefs.idUser)
+
+    suspend fun getListFriends(idFriends: List<UserId>): List<UserFindRequest>? =
+        registerApi.getListFriends(idFriends.map { UserFriendId(it.id) })
+
+    suspend fun deleteFriend(idFriend: Long) {
+        registerApi.deleteFriend(UpdateUserFriendsRequest(prefs.idUser, idFriend))
+    }
+
+    suspend fun addFriend(idFriend: Long) {
+        registerApi.addFriend(UpdateUserFriendsRequest(prefs.idUser, idFriend))
+    }
 }

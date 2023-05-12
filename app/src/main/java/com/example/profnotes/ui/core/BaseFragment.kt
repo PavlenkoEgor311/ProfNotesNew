@@ -89,6 +89,10 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel> : Fragment() {
         }
     }
 
+    protected fun logout() {
+        (root as? BottomBarOperator)?.logout()
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         _binding = null

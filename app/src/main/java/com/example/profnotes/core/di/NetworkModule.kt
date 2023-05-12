@@ -20,6 +20,7 @@ import kotlinx.coroutines.Dispatchers
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Qualifier
@@ -47,9 +48,9 @@ object NetworkModule {
         networkStatusInterceptor: NetworkStatusInterceptor
     ) =
         OkHttpClient.Builder()
-            .readTimeout(60, TimeUnit.SECONDS)
-            .writeTimeout(60, TimeUnit.SECONDS)
-            .connectTimeout(60, TimeUnit.SECONDS)
+            .readTimeout(80, TimeUnit.SECONDS)
+            .writeTimeout(80, TimeUnit.SECONDS)
+            .connectTimeout(80, TimeUnit.SECONDS)
             .addInterceptor(networkStatusInterceptor)
             .addInterceptor(ErrorStatusInterceptor(provideMoshi()))
             .addInterceptor(logger.setLevel(HttpLoggingInterceptor.Level.BODY))
@@ -62,6 +63,7 @@ object NetworkModule {
     ): Retrofit = Retrofit.Builder()
         .baseUrl(BuildConfig.MY_NOTE_URL)
         .addConverterFactory(MoshiConverterFactory.create(moshi).asLenient())
+        .addConverterFactory(GsonConverterFactory.create())
         .client(okHttpClient)
         .build()
 

@@ -14,7 +14,7 @@ data class Notes (
     val title: String,
 
     @ColumnInfo(name = "date")
-    val date: String,
+    var date: String?,
 
     @ColumnInfo(name = "status")
     val status: String,

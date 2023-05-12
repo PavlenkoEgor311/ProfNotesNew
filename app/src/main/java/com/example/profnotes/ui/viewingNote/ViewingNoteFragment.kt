@@ -38,6 +38,7 @@ import androidx.navigation.fragment.navArgs
 import com.example.profnotes.core.styleText.Typo
 import com.example.profnotes.data.models.GlobalNote
 import com.example.profnotes.data.models.Notes
+import com.example.profnotes.data.models.UserFindRequest
 import com.example.profnotes.model.TransitNote
 import com.example.profnotes.ui.addNote.screen.AddLocalScreen
 import com.example.profnotes.ui.addNote.screen.AddNetScreen
@@ -102,7 +103,8 @@ class ViewingNoteFragment : BaseFragment<FragmentViewingNoteBinding, ViewingNote
                             title = globalNote.title,
                             description = globalNote.description,
                             date = globalNote.date,
-                            listSelectedFriend = globalNote.friendId ?: listOf(),
+                            //listSelectedFriend = globalNote.friendId ?: listOf(),
+                            listSelectedFriend = listOf(UserFindRequest(1,"")),
                             key = key,
                             listAddedFiles = listOf(),
                         )
@@ -177,7 +179,6 @@ class ViewingNoteFragment : BaseFragment<FragmentViewingNoteBinding, ViewingNote
         }
     }
 
-
     @Composable
     private fun OpenChangeNoteScreen() {
         Column(
@@ -185,7 +186,7 @@ class ViewingNoteFragment : BaseFragment<FragmentViewingNoteBinding, ViewingNote
         ) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 if (::globalNote.isInitialized)
-                    AddNetScreen(globalNote = globalNote, returnNote = {})
+                    AddNetScreen(globalNote = globalNote, returnNote = {}, friends = listOf())
                 else
                     AddLocalScreen(
                         localNote = localNote,

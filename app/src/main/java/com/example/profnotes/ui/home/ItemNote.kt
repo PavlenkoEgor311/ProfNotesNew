@@ -132,7 +132,7 @@ fun ItemNote(
                         .align(Alignment.CenterVertically)
                 )
                 Text(
-                    text = note.date,
+                    text = note.date ?: "",
                     color = White,
                     fontFamily = FontFamily.Monospace
                 )

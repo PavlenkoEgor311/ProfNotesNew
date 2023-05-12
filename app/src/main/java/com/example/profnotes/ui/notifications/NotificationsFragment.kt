@@ -5,121 +5,204 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
-import com.example.profnotes.R
+import androidx.lifecycle.lifecycleScope
 import com.example.profnotes.core.gone
-import com.example.profnotes.core.visible
+import com.example.profnotes.core.show
+import com.example.profnotes.data.models.UserFindRequest
 import com.example.profnotes.databinding.FragmentNotificationsBinding
+import com.example.profnotes.ui.addNote.screen.ProfileFriends
 import com.example.profnotes.ui.core.BaseFragment
-import com.example.profnotes.ui.notifications.adapter.AdapterChangeColorTheme
-import com.example.profnotes.ui.notifications.adapter.ColorActionListener
 import com.example.profnotes.viewmodel.NotificationsViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
+import ru.mrz.profnotes.core.toEditable
 
 @AndroidEntryPoint
 class NotificationsFragment : BaseFragment<FragmentNotificationsBinding, NotificationsViewModel>() {
 
     override val viewModel: NotificationsViewModel by viewModels()
-    private lateinit var adapter: AdapterChangeColorTheme
     override fun inflateViewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
-    ): FragmentNotificationsBinding  = FragmentNotificationsBinding.inflate(inflater, container, false)
+    ): FragmentNotificationsBinding =
+        FragmentNotificationsBinding.inflate(inflater, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        backToHome()
+        setupLoading()
+        showCircularProgress()
+        viewModel.getData()
+        listeners()
         setOpenOrCloseChangeUserInfo()
-        setColorRecyclerView()
-        setColorsLst()
+        hideCircularProgress()
     }
 
-    private fun setColorRecyclerView(){
-            adapter = AdapterChangeColorTheme(object: ColorActionListener{
-                override fun changeColor(color: String) {
-                    Toast.makeText(requireContext(),"Меняем цвет на $color",Toast.LENGTH_SHORT).show()
-                }
-            })
-            adapter.setItems(viewModel.getColorList())
-            binding.rvColorTheme.layoutManager = GridLayoutManager(requireContext(),5)
-            binding.rvColorTheme.adapter = adapter
-    }
-
-    private fun backToHome(){
-        binding.btBackToHome.setOnClickListener{
-            findNavController().navigate(R.id.action_navigation_notifications_to_navigation_home)
+    private fun listeners() {
+        with(binding) {
+            btnExit.setOnClickListener {
+                logout()
+            }
         }
     }
 
-    private fun closeChangeUserInfo(){
-        with(binding){
-            etLoginUser.gone()
+    private fun closeChangeUserInfo() {
+        with(binding) {
+            etChangePassword.gone()
             etNameUser.gone()
+            btnSaveData.gone()
         }
     }
 
-    private fun openChangeUserInfo(){
-        with(binding){
-            etLoginUser.visible()
-            etNameUser.visible()
+    private fun openChangeUserInfo() {
+        with(binding) {
+            etChangePassword.show()
+            etNameUser.show()
+            btnSaveData.show()
         }
     }
-    private fun closeSearchUserFriends(){
-        with(binding){
+
+    private fun closeSearchUserFriends() {
+        with(binding) {
             etSearchFriendsUser.gone()
             rvFriendsUser.gone()
+            cvMyFriends.gone()
+            btnFindFriend.gone()
         }
     }
 
-    private fun openSearchUserFriends(){
-        with(binding){
-            etSearchFriendsUser.visible()
-            rvFriendsUser.visible()
+    private fun openSearchUserFriends() {
+        with(binding) {
+            etSearchFriendsUser.show()
+            rvFriendsUser.show()
+            cvMyFriends.show()
+            btnFindFriend.show()
         }
     }
 
-    private fun setOpenOrCloseChangeUserInfo(){
-        if (viewModel.getCheckUserInfo())
+    private fun setOpenOrCloseChangeUserInfo() {
+        if (viewModel.getCheckUserInfo()) {
             openChangeUserInfo()
-        else
+        } else {
             closeChangeUserInfo()
+        }
+        lifecycleScope.launch {
+            viewModel.searchUsers.collect {
+                binding.rvFriendsUser.setContent {
+                    SetupSearchFriends(it)
+                }
+            }
+        }
+        lifecycleScope.launch {
+            viewModel.userProfile.collect { user ->
+                if (user != null) {
+                    with(binding) {
+                        tvUserName.text = user.username
+                        tvUserLogin.text = user.login
+                        etNameUser.text = user.username.toEditable()
+                    }
+                }
+            }
+        }
+        lifecycleScope.launch {
+            viewModel.usersFriends.collect {
+                binding.cvMyFriends.setContent {
+                    SetupMyFriends(it)
+                }
+            }
+        }
     }
 
-    private fun setColorsLst(){
-        if (viewModel.getItemsOfColorsTheme())
-            binding.rvColorTheme.visible()
-        else
-            binding.rvColorTheme.gone()
-    }
-
-    private fun setOpenOrCloseSearchUserFriends(){
+    private fun setOpenOrCloseSearchUserFriends() {
         if (viewModel.getCheckSearchFriends())
             openSearchUserFriends()
         else
             closeSearchUserFriends()
     }
 
-    private fun ui(){
-        with(binding){
-            tvChangeUserInfo.setOnClickListener{
+    private fun ui() {
+        with(binding) {
+            tvChangeUserInfo.setOnClickListener {
                 viewModel.setChekUserInfo(!viewModel.getCheckUserInfo())
                 setOpenOrCloseChangeUserInfo()
             }
-            tvSearchFriends.setOnClickListener{
+            tvSearchFriends.setOnClickListener {
                 viewModel.setCheckSearchFriends(!viewModel.getCheckSearchFriends())
                 setOpenOrCloseSearchUserFriends()
             }
-            sDarkTheme.setOnCheckedChangeListener{ _, _ ->
-                Toast.makeText(requireContext(),"qweree",Toast.LENGTH_SHORT).show()
+            sDarkTheme.setOnCheckedChangeListener { _, state ->
+                Toast.makeText(requireContext(), state.toString(), Toast.LENGTH_SHORT).show()
             }
-            sPushNotifications.setOnCheckedChangeListener{ _, _ ->
-                Toast.makeText(requireContext(),"ytyty",Toast.LENGTH_SHORT).show()
+            sPushNotifications.setOnCheckedChangeListener { _, state ->
+                Toast.makeText(requireContext(), state.toString(), Toast.LENGTH_SHORT).show()
             }
-            tvChangeColorTheme.setOnClickListener{
-                viewModel.setItemsOfColorsTheme(!viewModel.getItemsOfColorsTheme())
-                setColorsLst()
+            etSearchFriendsUser.doAfterTextChanged {
+                viewModel.searchUsername.value = etSearchFriendsUser.text.toString()
+            }
+            btnFindFriend.setOnClickListener {
+                viewModel.findUsers()
+            }
+            btnSaveData.setOnClickListener {
+                viewModel.updateUserInfo(
+                    etNameUser.text.toString(),
+                    etChangePassword.text.toString()
+                )
+            }
+        }
+    }
+
+    @Composable
+    private fun SetupMyFriends(userFindRequests: List<UserFindRequest>) {
+        Row(
+            modifier = Modifier
+                .horizontalScroll(rememberScrollState())
+                .padding(top = 10.dp)
+        ) {
+            userFindRequests.forEach { friend ->
+                ProfileFriends(
+                    friend.username,
+                    friend.id,
+                    true,
+                    addFriendId = {},
+                    deleteFriend = {
+                        viewModel.deleteFriend(it)
+                    },
+                    clickable = false,
+                    defaultSelect = true,
+                    click = { false }
+                )
+            }
+        }
+    }
+
+    @Composable
+    private fun SetupSearchFriends(userFindRequests: List<UserFindRequest>) {
+        Row(
+            modifier = Modifier
+                .horizontalScroll(rememberScrollState())
+                .padding(top = 10.dp)
+        ) {
+            userFindRequests.forEach { findFriend ->
+                ProfileFriends(
+                    findFriend.username,
+                    findFriend.id,
+                    true,
+                    addFriendId = {
+                        viewModel.addFriend(it)
+                    },
+                    deleteFriend = {},
+                    clickable = false,
+                    defaultSelect = true,
+                    click = { false }
+                )
             }
         }
     }

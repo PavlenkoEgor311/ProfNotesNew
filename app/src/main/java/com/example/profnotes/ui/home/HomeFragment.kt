@@ -15,6 +15,9 @@ import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
 import com.example.profnotes.R
 import com.example.profnotes.core.CardRecommendationPageTransformer
+import com.example.profnotes.core.gone
+import com.example.profnotes.core.show
+import com.example.profnotes.data.models.GlobalNoteNew
 import com.example.profnotes.data.models.Notes
 import com.example.profnotes.databinding.FragmentHomeBinding
 import com.example.profnotes.model.TransitNote
@@ -40,22 +43,29 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
     ) = FragmentHomeBinding.inflate(inflater, container, false)
 
     private lateinit var adapter: NoteVPAdapter
+
     override val viewModel: HomeViewModel by viewModels()
 
     @SuppressLint("MutableCollectionMutableState")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setupLoading()
+        viewModel.getLstForViewPager()
         lifecycleScope.launch {
             showCircularProgress()
-            showBottomNavigation()
+            hideBottomNavigation()
             setDateNow()
-            setViewPager()
             searchLocalNotes()
             updateListLocalNote()
-            delay(3000)
-            hideCircularProgress()
+            viewModel.globalNotes.collect {
+                setViewPager(it)
+            }
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        showBottomNavigation()
     }
 
     @SuppressLint("SimpleDateFormat")
@@ -63,6 +73,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
         val df = SimpleDateFormat("EEEE, dd MMMM", Locale("ru"))
         binding.tvTodayDescription.text = df.format(Calendar.getInstance().time)
             .replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
+        lifecycleScope.launch {
+            viewModel.userProfile.collect {
+                binding.tvName.text = it?.username
+            }
+        }
+        viewModel.getData()
     }
 
     private fun updateListLocalNote() {
@@ -114,23 +130,34 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
     }
 
     @SuppressLint("SetTextI18n")
-    private fun setViewPager() {
-        adapter = NoteVPAdapter(onClick = {
-            findNavController().navigate(
-                HomeFragmentDirections.actionNavigationHomeToViewingNoteFragment(
-                    TransitNote.Global(
-                        it,
-                        keyGlobalNoteShow
+    private fun setViewPager(globalNoteNews: List<GlobalNoteNew>) {
+        if (globalNoteNews.isEmpty()) {
+            with(binding) {
+                vpNewnotes.gone()
+                containerEmptyVp.show()
+            }
+        } else {
+            with(binding) {
+                vpNewnotes.show()
+                containerEmptyVp.gone()
+            }
+            adapter = NoteVPAdapter(onClick = {
+                findNavController().navigate(
+                    HomeFragmentDirections.actionNavigationHomeToViewingNoteFragment(
+                        TransitNote.Global(
+                            it.transform(),
+                            keyGlobalNoteShow
+                        )
                     )
                 )
-            )
-        })
-        setMarginViewPager()
-        adapter.setItems(viewModel.getLstForViewPager())
-        with(binding) {
-            vpNewnotes.adapter = adapter
-            tvCountNewNotes.text = adapter.itemCount.toString()
-            tvNewsDescription.text = "${adapter.itemCount} новые заметки"
+            })
+            setMarginViewPager()
+            adapter.setItems(globalNoteNews)
+            with(binding) {
+                vpNewnotes.adapter = adapter
+                tvCountNewNotes.text = adapter.itemCount.toString()
+                tvNewsDescription.text = "${adapter.itemCount} новые заметки"
+            }
         }
     }
 
@@ -165,50 +192,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
         }
     }
 
-    override fun onDestroy() {
+    override fun onDestroyView() {
+        super.onDestroyView()
         binding.vpNewnotes.adapter = null
-        super.onDestroy()
     }
 
     companion object {
-        const val STATUS_COMPLETED = "Выполнено"
         const val STATUS_NEW = "Новое"
         const val STATUS_COMPLETED_RED = "Завершено"
         const val STATUS_POSTEPONED = "Отложено"
     }
 }
-
-
-//    private fun setRecyclerView() {
-//        adapterRV = RVAdapter(object : NoteActionListener {
-//            override fun deleteNote(note: Notes) {
-//                viewModel.delNote(note)
-//                Toast.makeText(requireContext(), "Заметка успешно удалена", Toast.LENGTH_SHORT)
-//                    .show()
-//                setElemToRV()
-//            }
-//
-//            override fun changeNote(note: Notes) {
-//                val elem = TransitionNote(null, null, "")
-//                findNavController().navigate(HomeFragmentDirections.actionNavigationHomeToAddNoteFragment())
-//            }
-//
-//            override fun changestatusNote(note: Notes) {
-//                val action = HomeFragmentDirections.actionNavigationHomeToChangeStatusFragment(note)
-//                findNavController().navigate(action)
-//            }
-//        })
-//        rvAllNotes = binding.rvAllnotes
-//        rvAllNotes.layoutManager = LinearLayoutManager(requireContext())
-//        rvAllNotes.adapter = adapterRV
-//        setElemToRV()
-//    }
-
-//    private fun setElemToRV() {
-//        lifecycleScope.launch {
-//            viewModel.getAllNotes().collectLatest {
-//                adapterRV.setdataNote(it)
-//                binding.tvCountNotes.text = adapterRV.itemCount.toString()
-//            }
-//        }
-//    }

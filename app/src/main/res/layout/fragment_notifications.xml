@@ -1,252 +1,271 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:fillViewport="true"
-android:layout_marginStart="20dp"
-android:layout_marginEnd="20dp"
-android:layout_marginTop="16dp"
-tools:context=".ui.notifications.NotificationsFragment">
-
-<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent"
+    android:layout_marginStart="20dp"
+    android:layout_marginTop="16dp"
+    android:layout_marginEnd="20dp"
+    android:fillViewport="true"
+    tools:context=".ui.notifications.NotificationsFragment">
 
-    <ImageButton
-        android:id="@+id/btBackToHome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
-        android:src="@drawable/ic_baseline_arrow_back_ios_new_24"
-        tools:ignore="MissingConstraints" />
-
-    <TextView
-        android:id="@+id/tvTitle"
-        style="@style/TextH1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="настройки"
-        android:textAllCaps="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="MissingConstraints" />
-
-    <com.makeramen.roundedimageview.RoundedImageView
-        android:id="@+id/ivUser"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:src="@drawable/ic_test_user"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="44dp"
-        app:layout_constraintTop_toBottomOf="@id/btBackToHome"
-        app:riv_corner_radius="25dp" />
-
-    <TextView
-        android:id="@+id/tvUserName"
-        style="@style/TextH2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Дарья Солдатова"
-        android:textColor="@color/white"
-        android:layout_marginStart="12dp"
-        app:layout_constraintStart_toEndOf="@+id/ivUser"
-        app:layout_constraintTop_toTopOf="@+id/ivUser" />
-
-    <TextView
-        android:id="@+id/tvUserLogin"
-        style="@style/TextH2"
-        android:textColor="@color/gray"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:text="daria@daria.ru"
-        app:layout_constraintStart_toEndOf="@+id/ivUser"
-        app:layout_constraintTop_toBottomOf="@+id/tvUserName" />
-
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/tvUserLogin"
-        android:layout_marginTop="27dp"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/TextH2"
-            android:text="Профиль"/>
-
-        <TextView
-            android:id="@+id/tvChangeUserInfo"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            style="@style/TextH3"
-            android:text="Изменить информацию"
-            android:padding="10dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/rounded_edittext"
-            android:clickable="true"
-            app:drawableRightCompat="@drawable/ic_bt_more"
-            android:focusable="true"
-            android:textColor="@color/white"/>
-
-        <EditText
-            android:id="@+id/etNameUser"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="8dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="15dp"
-            android:background="@drawable/rounded_edittext"
-            android:drawablePadding="8dp"
-            android:textCursorDrawable="@drawable/edit_text_cursor"
-            android:autofillHints="username"
-            android:inputType="text"
-            android:textColor="@color/white"
-            style="@style/TextH3"
-            android:visibility="gone"/>
-
-        <EditText
-            android:id="@+id/etLoginUser"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="8dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="15dp"
-            android:background="@drawable/rounded_edittext"
-            android:drawablePadding="8dp"
-            android:textCursorDrawable="@drawable/edit_text_cursor"
-            android:autofillHints="emailAddress"
-            android:inputType="textEmailAddress"
-            style="@style/TextH3"
-            android:visibility="gone"/>
-
-        <TextView
-            android:id="@+id/tvSearchFriends"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            style="@style/TextH3"
-            android:text="Найти друзей"
-            android:padding="10dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/rounded_edittext"
-            app:drawableRightCompat="@drawable/ic_bt_more"
-            android:clickable="true"
-            android:focusable="true"/>
-
-        <EditText
-            android:id="@+id/etSearchFriendsUser"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="8dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="15dp"
-            android:background="@drawable/rounded_edittext"
-            android:drawablePadding="8dp"
-            android:textCursorDrawable="@drawable/edit_text_cursor"
-            android:autofillHints="username"
-            android:inputType="text"
-            android:hint="Поиск друзей"
-            style="@style/TextH3"
-            android:textColor="@color/white"
-            android:drawableStart="@drawable/ic_baseline_search_24"
-            android:visibility="gone"
-            />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvFriendsUser"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="15dp"
-            android:visibility="gone" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/TextH2"
-            android:text="Оформление"
-            android:layout_marginTop="16dp"/>
-
-        <TextView
-            android:id="@+id/tvChangeColorTheme"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            style="@style/TextH3"
-            android:text="Изменить цвет"
-            android:padding="10dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/rounded_edittext"
-            android:clickable="true"
-            app:drawableRightCompat="@drawable/ic_bt_more"
-            android:focusable="true" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvColorTheme"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="15dp"
-            android:visibility="gone"/>
-
-        <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/sсDarkTheme"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            style="@style/TextH3"
-            android:textColor="@color/white"
-            android:text="Темная тема"
-            android:padding="10dp"
-            android:checked="true"
-            android:thumb="@drawable/bg_thumb_selector"
-            app:track="@drawable/bg_track_selector"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/rounded_edittext"
-            tools:ignore="UseSwitchCompatOrMaterialXml"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/TextH2"
-            android:text="Уведомления"
-            android:layout_marginTop="16dp"/>
-
-        <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/sсPushNotifications"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            style="@style/TextH3"
-            android:textColor="@color/white"
-            android:text="Пуш-уведомления"
-            android:padding="10dp"
-            android:checked="true"
-            android:thumb="@drawable/bg_thumb_selector"
-            app:track="@drawable/bg_track_selector"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/rounded_edittext"
-            tools:ignore="UseSwitchCompatOrMaterialXml"/>
-
-        <Button
-            android:id="@+id/btnExit"
+            android:id="@+id/tvTitle"
             style="@style/TextH1"
-            android:background="@drawable/bg_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="настройки"
             android:textAllCaps="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="MissingConstraints" />
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/ivUser"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="44dp"
+            android:src="@drawable/ic_test_user"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvTitle"
+            app:layout_constraintTop_toTopOf="parent"
+            app:riv_corner_radius="25dp" />
+
+        <TextView
+            android:id="@+id/tvUserName"
+            style="@style/TextH2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:text="Дарья Солдатова"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toEndOf="@+id/ivUser"
+            app:layout_constraintTop_toTopOf="@+id/ivUser" />
+
+        <TextView
+            android:id="@+id/tvUserLogin"
+            style="@style/TextH2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:text="daria@daria.ru"
+            android:textColor="@color/gray"
+            app:layout_constraintStart_toEndOf="@+id/ivUser"
+            app:layout_constraintTop_toBottomOf="@+id/tvUserName" />
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:padding="8dp"
-            android:enabled="false"
-            android:text="Выход"
-            android:textColor="@color/black"
-            app:backgroundTint="@null"/>
+            android:layout_marginTop="27dp"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@id/tvUserLogin">
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="153dp"/>
+            <TextView
+                style="@style/TextH2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Профиль" />
 
-    </LinearLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/tvChangeUserInfo"
+                style="@style/TextH3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/rounded_edittext"
+                android:clickable="true"
+                android:focusable="true"
+                android:padding="10dp"
+                android:text="Изменить информацию"
+                android:textColor="@color/white"
+                app:drawableRightCompat="@drawable/ic_bt_more" />
+
+            <EditText
+                android:id="@+id/etNameUser"
+                style="@style/TextH3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="10dp"
+                android:autofillHints="username"
+                android:background="@drawable/rounded_edittext"
+                android:drawablePadding="8dp"
+                android:hint="Ваше имя, которое видят другие пользователи"
+                android:inputType="text"
+                android:padding="8dp"
+                android:textColor="@color/white"
+                android:textCursorDrawable="@drawable/edit_text_cursor"
+                android:visibility="gone"
+                tools:visibility="visible" />
+
+            <EditText
+                android:id="@+id/etChangePassword"
+                style="@style/TextH3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="10dp"
+                android:autofillHints="emailAddress"
+                android:background="@drawable/rounded_edittext"
+                android:drawablePadding="8dp"
+                android:hint="Введите новое значение пароля"
+                android:inputType="textPassword"
+                android:padding="8dp"
+                android:textCursorDrawable="@drawable/edit_text_cursor"
+                android:visibility="gone"
+                tools:visibility="visible" />
+
+            <Button
+                android:id="@+id/btnSaveData"
+                style="@style/TextH1"
+                android:layout_width="150dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/bg_button"
+                android:enabled="true"
+                android:text="Coxpанить"
+                android:textAllCaps="true"
+                android:textColor="@color/black"
+                android:visibility="gone"
+                app:backgroundTint="@null"
+                tools:visibility="visible" />
+
+            <TextView
+                android:id="@+id/tvSearchFriends"
+                style="@style/TextH3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/rounded_edittext"
+                android:clickable="true"
+                android:focusable="true"
+                android:padding="10dp"
+                android:text="Найти друзей"
+                app:drawableRightCompat="@drawable/ic_bt_more" />
+
+            <androidx.compose.ui.platform.ComposeView
+                android:id="@+id/cvMyFriends"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                tools:visibility="visible" />
+
+            <EditText
+                android:id="@+id/etSearchFriendsUser"
+                style="@style/TextH3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="10dp"
+                android:autofillHints="username"
+                android:background="@drawable/rounded_edittext"
+                android:drawableStart="@drawable/ic_baseline_search_24"
+                android:drawablePadding="8dp"
+                android:hint="Поиск друзей"
+                android:inputType="text"
+                android:padding="8dp"
+                android:textColor="@color/white"
+                android:textCursorDrawable="@drawable/edit_text_cursor"
+                android:visibility="gone"
+                tools:visibility="visible" />
+
+            <Button
+                android:id="@+id/btnFindFriend"
+                style="@style/TextH1"
+                android:layout_width="100dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/bg_button"
+                android:enabled="true"
+                android:text="Поиск"
+                android:textAllCaps="true"
+                android:textColor="@color/black"
+                android:visibility="gone"
+                app:backgroundTint="@null"
+                tools:visibility="visible" />
+
+            <androidx.compose.ui.platform.ComposeView
+                android:id="@+id/rvFriendsUser"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                tools:visibility="visible" />
+
+            <TextView
+                style="@style/TextH2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Оформление" />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/sсDarkTheme"
+                style="@style/TextH3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/rounded_edittext"
+                android:checked="true"
+                android:padding="10dp"
+                android:text="Темная тема"
+                android:textColor="@color/white"
+                android:thumb="@drawable/bg_thumb_selector"
+                app:track="@drawable/bg_track_selector"
+                tools:ignore="UseSwitchCompatOrMaterialXml" />
+
+            <TextView
+                style="@style/TextH2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Уведомления" />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/sсPushNotifications"
+                style="@style/TextH3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/rounded_edittext"
+                android:checked="true"
+                android:padding="10dp"
+                android:text="Пуш-уведомления"
+                android:textColor="@color/white"
+                android:thumb="@drawable/bg_thumb_selector"
+                app:track="@drawable/bg_track_selector"
+                tools:ignore="UseSwitchCompatOrMaterialXml" />
+
+            <Button
+                android:id="@+id/btnExit"
+                style="@style/TextH1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/bg_button"
+                android:enabled="true"
+                android:padding="8dp"
+                android:text="Выход"
+                android:textAllCaps="true"
+                android:textColor="@color/black"
+                app:backgroundTint="@null" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="153dp" />
+
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

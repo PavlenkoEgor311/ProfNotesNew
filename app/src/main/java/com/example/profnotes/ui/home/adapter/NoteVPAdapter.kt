@@ -4,23 +4,31 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.profnotes.data.models.GlobalNote
+import com.example.profnotes.core.gone
+import com.example.profnotes.data.models.GlobalNoteNew
 import com.example.profnotes.databinding.NotevpBinding
 import java.util.Collections.emptyList
 
-
 class NoteVPAdapter(
-    val onClick: (note: GlobalNote) -> Unit
+    private val onClick: (note: GlobalNoteNew) -> Unit
 ) :
     RecyclerView.Adapter<NoteVPAdapter.ViewHolder>() {
-    private var items = emptyList<GlobalNote>()
+    private var items = emptyList<GlobalNoteNew>()
 
     class ViewHolder(private val binding: NotevpBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: GlobalNote) {
+        fun bind(item: GlobalNoteNew) {
             with(binding) {
                 tvTitle.text = item.title
+                tvStatus.text = "Статус задачи : ${item.status}"
                 tvDescription.text = item.description
+                tvDateNote.text = item.date
+
+                if (item.friendsId.isEmpty()) {
+                    tvCountFriend.gone()
+                } else {
+                    tvCountFriend.text = "Вы и ваших ${item.friendsId.size} друзей"
+                }
             }
         }
     }
@@ -42,7 +50,7 @@ class NoteVPAdapter(
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setItems(newItems: List<GlobalNote>) {
+    fun setItems(newItems: List<GlobalNoteNew>) {
         items = newItems
         notifyDataSetChanged()
     }

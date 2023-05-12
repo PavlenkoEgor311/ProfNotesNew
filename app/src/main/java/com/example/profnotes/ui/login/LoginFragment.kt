@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.example.profnotes.R
 import com.example.profnotes.databinding.FragmentLoginBinding
@@ -68,7 +69,15 @@ class LoginFragment : BaseFragment<FragmentLoginBinding, LoginViewModel>() {
             btnLogin.apply {
                 isEnabled = true
                 setOnClickListener {
-                    viewModel.login()
+                    if (viewModel.checkData()) {
+                        viewModel.login()
+                    } else {
+                        Toast.makeText(
+                            requireContext(),
+                            "Введите корректные данные! Поля должны быть не менее 5 символов",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
                 }
             }
             btRegistration.setOnClickListener {
@@ -96,6 +105,9 @@ class LoginFragment : BaseFragment<FragmentLoginBinding, LoginViewModel>() {
     }
 
     private fun navigateToHome() {
-        findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToNavigationHome())
+        val options =
+            NavOptions.Builder().setPopUpTo(findNavController().graph.startDestinationId, true)
+                .build()
+        findNavController().navigate(R.id.navigation_home, null, options)
     }
 }

@@ -36,6 +36,7 @@ class LoginViewModel @Inject constructor(
             }.onSuccess {
                 authRepository.setUserToken(loginResponse.token)
                 authRepository.setUserID(loginResponse.idUser)
+                authRepository.setIsUserAuth(true)
                 onSuccessLogin.value = true
                 hideLoading()
             }.onFailure {
@@ -44,5 +45,10 @@ class LoginViewModel @Inject constructor(
             }
         }
     }
+
+    fun checkData(): Boolean = login.value.isNotEmpty() &&
+            password.value.isNotEmpty() &&
+            login.value.length > 4 &&
+            password.value.length > 4
 
 }

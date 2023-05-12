@@ -18,16 +18,15 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.profnotes.R
 import com.example.profnotes.core.styleText.Typo
-import com.example.profnotes.data.models.GlobalNote
-import com.example.profnotes.data.models.Notes
+import com.example.profnotes.data.models.UserFindRequest
 import com.example.profnotes.ui.addNote.screen.ProfileFriends
 
 @Composable
 fun ShowNote(
     title: String,
-    date: String,
+    date: String?,
     description: String,
-    listSelectedFriend: List<Int>?,
+    listSelectedFriend: List<UserFindRequest>?,
     listAddedFiles: List<Int>,
     key: Boolean,
 ) {
@@ -39,7 +38,7 @@ fun ShowNote(
         Text(
             text = stringResource(id = R.string.title_note),
             color = White,
-            style = Typo.DefaultTypography.h1
+            style = Typo.DefaultTypography.h2
         )
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -70,7 +69,7 @@ fun ShowNote(
         Text(
             text = stringResource(id = R.string.description_note),
             color = White,
-            style = Typo.DefaultTypography.h1,
+            style = Typo.DefaultTypography.h2,
         )
         Column(
             modifier = Modifier
@@ -88,13 +87,13 @@ fun ShowNote(
         Text(
             text = stringResource(id = R.string.status_note),
             color = White,
-            style = Typo.DefaultTypography.h1,
+            style = Typo.DefaultTypography.h2,
             modifier = Modifier.padding(top = 10.dp)
         )
         Text(
             text = "Новое",
             color = White,
-            style = Typo.DefaultTypography.h1,
+            style = Typo.DefaultTypography.h3,
             modifier = Modifier.padding(start = 10.dp)
         )
         if (key) {
@@ -102,7 +101,7 @@ fun ShowNote(
                 modifier = Modifier.padding(top = 10.dp),
                 text = stringResource(id = R.string.marked_friends),
                 color = White,
-                style = Typo.DefaultTypography.h1
+                style = Typo.DefaultTypography.h2
             )
             Row(
                 modifier = Modifier
@@ -110,22 +109,30 @@ fun ShowNote(
                     .padding(top = 10.dp)
             ) {
                 (0..10).forEach { _ ->
-                    ProfileFriends()
+                    ProfileFriends(
+                        username = "Иванов Иван",
+                        id = 0,
+                        isShowBtn = false,
+                        {},
+                        {},
+                        click = { false },
+                        clickable = true,
+                        defaultSelect = null,
+                    )
                 }
             }
         }
         Text(
             modifier = Modifier.padding(top = 10.dp),
             text = stringResource(id = R.string.date_note),
-            style = Typo.DefaultTypography.h1,
+            style = Typo.DefaultTypography.h2,
             color = White,
         )
         Text(
             modifier = Modifier
-                .padding(start = 10.dp)
                 .border(width = 2.dp, color = DarkGray, shape = RoundedCornerShape(12.dp))
                 .padding(10.dp),
-            text = date,
+            text = date ?: "",
             style = Typo.DefaultTypography.h3,
             color = White
         )
@@ -133,7 +140,7 @@ fun ShowNote(
             Text(
                 modifier = Modifier.padding(top = 10.dp),
                 text = stringResource(id = R.string.аttached_files),
-                style = Typo.DefaultTypography.h1,
+                style = Typo.DefaultTypography.h2,
                 color = White,
             )
     }
@@ -147,6 +154,6 @@ fun Preview() {
             .fillMaxSize()
             .background(Black)
     ) {
-        ShowNote("Заказать сняряды", "23 января", "dfdfdfdfawwwER", listOf(), listOf(), true)
+        ShowNote("Заказать сняряды", "23 января", "dfdfdfdfawwwER", listOf(), listOf(), false)
     }
 }

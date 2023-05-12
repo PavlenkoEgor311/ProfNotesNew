@@ -12,6 +12,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color.Companion.Black
 import androidx.compose.ui.graphics.Color.Companion.Gray
+import androidx.compose.ui.graphics.Color.Companion.Green
+import androidx.compose.ui.graphics.Color.Companion.Red
 import androidx.compose.ui.graphics.Color.Companion.Transparent
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.graphics.Color.Companion.Yellow
@@ -23,7 +25,8 @@ import com.example.profnotes.R
 import com.example.profnotes.core.colorCompose.*
 import com.example.profnotes.core.styleText.Typo
 import com.example.profnotes.data.models.GlobalNote
-import com.example.profnotes.model.NewNote
+import com.example.profnotes.data.models.UserFindRequest
+import com.example.profnotes.data.models.UserId
 import com.kizitonwose.calendar.compose.HorizontalCalendar
 import com.kizitonwose.calendar.compose.rememberCalendarState
 import com.kizitonwose.calendar.core.*
@@ -31,16 +34,17 @@ import ru.mrz.profnotes.core.translate
 import java.time.LocalDate
 import java.time.YearMonth
 
-
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun AddNetScreen(
+    friends: List<UserFindRequest>?,
     globalNote: GlobalNote?,
     returnNote: (note: GlobalNote) -> Unit,
 ) {
     var titleNote by remember { mutableStateOf(globalNote?.title ?: "") }
     var descriptionNote by remember { mutableStateOf(globalNote?.description ?: "") }
     var dateNote by remember { mutableStateOf("") }
+    val selectedFriends = remember { mutableListOf<UserFindRequest>() }
 
     var currentMonth = remember { YearMonth.now() }
     val startMonth = remember { currentMonth.minusMonths(100) }
@@ -127,8 +131,19 @@ fun AddNetScreen(
                 .horizontalScroll(rememberScrollState())
                 .padding(top = 10.dp)
         ) {
-            (0..10).forEach { _ ->
-                ProfileFriends()
+            friends?.forEach { friend ->
+                ProfileFriends(
+                    username = friend.username,
+                    id = friend.id,
+                    isShowBtn = false,
+                    {},
+                    {},
+                    clickable = true,
+                    defaultSelect = false,
+                    click = { friend ->
+                        selectedFriends.add(friend)
+                    }
+                )
             }
         }
         Text(
@@ -169,7 +184,8 @@ fun AddNetScreen(
                 title = titleNote,
                 description = descriptionNote,
                 date = dateNote,
-                friendId = null
+                status = "Новая",
+                friendsId = selectedFriends.map { UserId(it.id) }.toMutableList(),
             )
         )
     }
@@ -242,32 +258,75 @@ fun Day(day: CalendarDay, clickOfDay: (day: LocalDate) -> Unit, currentMonth: Ye
 }
 
 @Composable
-fun ProfileFriends() {
-    var selectedFriend by remember { mutableStateOf(false) }
+fun ProfileFriends(
+    username: String,
+    id: Long,
+    isShowBtn: Boolean,
+    addFriendId: (id: Long) -> Unit?,
+    deleteFriend: (id: Long) -> Unit?,
+    click: (friend: UserFindRequest) -> Boolean,
+    clickable: Boolean,
+    defaultSelect: Boolean?
+) {
+    var selectedFriend by remember { mutableStateOf(defaultSelect ?: true) }
     Column(
         modifier = Modifier
             .padding(end = 10.dp)
             .width(130.dp)
             .clickable {
-                selectedFriend = !selectedFriend
+                if (clickable) {
+                    selectedFriend = !selectedFriend
+                    click(UserFindRequest(id, username))
+                }
             }
     ) {
-        Image(
-            modifier = Modifier
-                .size(width = 130.dp, height = 80.dp)
-                .border(
-                    width = 4.dp,
-                    color = if (selectedFriend) Purple40 else Transparent,
-                    shape = RoundedCornerShape(12.dp)
-                ),
-            painter = painterResource(id = R.drawable.ic_mock_profile),
-            contentDescription = null,
-        )
+        Box(contentAlignment = Alignment.TopEnd) {
+            Image(
+                modifier = Modifier
+                    .size(width = 130.dp, height = 80.dp)
+                    .border(
+                        width = 4.dp,
+                        color = if (selectedFriend) Purple40 else Transparent,
+                        shape = RoundedCornerShape(12.dp)
+                    ),
+                painter = painterResource(id = R.drawable.ic_mock_profile),
+                contentDescription = null,
+            )
+
+            if (isShowBtn)
+                Column(modifier = Modifier.padding(top = 5.dp, end = 10.dp)) {
+                    Image(
+                        modifier = Modifier
+                            .size(27.dp)
+                            .clickable {
+                                addFriendId(id)
+                            }
+                            .clip(RoundedCornerShape(5.dp))
+                            .background(Green)
+                            .padding(5.dp),
+                        painter = painterResource(id = R.drawable.ic_add),
+                        contentDescription = null
+                    )
+                    Image(
+                        modifier = Modifier
+                            .padding(top = 10.dp)
+                            .size(27.dp)
+                            .clickable {
+                                deleteFriend(id)
+                            }
+                            .clip(RoundedCornerShape(5.dp))
+                            .background(Red)
+                            .padding(5.dp),
+                        painter = painterResource(id = R.drawable.ic_basket),
+                        contentDescription = null
+                    )
+                }
+        }
         Text(
             modifier = Modifier
                 .width(130.dp)
                 .padding(horizontal = 10.dp),
-            text = "Иванов Иван",
+            text = username,
             color = White,
             style = Typo.DefaultTypography.h5
         )
@@ -283,6 +342,6 @@ fun ShowNet() {
             .fillMaxSize()
             .background(Black)
     ) {
-        AddNetScreen(returnNote = {}, globalNote = null)
+        AddNetScreen(returnNote = {}, globalNote = null, friends = listOf())
     }
 }

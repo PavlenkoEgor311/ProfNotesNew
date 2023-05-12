@@ -1,11 +1,13 @@
 package com.example.profnotes.viewmodel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import com.example.profnotes.data.models.User
+import com.example.profnotes.data.models.UserFindRequest
 import com.example.profnotes.data.repo.AuthRepository
 import com.example.profnotes.viewmodel.core.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import ru.mrz.profnotes.core.isValid
 import javax.inject.Inject
 
 @HiltViewModel
@@ -15,25 +17,80 @@ class NotificationsViewModel @Inject constructor(
 
     private var checkUserInfo = false
     private var checkSearchFriends = false
-    private var itemsOfColorsTheme = false
+    private val _searchUsers = MutableStateFlow<List<UserFindRequest>>(listOf())
+    val searchUsers = _searchUsers.asStateFlow()
 
-    fun getCheckUserInfo():Boolean = checkUserInfo
+    val searchUsername = MutableStateFlow("")
 
-    fun setChekUserInfo(status:Boolean){
+    private val _userProfile = MutableStateFlow<User?>(null)
+    val userProfile = _userProfile.asStateFlow()
+    private val _usersFriends = MutableStateFlow<List<UserFindRequest>>(listOf())
+    val usersFriends = _usersFriends.asStateFlow()
+
+
+    fun getCheckUserInfo(): Boolean = checkUserInfo
+
+    fun setChekUserInfo(status: Boolean) {
         checkUserInfo = status
     }
 
-    fun getCheckSearchFriends():Boolean = checkSearchFriends
+    fun getCheckSearchFriends(): Boolean = checkSearchFriends
 
-    fun setCheckSearchFriends(status: Boolean){
+    fun setCheckSearchFriends(status: Boolean) {
         checkSearchFriends = status
     }
 
-    fun getItemsOfColorsTheme():Boolean = itemsOfColorsTheme
-
-    fun setItemsOfColorsTheme(status: Boolean){
-        itemsOfColorsTheme = status
+    fun findUsers() {
+        launchSafety {
+            showLoading()
+            _searchUsers.value = authRepository.findFriends(searchUsername.value) ?: listOf()
+            hideLoading()
+        }
     }
 
-    fun getColorList():List<Int> = authRepository.getColorList()
+    fun getData() {
+        launchSafety {
+            showLoading()
+            _userProfile.value = authRepository.getData()
+            if (userProfile.value != null && userProfile.value!!.friendsId.isNotEmpty()) {
+                _usersFriends.value =
+                    authRepository.getListFriends(userProfile.value!!.friendsId) ?: listOf()
+            }
+            hideLoading()
+        }
+    }
+
+    fun updateUserInfo(userName: String, password: String) {
+        if (userName.isValid() && password.isValid()) {
+            launchSafety {
+                showLoading()
+                authRepository.updateUser(userName, password)
+                hideLoading()
+            }
+        }
+    }
+
+    fun deleteFriend(idFriend: Long) {
+        launchSafety {
+            showLoading()
+            runCatching {
+                authRepository.deleteFriend(idFriend)
+            }.onSuccess {
+                getData()
+            }
+            hideLoading()
+        }
+    }
+
+    fun addFriend(idFriend: Long) {
+        launchSafety {
+            showLoading()
+            runCatching {
+                authRepository.addFriend(idFriend)
+            }.onSuccess {
+                getData()
+            }
+            hideLoading()
+        }
+    }
 }

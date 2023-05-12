@@ -31,9 +31,6 @@ class NotificationLocalNote : LifecycleService() {
     @Inject
     lateinit var notesDao: NotesDao
 
-    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        return super.onStartCommand(intent, flags, startId)
-    }
 
     override fun onCreate() {
         super.onCreate()

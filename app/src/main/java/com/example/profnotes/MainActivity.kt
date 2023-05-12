@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isGone
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
@@ -102,8 +103,22 @@ class MainActivity : AppCompatActivity(R.layout.activity_main), BottomBarOperato
         }
     }
 
-    private fun isAuthUser() {
-        if (prefs.authUser) navHostFragment.navigate(R.id.navigation_home)
+    override fun logout() {
+        prefs.authUser = false
+        prefs.tokenUser = null
+        prefs.idUser = 0
+
+        val intent = Intent(this, MainActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK and Intent.FLAG_ACTIVITY_CLEAR_TOP
+        startActivity(intent)
     }
 
+    private fun isAuthUser() {
+        if (prefs.authUser) {
+            val options =
+            NavOptions.Builder().setPopUpTo(navHostFragment.graph.startDestinationId, true)
+                .build()
+            navHostFragment.navigate(R.id.navigation_home, null, options)
+        }
+    }
 }

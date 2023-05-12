@@ -17,6 +17,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/tvTitleError"
         style="@style/TextH3"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -25,6 +26,16 @@
         android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ivErrorIcon" />
+        app:layout_constraintTop_toBottomOf="@id/ivErrorIcon"
+        tools:text="Ошибка, попробуйте позднее" />
+
+    <ImageView
+        android:id="@+id/ivBtnBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:src="@drawable/ic_baseline_arrow_back_ios_new_24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
