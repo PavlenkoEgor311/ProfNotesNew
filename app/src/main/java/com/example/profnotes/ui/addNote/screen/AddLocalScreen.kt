@@ -116,11 +116,11 @@ fun AddLocalScreen(
         )
         return returnLocalNote(
             Notes(
-                id = 0,
+                id = localNote?.id ?: 0,
                 title = titleNote,
                 date = dateNote,
                 description = descriptionNote,
-                status = "Новое",
+                status = localNote?.status ?: "Новая",
             )
         )
     }

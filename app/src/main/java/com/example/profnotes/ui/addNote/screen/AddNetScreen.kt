@@ -22,6 +22,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.profnotes.R
+import com.example.profnotes.core.Utils
 import com.example.profnotes.core.colorCompose.*
 import com.example.profnotes.core.styleText.Typo
 import com.example.profnotes.data.models.GlobalNote
@@ -180,11 +181,11 @@ fun AddNetScreen(
         )
         return returnNote(
             GlobalNote(
-                id = 2,
+                id = globalNote?.id ?: Utils.generateUniqueId(),
                 title = titleNote,
                 description = descriptionNote,
                 date = dateNote,
-                status = "Новая",
+                status = globalNote?.status ?: "Новая",
                 friendsId = selectedFriends.map { UserId(it.id) }.toMutableList(),
             )
         )

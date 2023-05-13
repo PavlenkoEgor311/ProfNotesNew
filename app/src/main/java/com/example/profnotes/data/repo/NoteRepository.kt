@@ -14,8 +14,8 @@ open class NoteRepository @Inject constructor(
 
     suspend fun getGlobalNote(id: Long): List<GlobalNoteNew> = notesApi.getNoteUser(id)
 
-    suspend fun updateNote(note: GlobalNoteNew) {
-        notesApi.updateNote(note)
+    suspend fun updateNote(note: GlobalNote) {
+        notesApi.updateNote(note.transformRequest(prefs.idUser))
     }
 
     suspend fun insertNote(note: GlobalNote) {

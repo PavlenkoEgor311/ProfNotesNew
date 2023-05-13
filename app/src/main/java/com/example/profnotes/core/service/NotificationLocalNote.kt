@@ -31,11 +31,15 @@ class NotificationLocalNote : LifecycleService() {
     @Inject
     lateinit var notesDao: NotesDao
 
-
     override fun onCreate() {
         super.onCreate()
         notificationManager = this.getSystemService(NOTIFICATION_SERVICE) as NotificationManager
         checkLocalNote(null)
+    }
+
+    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        return super.onStartCommand(intent, flags, startId)
+        return START_STICKY
     }
 
     private fun getId(): Int = System.currentTimeMillis().toInt()

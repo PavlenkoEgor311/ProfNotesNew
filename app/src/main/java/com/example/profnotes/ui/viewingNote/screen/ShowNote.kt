@@ -23,6 +23,7 @@ import com.example.profnotes.ui.addNote.screen.ProfileFriends
 
 @Composable
 fun ShowNote(
+    id: Long,
     title: String,
     date: String?,
     description: String,
@@ -108,16 +109,16 @@ fun ShowNote(
                     .horizontalScroll(rememberScrollState())
                     .padding(top = 10.dp)
             ) {
-                (0..10).forEach { _ ->
+                listSelectedFriend?.forEach { friend ->
                     ProfileFriends(
-                        username = "Иванов Иван",
-                        id = 0,
+                        username = friend.username,
+                        id = friend.id,
                         isShowBtn = false,
                         {},
                         {},
                         click = { false },
-                        clickable = true,
-                        defaultSelect = null,
+                        clickable = false,
+                        defaultSelect = true,
                     )
                 }
             }
@@ -154,6 +155,14 @@ fun Preview() {
             .fillMaxSize()
             .background(Black)
     ) {
-        ShowNote("Заказать сняряды", "23 января", "dfdfdfdfawwwER", listOf(), listOf(), false)
+        ShowNote(
+            id = 0,
+            "Заказать сняряды",
+            "23 января",
+            "dfdfdfdfawwwER",
+            listOf(),
+            listOf(),
+            false
+        )
     }
 }

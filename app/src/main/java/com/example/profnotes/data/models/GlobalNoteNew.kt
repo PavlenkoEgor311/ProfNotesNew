@@ -1,7 +1,10 @@
 package com.example.profnotes.data.models
 
+import android.os.Parcelable
 import com.example.profnotes.viewmodel.core.Transformable
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class GlobalNoteNew(
     val id: Long,
     val idParent: Long,
@@ -11,7 +14,7 @@ data class GlobalNoteNew(
     val status: String,
     val friendsId: MutableList<UserId>,
     val files: MutableList<FileId>
-) : Transformable<GlobalNote> {
+) : Transformable<GlobalNote>, Parcelable {
     override fun transform(vararg args: Any): GlobalNote =
         GlobalNote(
             id = id,

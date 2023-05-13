@@ -12,8 +12,8 @@ interface NotesApi {
 
     @POST("updateNote")
     suspend fun updateNote(
-        @Body note: GlobalNoteNew
-    ): Response<Body>
+        @Body note: GlobalNoteRequest
+    )
 
     @POST("insertNote")
     suspend fun insertNote(
@@ -23,5 +23,5 @@ interface NotesApi {
     @DELETE
     suspend fun deleteNote(
         @Path("id") id: Long
-    ): Boolean
+    )
 }

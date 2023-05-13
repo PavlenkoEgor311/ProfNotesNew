@@ -48,9 +48,9 @@ object NetworkModule {
         networkStatusInterceptor: NetworkStatusInterceptor
     ) =
         OkHttpClient.Builder()
-            .readTimeout(80, TimeUnit.SECONDS)
-            .writeTimeout(80, TimeUnit.SECONDS)
-            .connectTimeout(80, TimeUnit.SECONDS)
+            .readTimeout(60, TimeUnit.SECONDS)
+            .writeTimeout(60, TimeUnit.SECONDS)
+            .connectTimeout(60, TimeUnit.SECONDS)
             .addInterceptor(networkStatusInterceptor)
             .addInterceptor(ErrorStatusInterceptor(provideMoshi()))
             .addInterceptor(logger.setLevel(HttpLoggingInterceptor.Level.BODY))

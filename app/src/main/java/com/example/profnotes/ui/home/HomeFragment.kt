@@ -15,6 +15,7 @@ import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
 import com.example.profnotes.R
 import com.example.profnotes.core.CardRecommendationPageTransformer
+import com.example.profnotes.core.Utils
 import com.example.profnotes.core.gone
 import com.example.profnotes.core.show
 import com.example.profnotes.data.models.GlobalNoteNew
@@ -73,6 +74,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
         val df = SimpleDateFormat("EEEE, dd MMMM", Locale("ru"))
         binding.tvTodayDescription.text = df.format(Calendar.getInstance().time)
             .replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
+        binding.tvGreeting.text = Utils.getGreeting(Date())
         lifecycleScope.launch {
             viewModel.userProfile.collect {
                 binding.tvName.text = it?.username
@@ -145,7 +147,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
                 findNavController().navigate(
                     HomeFragmentDirections.actionNavigationHomeToViewingNoteFragment(
                         TransitNote.Global(
-                            it.transform(),
+                            it,
                             keyGlobalNoteShow
                         )
                     )

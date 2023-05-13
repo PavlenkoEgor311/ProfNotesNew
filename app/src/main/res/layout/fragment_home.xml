@@ -37,9 +37,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
-        android:text="Дарья"
         app:layout_constraintStart_toEndOf="@+id/ivUser"
-        app:layout_constraintTop_toBottomOf="@+id/tv_greeting" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_greeting"
+        tools:text="Дарья" />
 
     <ImageButton
         android:id="@+id/ib_notification"
@@ -88,10 +88,10 @@
         style="@style/TextH2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="4 новые заметки"
         app:layout_constraintEnd_toEndOf="@+id/imageView"
         app:layout_constraintStart_toStartOf="@+id/tvNewsTitle"
-        app:layout_constraintTop_toBottomOf="@+id/tvNewsTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/tvNewsTitle"
+        tools:text="4 новые заметки" />
 
     <EditText
         android:id="@+id/etSearchNotes"
